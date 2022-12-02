@@ -1,0 +1,29 @@
+{
+  "configurations": [
+    {
+      "name": "linux-gcc-x64",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "${workspaceFolder}",
+        "${workspaceFolder}/board/XMC/Common/XMCLib/inc",
+        "${workspaceFolder}/lib/soes/include",
+        "${workspaceFolder}/product/new_foot"
+      ],
+      "defines": [
+        "_DEBUG",
+        "UNICODE",
+        "_UNICODE",
+        "ETH0",
+        "UC_DEVICE=XMC4800",
+        "UC_PACKAGE=LQFP144",
+        "UC_FAMILY=XMC4"
+      ],
+      "compilerPath": "${workspaceFolder}/../gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc",
+      "cStandard": "gnu17",
+      "cppStandard": "gnu++14",
+      "intelliSenseMode": "linux-gcc-x64",
+      "configurationProvider": "ms-vscode.cmake-tools"
+    }
+  ],
+  "version": 4
+}
