@@ -26,25 +26,6 @@
       "interface": "swd",
       "svdFile": "${workspaceRoot}/board/XMC/Common/XMC4800.svd",
       "armToolchainPath": "${workspaceRoot}/../gcc-arm-none-eabi-10.3-2021.10/bin"
-    },
-    {
-      "name": "C/C++ Runner: Debug Session",
-      "type": "cppdbg",
-      "request": "launch",
-      "args": [],
-      "stopAtEntry": false,
-      "externalConsole": false,
-      "cwd": "/home/cedric/workspace_hw/simpleSlave",
-      "program": "/home/cedric/workspace_hw/simpleSlave/build/Debug/outDebug",
-      "MIMode": "gdb",
-      "miDebuggerPath": "${workspaceFolder}/../gdb-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc",
-      "setupCommands": [
-        {
-          "description": "Enable pretty-printing for gdb",
-          "text": "-enable-pretty-printing",
-          "ignoreFailures": true
-        }
-      ]
     }
   ]
 }

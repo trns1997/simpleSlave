@@ -31,10 +31,10 @@ build/ankle/Makefile:
 	cd build/ankle && cmake -G "Unix Makefiles" -DARM_TOOLCHAIN_DIR=${ARM_GCC_BIN_FOLDER} -DCMAKE_TOOLCHAIN_FILE=$(ARM_TOOLCHAIN_FILE) -DCMAKE_BUILD_TYPE:STRING=release -DBOARD_NAME:STRING=Ankle $(CURRENT_DIR)
 
 build-relax: config-relax
-	cd build/relax && $(MAKE) VERBOSE=1 -j8
+	cd build/relax && $(MAKE) -j8
 	
 build-ankle: config-ankle
-	cd build/ankle && $(MAKE) VERBOSE=1 -j8
+	cd build/ankle && $(MAKE) -j8
 
 clean-relax:
 	rm -rf build/relax
