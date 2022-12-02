@@ -10,7 +10,6 @@
  * Function to read and write commands to the ESC. Used to read/write ESC
  * registers and memory.
  */
-
 #include "esc_hw.h"
 #include "esc.h"
 #include "esc_hw_eep.h"

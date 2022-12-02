@@ -14,18 +14,22 @@
  + C/C++ Intellisense: [link](https://marketplace.visualstudio.com/items?itemName=austin.code-gnu-global) optional
 
 ## Build steps
-Add the following to your `~/.bashrc` so that the build process can find the necessary binaries. 
+The first thing is to tell the build system which arm-gcc you want to use. To do that makefile expects the environment variable `ARM_GCC_BIN_FOLDER` to be set.
+
 ```
-export PATH="PATH_TO_GCC_ARM/gcc-arm-none-eabi-10.3-2021.10/bin:$PATH"
-source ~/.bashrc
+export ARM_GCC_BIN_FOLDER="/home/cedric/workspace_hw/gcc-arm-none-eabi-10.3-2021.10/bin"
 ```
+Note that you can add the previous export to your `~/.bashrc` so that you don't have to repeat the export each time you open a new terminal. 
+
+Then to build for your target, you just need to call the following command:
 ```
-sudo apt install ncurses5
-mv vscode .vscode
-mkdir build && cd build
-cmake ..
-make
+make target
 ```
+An to clean:
+```
+make target
+```
+
 
 ## To run debugger - VS Code
 1. In Visual Studio Code, open this project : ``File`` -> ``Open folder``

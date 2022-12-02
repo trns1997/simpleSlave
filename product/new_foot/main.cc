@@ -8,6 +8,8 @@ extern "C"
 #include "XMC_Timer.h"
 #include "LSM6DSM.h"
 #include "ForceSensor.h"
+#include "xmc_gpio.h"
+//#include "xmc4_gpio_map.h
 
 // Application variables
 _Rbuffer Rb;
@@ -47,6 +49,14 @@ extern "C" void CCU40_0_IRQHandler(void)
     // Transmit data over respective SPI at every timer tick
     boardIMU.read();
     forceSensors.read();
+
+    static int cnt = 0;
+    cnt++;
+    if ( cnt > 1000)
+    {
+        XMC_GPIO_ToggleOutput(P5_9);
+        cnt = 0;
+    }
 }
 
 XMC_SPI_CH_CONFIG_t spi_config =
