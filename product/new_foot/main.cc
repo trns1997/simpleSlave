@@ -47,8 +47,8 @@ extern "C" void USIC0_2_IRQHandler(void)
 extern "C" void CCU40_0_IRQHandler(void)
 {
     // Transmit data over respective SPI at every timer tick
-    boardIMU.read();
-    forceSensors.read();
+    //boardIMU.read();
+    //forceSensors.read();
 
     static int cnt = 0;
     cnt++;
@@ -244,19 +244,23 @@ void initForceSensors()
 
 int main()
 {
+	XMC_GPIO_CONFIG_t config = {.mode = XMC_GPIO_MODE_OUTPUT_PUSH_PULL, .output_level = XMC_GPIO_OUTPUT_LEVEL_LOW};
+    XMC_GPIO_Init(P5_8, &config);
+    XMC_GPIO_Init(P5_9, &config);
 
-    initIMU();
 
-    initForceSensors();
+    //initIMU();
+
+    //initForceSensors();
 
     initTimer();
 
-    soesInit();
+    //soesInit();
 
     while (1)
     {
         // RUN ETHERCAT SLAVE
-        ecat_slv();
+        //ecat_slv();
     }
     return 0;
 }

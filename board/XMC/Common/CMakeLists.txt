@@ -1,7 +1,5 @@
 project(board_common)
 
-add_compile_options(-nostartfiles)
-
 add_library(${PROJECT_NAME}
 	XMCLib/src/xmc_gpio.c
 	XMCLib/src/xmc4_gpio.c
@@ -24,7 +22,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 
 if(BOARD_NAME STREQUAL "Ankle")
 	target_link_libraries(${PROJECT_NAME} LINK_PUBLIC ankleboard)
-else()
+elseif(BOARD_NAME STREQUAL "Relax")
 	target_link_libraries(${PROJECT_NAME} LINK_PUBLIC XMC48RelaxKit)
 endif()
 
