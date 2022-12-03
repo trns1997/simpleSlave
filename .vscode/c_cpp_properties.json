@@ -18,7 +18,7 @@
         "UC_PACKAGE=LQFP144",
         "UC_FAMILY=XMC4"
       ],
-      "compilerPath": "${workspaceFolder}/../gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc",
+      "compilerPath": "${env:ARM_GCC_BIN_FOLDER}/arm-none-eabi-gcc",
       "cStandard": "gnu17",
       "cppStandard": "gnu++14",
       "intelliSenseMode": "linux-gcc-x64",

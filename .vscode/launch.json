@@ -10,9 +10,10 @@
       "servertype": "jlink",
       "device": "XMC4800-2048",
       "interface": "swd",
+      "runToEntryPoint": "main",
       "breakAfterReset": true,
       "svdFile": "${workspaceRoot}/board/XMC/Common/XMC4800.svd",
-      "armToolchainPath": "${workspaceRoot}/../gcc-arm-none-eabi-10.3-2021.10/bin"
+      "armToolchainPath": "${env:ARM_GCC_BIN_FOLDER}"
       ,"showDevDebugOutput": "raw"
     },
     {
@@ -25,7 +26,7 @@
       "device": "XMC4800-2048",
       "interface": "swd",
       "svdFile": "${workspaceRoot}/board/XMC/Common/XMC4800.svd",
-      "armToolchainPath": "${workspaceRoot}/../gcc-arm-none-eabi-10.3-2021.10/bin"
+      "armToolchainPath": "${env:ARM_GCC_BIN_FOLDER}"
     }
   ]
 }
