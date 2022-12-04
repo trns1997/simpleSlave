@@ -9,7 +9,8 @@ extern "C"
 #include "LSM6DSM.h"
 #include "ForceSensor.h"
 #include "xmc_gpio.h"
-//#include "xmc4_gpio_map.h
+
+#include "GPIO.h"
 
 // Application variables
 _Rbuffer Rb;
@@ -49,12 +50,13 @@ extern "C" void CCU40_0_IRQHandler(void)
     // Transmit data over respective SPI at every timer tick
     //boardIMU.read();
     //forceSensors.read();
-
+	static GPIO gpio_led(P5_9, false);
     static int cnt = 0;
+
     cnt++;
     if ( cnt > 1000)
     {
-        XMC_GPIO_ToggleOutput(P5_9);
+    	gpio_led.togglePin();
         cnt = 0;
     }
 }
@@ -244,10 +246,10 @@ void initForceSensors()
 
 int main()
 {
-	XMC_GPIO_CONFIG_t config = {.mode = XMC_GPIO_MODE_OUTPUT_PUSH_PULL, .output_level = XMC_GPIO_OUTPUT_LEVEL_LOW};
-    XMC_GPIO_Init(P5_8, &config);
-    XMC_GPIO_Init(P5_9, &config);
-
+	GPIO gpio_led1(P5_8, false);
+	gpio_led1.init();
+	GPIO gpio_led2(P5_9, false);
+	gpio_led2.init();
 
     //initIMU();
 
