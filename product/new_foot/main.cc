@@ -29,8 +29,8 @@ ForceSensor forceSensors;
 extern "C" void ESC_eep_handler(void);
 
 // Board IMU SPI IRQ Handler (one for transmit and the other for receiver buffer respectively)
-extern "C" void USIC1_3_IRQHandler(void) {}
-extern "C" void USIC1_2_IRQHandler(void)
+extern "C" void USIC2_3_IRQHandler(void) {}
+extern "C" void USIC2_2_IRQHandler(void)
 {
     boardIMU.irqHandler();       // Read IMU data from SPI
     boardIMU.bufferizeIMUData(); // Fill one of the 2 buffers (Double Buffer)
@@ -48,8 +48,8 @@ extern "C" void USIC0_2_IRQHandler(void)
 extern "C" void CCU40_0_IRQHandler(void)
 {
     // Transmit data over respective SPI at every timer tick
-    //boardIMU.read();
-    //forceSensors.read();
+    boardIMU.read();
+    forceSensors.read();
 	static GPIO gpio_led(P5_9, false);
     static int cnt = 0;
 
@@ -60,13 +60,6 @@ extern "C" void CCU40_0_IRQHandler(void)
         cnt = 0;
     }
 }
-
-XMC_SPI_CH_CONFIG_t spi_config =
-    {
-        .baudrate = 5000000,
-        .bus_mode = XMC_SPI_CH_BUS_MODE_MASTER,
-        .selo_inversion = XMC_SPI_CH_SLAVE_SEL_INV_TO_MSLS,
-        .parity_mode = XMC_USIC_CH_PARITY_MODE_NONE};
 
 // Callback to update ethercat frame when it arrives with slave data
 void cb_get_inputs(void)
@@ -128,22 +121,23 @@ void soesInit()
 {
     /* Setup config hooks */
     static esc_cfg_t config =
-        {
-            .user_arg = NULL,
-            .use_interrupt = 0,
-            .watchdog_cnt = 5000,
-            .set_defaults_hook = NULL,
-            .pre_state_change_hook = NULL,
-            .post_state_change_hook = NULL,
-            .application_hook = NULL,
-            .safeoutput_override = NULL,
-            .pre_object_download_hook = NULL,
-            .post_object_download_hook = post_object_download_hook,
-            .rxpdo_override = NULL,
-            .txpdo_override = NULL,
-            .esc_hw_interrupt_enable = NULL,
-            .esc_hw_interrupt_disable = NULL,
-            .esc_hw_eep_handler = ESC_eep_handler};
+	{
+		.user_arg = NULL,
+		.use_interrupt = 0,
+		.watchdog_cnt = 5000,
+		.set_defaults_hook = NULL,
+		.pre_state_change_hook = NULL,
+		.post_state_change_hook = NULL,
+		.application_hook = NULL,
+		.safeoutput_override = NULL,
+		.pre_object_download_hook = NULL,
+		.post_object_download_hook = post_object_download_hook,
+		.rxpdo_override = NULL,
+		.txpdo_override = NULL,
+		.esc_hw_interrupt_enable = NULL,
+		.esc_hw_interrupt_disable = NULL,
+		.esc_hw_eep_handler = ESC_eep_handler
+	};
 
     ecat_slv_init(&config);
 }
@@ -184,25 +178,33 @@ void initTimer()
     XMC_Timer timer(timerConfig);
 }
 
+XMC_SPI_CH_CONFIG_t spi_config =
+{
+	.baudrate = 800000,
+	.bus_mode = XMC_SPI_CH_BUS_MODE_MASTER,
+	.selo_inversion = XMC_SPI_CH_SLAVE_SEL_INV_TO_MSLS,
+	.parity_mode = XMC_USIC_CH_PARITY_MODE_NONE
+};
+
 void initIMU()
 {
     XMC_SPI spiIMU;
 
-    PIN_CONFIG IMU_MOSI = {P0_5, XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT2};
-    PIN_CONFIG IMU_MISO = {P0_4, XMC_GPIO_MODE_INPUT_TRISTATE};
-    PIN_CONFIG IMU_SCLK = {P4_0, XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT4};
-    PIN_CONFIG IMU_SS = {P0_6, XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT2};
+    PIN_CONFIG IMU_MOSI = {P3_8, XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT1};
+    PIN_CONFIG IMU_MISO = {P3_7, XMC_GPIO_MODE_INPUT_TRISTATE};
+    PIN_CONFIG IMU_SCLK = {P3_9, XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT1};
+    PIN_CONFIG IMU_SS = {P3_10, XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT1};
 
     SPI_CONFIG ImuSpiConfig = {
-        XMC_SPI1_CH0,
+		XMC_SPI2_CH0,
         spi_config,
         XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_1_DELAY_DISABLED,
         XMC_SPI_CH_BRG_SHIFT_CLOCK_OUTPUT_SCLK,
         3,
         2,
-        USIC1_3_IRQn,
-        USIC1_2_IRQn,
-        USIC1_C0_DX0_P0_4,
+        USIC2_3_IRQn,
+        USIC2_2_IRQn,
+		USIC2_C0_DX0_P3_7,
         IMU_MOSI,
         IMU_MISO,
         IMU_SCLK,
@@ -246,23 +248,23 @@ void initForceSensors()
 
 int main()
 {
-	GPIO gpio_led1(P5_8, false);
+	GPIO gpio_led1(P5_8, true);
 	gpio_led1.init();
 	GPIO gpio_led2(P5_9, false);
 	gpio_led2.init();
 
-    //initIMU();
+    initIMU();
 
-    //initForceSensors();
+    initForceSensors();
 
     initTimer();
 
-    //soesInit();
+    soesInit();
 
     while (1)
     {
         // RUN ETHERCAT SLAVE
-        //ecat_slv();
+        ecat_slv();
     }
     return 0;
 }

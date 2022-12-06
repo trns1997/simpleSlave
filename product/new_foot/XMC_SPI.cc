@@ -73,7 +73,7 @@ void XMC_SPI::sendData(std::vector<uint8_t> txData, bool blockingMode)
     }
     XMC_USIC_CH_TXFIFO_DisableEvent(channel_, XMC_USIC_CH_TXFIFO_EVENT_CONF_STANDARD);
 
-    while (blockingMode and not transferStatus())
+    while (blockingMode and not transferComplete_)
     {
     }
 }
