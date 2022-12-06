@@ -8,7 +8,6 @@ extern "C"
 #include "XMC_Timer.h"
 #include "LSM6DSM.h"
 #include "ForceSensor.h"
-#include "xmc_gpio.h"
 
 #include "GPIO.h"
 
@@ -50,7 +49,7 @@ extern "C" void CCU40_0_IRQHandler(void)
     // Transmit data over respective SPI at every timer tick
     boardIMU.read();
     forceSensors.read();
-	static GPIO gpio_led(P5_9, false);
+	static GPIO gpio_led(board::LED1);
     static int cnt = 0;
 
     cnt++;
@@ -190,12 +189,8 @@ void initIMU()
 {
     XMC_SPI spiIMU;
 
-    PIN_CONFIG IMU_MOSI = {P3_8, XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT1};
-    PIN_CONFIG IMU_MISO = {P3_7, XMC_GPIO_MODE_INPUT_TRISTATE};
-    PIN_CONFIG IMU_SCLK = {P3_9, XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT1};
-    PIN_CONFIG IMU_SS = {P3_10, XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT1};
-
-    SPI_CONFIG ImuSpiConfig = {
+    SPI_CONFIG ImuSpiConfig =
+    {
 		XMC_SPI2_CH0,
         spi_config,
         XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_1_DELAY_DISABLED,
@@ -205,10 +200,7 @@ void initIMU()
         USIC2_3_IRQn,
         USIC2_2_IRQn,
 		USIC2_C0_DX0_P3_7,
-        IMU_MOSI,
-        IMU_MISO,
-        IMU_SCLK,
-        IMU_SS};
+    };
 
     spiIMU.init(ImuSpiConfig);
 
@@ -220,12 +212,8 @@ void initForceSensors()
 {
     XMC_SPI spiForceSensor;
 
-    PIN_CONFIG FS_MOSI = {P2_5, XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT2};
-    PIN_CONFIG FS_MISO = {P2_2, XMC_GPIO_MODE_INPUT_TRISTATE};
-    PIN_CONFIG FS_SCLK = {P2_4, XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT2};
-    PIN_CONFIG FS_SS = {P2_3, XMC_GPIO_MODE_OUTPUT_PUSH_PULL_ALT2};
-
-    SPI_CONFIG ForceSensorSpiConfig = {
+    SPI_CONFIG ForceSensorSpiConfig =
+    {
         XMC_SPI0_CH1,
         spi_config,
         XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_0_DELAY_DISABLED,
@@ -235,10 +223,7 @@ void initForceSensors()
         USIC0_3_IRQn,
         USIC0_2_IRQn,
         USIC0_C1_DX0_P2_2,
-        FS_MOSI,
-        FS_MISO,
-        FS_SCLK,
-        FS_SS};
+    };
 
     spiForceSensor.init(ForceSensorSpiConfig);
 
@@ -248,10 +233,7 @@ void initForceSensors()
 
 int main()
 {
-	GPIO gpio_led1(P5_8, true);
-	gpio_led1.init();
-	GPIO gpio_led2(P5_9, false);
-	gpio_led2.init();
+	initGPIO();
 
     initIMU();
 

@@ -41,12 +41,6 @@ void XMC_SPI::init(SPI_CONFIG config)
     NVIC_EnableIRQ(config.txIRQ);
     NVIC_EnableIRQ(config.rxIRQ);
 
-    /*GPIO configuration*/
-    XMC_GPIO_SetMode(config.MOSI.port, config.MOSI.pin, config.MOSI.mode);
-    XMC_GPIO_SetMode(config.MISO.port, config.MISO.pin, config.MISO.mode);
-    XMC_GPIO_SetMode(config.SCLK.port, config.SCLK.pin, config.SCLK.mode);
-    XMC_GPIO_SetMode(config.SS.port, config.SS.pin, config.SS.mode);
-
     /*Input source selected*/
     XMC_SPI_CH_SetInputSource(channel_, XMC_SPI_CH_INPUT_DIN0, config.inputSource);
     XMC_SPI_CH_Start(channel_);
