@@ -1,6 +1,8 @@
 #include "GPIO.h"
 #include "xmc_gpio.h"
 
+using namespace board;
+
 void GPIO::init()
 {
 	XMC_GPIO_CONFIG_t config = {.mode = pin_conf_.mode};

@@ -5,12 +5,10 @@ extern "C"
 }
 
 #include "GPIO.h"
+#include "TIMER.h"
 
-#include "spi_mapping.h"
 #include "LSM6DSM.h"
 #include "ForceSensor.h"
-
-#include "XMC_Timer.h"
 
 LSM6DSM boardIMU(board::SPI2_CH0);
 void SPI2_CH0_Interrupt(void)
@@ -45,8 +43,7 @@ uint8_t *txpdo = (uint8_t *)&Rb;
 
 extern "C" void ESC_eep_handler(void);
 
-// Timer IRQ Handler
-extern "C" void CCU40_0_IRQHandler(void)
+void interrupt_1ms()
 {
     // Transmit data over respective SPI at every timer tick
     boardIMU.request_read();
@@ -60,6 +57,11 @@ extern "C" void CCU40_0_IRQHandler(void)
     	gpio_led.togglePin();
         cnt = 0;
     }
+}
+// Timer IRQ Handler
+extern "C" void CCU40_0_IRQHandler(void)
+{
+    interrupt_1ms();
 }
 
 // Callback to update ethercat frame when it arrives with slave data
@@ -141,38 +143,8 @@ void soesInit()
 
 void initTimer()
 {
-
-    XMC_CCU4_SLICE_COMPARE_CONFIG_t sliceConfig;
-    sliceConfig.timer_mode = (uint32_t)XMC_CCU4_SLICE_TIMER_COUNT_MODE_EA;
-    sliceConfig.monoshot = (uint32_t)XMC_CCU4_SLICE_TIMER_REPEAT_MODE_REPEAT;
-    sliceConfig.shadow_xfer_clear = false;
-    sliceConfig.dither_timer_period = false;
-    sliceConfig.dither_duty_cycle = false;
-    sliceConfig.prescaler_mode = (uint32_t)XMC_CCU4_SLICE_PRESCALER_MODE_NORMAL;
-    sliceConfig.mcm_enable = false;
-    sliceConfig.prescaler_initval = XMC_CCU4_SLICE_PRESCALER_256;
-    sliceConfig.float_limit = 0;
-    sliceConfig.dither_limit = 0;
-    sliceConfig.passive_level = XMC_CCU4_SLICE_OUTPUT_PASSIVE_LEVEL_LOW;
-    sliceConfig.timer_concatenation = false;
-
-    TIMER_CONFIG timerConfig{
-        CCU40,
-        XMC_CCU4_CLOCK_SCU,
-        XMC_CCU4_SLICE_MCMS_ACTION_TRANSFER_PR_CR,
-        0,
-        CCU40_CC40,
-        sliceConfig,
-        XMC_CCU4_SLICE_EVENT_0,
-        256,
-        2000,
-        XMC_CCU4_SHADOW_TRANSFER_SLICE_0,
-        XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH,
-        XMC_CCU4_SLICE_SR_ID_0,
-        XMC_CCU4_SLICE_TIMER_REPEAT_MODE_REPEAT,
-        CCU40_0_IRQn};
-
-    XMC_Timer timer(timerConfig);
+    TIMER timer(board::TIMER_1);
+    timer.init();
 }
 
 void initIMU()

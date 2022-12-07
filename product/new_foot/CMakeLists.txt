@@ -14,7 +14,6 @@ add_executable(
     ${EXECUTABLE}
     main.cc
     objectlist.c
-    XMC_Timer.cc
     ${CMAKE_BINARY_DIR}/sii_eeprom.o
 )
 

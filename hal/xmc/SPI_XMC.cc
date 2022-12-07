@@ -1,9 +1,7 @@
 #include "SPI.h"
 #include "xmc_spi.h"
 
-#include <memory>
-
-
+using namespace board;
 
 void SPI::init()
 {
