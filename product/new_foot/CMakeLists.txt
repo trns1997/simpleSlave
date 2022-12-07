@@ -14,11 +14,7 @@ add_executable(
     ${EXECUTABLE}
     main.cc
     objectlist.c
-    XMC_Slave.cc
     XMC_Timer.cc
-    XMC_SPI.cc
-    LSM6DSM.cc
-    ForceSensor.cc
     ${CMAKE_BINARY_DIR}/sii_eeprom.o
 )
 

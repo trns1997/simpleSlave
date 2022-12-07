@@ -9,7 +9,7 @@ namespace board
 
 typedef enum
 {
-	LED1,
+	LED1 = 0,
 	LED2,
 	SPI0_CH1_MOSI,
 	SPI0_CH1_MISO,

@@ -3,7 +3,11 @@ project(hal)
 add_definitions(-DXMC4800_F144x2048)
 
 add_library (${PROJECT_NAME}
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/GPIO_XMC.cc
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/SPI_Slave.cc
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/ForceSensor.cc
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/LSM6DSM.cc
+  ${CMAKE_CURRENT_SOURCE_DIR}/xmc/GPIO_XMC.cc
+  ${CMAKE_CURRENT_SOURCE_DIR}/xmc/SPI_XMC.cc
   )
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)

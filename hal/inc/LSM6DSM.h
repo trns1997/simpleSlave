@@ -1,8 +1,7 @@
 #ifndef LSM6DSM_H_
 #define LSM6DSM_H_
 
-#include <vector>
-#include "XMC_Slave.h"
+#include "SPI_Slave.h"
 
 struct IMUData
 {
@@ -48,22 +47,24 @@ constexpr uint8_t IF_INC = 0x04; /**< Automatic address increment in multiple by
 constexpr uint8_t BDU = 0x40;    /**< Block data update mechanism(logic or) */
 constexpr uint8_t I2C_DISABLE = 0x04;
 
-class LSM6DSM : public XMC_Slave
+class LSM6DSM : public SPI_Slave
 {
 public:
-    LSM6DSM() = default;
+    LSM6DSM(board::spi_identifier spi_name): SPI_Slave(spi_name)
+    {}
     ~LSM6DSM() = default;
 
     void configure() override;
+    void request_read() override;
     void read() override;
-    void bufferizeIMUData();
+
     IMUData getIMUData();
 
 private:
-    IMUData buffer0_{0};
-    IMUData buffer1_{0};
-    IMUData *free_;
-    IMUData *consume_;
+    IMUData buffer0_    {0};
+    IMUData buffer1_    {0};
+    IMUData *free_      {0};
+    IMUData *consume_   {0};
 };
 
 #endif

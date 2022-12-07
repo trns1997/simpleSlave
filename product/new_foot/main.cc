@@ -4,14 +4,38 @@ extern "C"
 #include "ecat_slv.h"
 }
 
-#include "XMC_SPI.h"
-#include "XMC_Timer.h"
+#include "GPIO.h"
+
+#include "spi_mapping.h"
 #include "LSM6DSM.h"
 #include "ForceSensor.h"
 
-#include "GPIO.h"
+#include "XMC_Timer.h"
 
-// Application variables
+LSM6DSM boardIMU(board::SPI2_CH0);
+void SPI2_CH0_Interrupt(void)
+{
+    boardIMU.read();
+}
+
+ForceSensor forceSensors(board::SPI0_CH1);
+void SPI0_CH1_Interrupt()
+{
+    forceSensors.read();
+}
+
+extern "C" void USIC2_3_IRQHandler(void) {}
+extern "C" void USIC2_2_IRQHandler(void)
+{
+    SPI2_CH0_Interrupt();
+}
+
+extern "C" void USIC0_3_IRQHandler(void) {}
+extern "C" void USIC0_2_IRQHandler(void)
+{
+    SPI0_CH1_Interrupt();
+}
+
 _Rbuffer Rb;
 _Wbuffer Wb;
 _Cbuffer Cb;
@@ -19,36 +43,14 @@ _Cbuffer Cb;
 uint8_t *rxpdo = (uint8_t *)&Wb;
 uint8_t *txpdo = (uint8_t *)&Rb;
 
-IMUData imuData;
-ForceSensorData forceSensorData;
-
-LSM6DSM boardIMU;
-ForceSensor forceSensors;
-
 extern "C" void ESC_eep_handler(void);
-
-// Board IMU SPI IRQ Handler (one for transmit and the other for receiver buffer respectively)
-extern "C" void USIC2_3_IRQHandler(void) {}
-extern "C" void USIC2_2_IRQHandler(void)
-{
-    boardIMU.irqHandler();       // Read IMU data from SPI
-    boardIMU.bufferizeIMUData(); // Fill one of the 2 buffers (Double Buffer)
-}
-
-// Force Sensor SPI IRQ Handler (one for transmit and the other for receiver buffer respectively)
-extern "C" void USIC0_3_IRQHandler(void) {}
-extern "C" void USIC0_2_IRQHandler(void)
-{
-    forceSensors.irqHandler();               // Read Force Sensor data from SPI
-    forceSensors.bufferizeForceSensorData(); // Fill one of the 2 buffers (Double Buffer)
-}
 
 // Timer IRQ Handler
 extern "C" void CCU40_0_IRQHandler(void)
 {
     // Transmit data over respective SPI at every timer tick
-    boardIMU.read();
-    forceSensors.read();
+    boardIMU.request_read();
+    forceSensors.request_read();
 	static GPIO gpio_led(board::LED1);
     static int cnt = 0;
 
@@ -63,24 +65,20 @@ extern "C" void CCU40_0_IRQHandler(void)
 // Callback to update ethercat frame when it arrives with slave data
 void cb_get_inputs(void)
 {
-    // Get IMU and Force Sensor Data from locked buffer and switch buffers (Double Buffer)
-    imuData = boardIMU.getIMUData();
-    forceSensorData = forceSensors.getForceSensorData();
-
     // Put Data in Respective PDO objects
     Cb.reset_counter++;
     Rb.boardStatus = (uint16_t)ESCvar.Time;
 
+    IMUData imuData = boardIMU.getIMUData();
     Rb.ankleIMU.accelerometerX0 = imuData.accelerometer[0];
     Rb.ankleIMU.accelerometerY0 = imuData.accelerometer[1];
     Rb.ankleIMU.accelerometerZ0 = imuData.accelerometer[2];
+    Rb.ankleIMU.gyroscopeX0     = imuData.gyroscope[0];
+    Rb.ankleIMU.gyroscopeY0     = imuData.gyroscope[1];
+    Rb.ankleIMU.gyroscopeZ0     = imuData.gyroscope[2];
+    Rb.ankleIMU.temperature0    = imuData.temperatureSensor;
 
-    Rb.ankleIMU.gyroscopeX0 = imuData.gyroscope[0];
-    Rb.ankleIMU.gyroscopeY0 = imuData.gyroscope[1];
-    Rb.ankleIMU.gyroscopeZ0 = imuData.gyroscope[2];
-
-    Rb.ankleIMU.temperature0 = imuData.temperatureSensor;
-
+    ForceSensorData forceSensorData = forceSensors.getForceSensorData();
     Rb.forceSensor0 = forceSensorData.f0;
     Rb.forceSensor1 = forceSensorData.f1;
     Rb.forceSensor2 = forceSensorData.f2;
@@ -177,57 +175,15 @@ void initTimer()
     XMC_Timer timer(timerConfig);
 }
 
-XMC_SPI_CH_CONFIG_t spi_config =
-{
-	.baudrate = 800000,
-	.bus_mode = XMC_SPI_CH_BUS_MODE_MASTER,
-	.selo_inversion = XMC_SPI_CH_SLAVE_SEL_INV_TO_MSLS,
-	.parity_mode = XMC_USIC_CH_PARITY_MODE_NONE
-};
-
 void initIMU()
 {
-    XMC_SPI spiIMU;
-
-    SPI_CONFIG ImuSpiConfig =
-    {
-		XMC_SPI2_CH0,
-        spi_config,
-        XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_1_DELAY_DISABLED,
-        XMC_SPI_CH_BRG_SHIFT_CLOCK_OUTPUT_SCLK,
-        3,
-        2,
-        USIC2_3_IRQn,
-        USIC2_2_IRQn,
-		USIC2_C0_DX0_P3_7,
-    };
-
-    spiIMU.init(ImuSpiConfig);
-
-    boardIMU.setSPI(spiIMU);
+    boardIMU.init();
     boardIMU.configure();
 }
 
 void initForceSensors()
 {
-    XMC_SPI spiForceSensor;
-
-    SPI_CONFIG ForceSensorSpiConfig =
-    {
-        XMC_SPI0_CH1,
-        spi_config,
-        XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_0_DELAY_DISABLED,
-        XMC_SPI_CH_BRG_SHIFT_CLOCK_OUTPUT_SCLK,
-        3,
-        2,
-        USIC0_3_IRQn,
-        USIC0_2_IRQn,
-        USIC0_C1_DX0_P2_2,
-    };
-
-    spiForceSensor.init(ForceSensorSpiConfig);
-
-    forceSensors.setSPI(spiForceSensor);
+    forceSensors.init();
     forceSensors.configure();
 }
 

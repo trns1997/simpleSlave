@@ -1,8 +1,8 @@
 #ifndef HAL_INC_GPIO_H_
 #define HAL_INC_GPIO_H_
 
-#include <stdint.h>
 #include "pin_mapping.h"
+#include <stdint.h>
 
 class GPIO
 {
