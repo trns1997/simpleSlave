@@ -3,6 +3,20 @@
 
 using namespace board;
 
+extern void SPI_Force_Sensor_Interrupt();
+extern "C" void USIC0_3_IRQHandler(void) {}
+extern "C" void USIC0_2_IRQHandler(void)
+{
+    SPI_Force_Sensor_Interrupt();
+}
+
+extern void SPI_IMU_Interrupt();
+extern "C" void USIC2_3_IRQHandler(void) {}
+extern "C" void USIC2_2_IRQHandler(void)
+{
+    SPI_IMU_Interrupt();
+}
+
 void SPI::init()
 {
     XMC_SPI_CH_Init(spi_conf_.channel, &spi_conf_.channelConfig);

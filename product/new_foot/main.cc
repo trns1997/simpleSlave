@@ -11,27 +11,15 @@ extern "C"
 #include "ForceSensor.h"
 
 LSM6DSM boardIMU(board::SPI2_CH0);
-void SPI2_CH0_Interrupt(void)
+void SPI_IMU_Interrupt(void)
 {
     boardIMU.read();
 }
 
 ForceSensor forceSensors(board::SPI0_CH1);
-void SPI0_CH1_Interrupt()
+void SPI_Force_Sensor_Interrupt()
 {
     forceSensors.read();
-}
-
-extern "C" void USIC2_3_IRQHandler(void) {}
-extern "C" void USIC2_2_IRQHandler(void)
-{
-    SPI2_CH0_Interrupt();
-}
-
-extern "C" void USIC0_3_IRQHandler(void) {}
-extern "C" void USIC0_2_IRQHandler(void)
-{
-    SPI0_CH1_Interrupt();
 }
 
 _Rbuffer Rb;
@@ -158,13 +146,9 @@ void interrupt_1ms()
 int main()
 {
 	initGPIO();
-
     initIMU();
-
     initForceSensors();
-
     initTimer();
-
     soesInit();
 
     while (1)
