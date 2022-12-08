@@ -43,27 +43,6 @@ uint8_t *txpdo = (uint8_t *)&Rb;
 
 extern "C" void ESC_eep_handler(void);
 
-void interrupt_1ms()
-{
-    // Transmit data over respective SPI at every timer tick
-    boardIMU.request_read();
-    forceSensors.request_read();
-	static GPIO gpio_led(board::LED1);
-    static int cnt = 0;
-
-    cnt++;
-    if ( cnt > 1000)
-    {
-    	gpio_led.togglePin();
-        cnt = 0;
-    }
-}
-// Timer IRQ Handler
-extern "C" void CCU40_0_IRQHandler(void)
-{
-    interrupt_1ms();
-}
-
 // Callback to update ethercat frame when it arrives with slave data
 void cb_get_inputs(void)
 {
@@ -158,6 +137,23 @@ void initForceSensors()
     forceSensors.init();
     forceSensors.configure();
 }
+
+void interrupt_1ms()
+{
+    // Transmit data over respective SPI at every timer tick
+    boardIMU.request_read();
+    forceSensors.request_read();
+    static GPIO gpio_led(board::LED1);
+    static int cnt = 0;
+
+    cnt++;
+    if ( cnt > 1000)
+    {
+        gpio_led.togglePin();
+        cnt = 0;
+    }
+}
+
 
 int main()
 {
