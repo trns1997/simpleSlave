@@ -13,6 +13,7 @@ endif()
 add_executable(
     ${EXECUTABLE}
     main.cc
+    soes_hooks.cc
     objectlist.c
     ${CMAKE_BINARY_DIR}/sii_eeprom.o
 )
