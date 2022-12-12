@@ -11,15 +11,33 @@ extern "C"
 #include "ForceSensor.h"
 
 LSM6DSM boardIMU(board::SPI2_CH0);
-void SPI_IMU_Interrupt(void)
+extern "C" void SPI_IMU_TX_Interrupt(void) {}
+extern "C" void SPI_IMU_RX_Interrupt(void)
 {
     boardIMU.read();
 }
 
 ForceSensor forceSensors(board::SPI0_CH1);
-void SPI_Force_Sensor_Interrupt()
+extern "C" void SPI_Force_Sensor_TX_Interrupt() {}
+extern "C" void SPI_Force_Sensor_RX_Interrupt()
 {
     forceSensors.read();
+}
+
+extern "C" void interrupt_1ms()
+{
+    // Transmit data over respective SPI at every timer tick
+    boardIMU.request_read();
+    forceSensors.request_read();
+    static GPIO gpio_led(board::LED1);
+    static int cnt = 0;
+
+    cnt++;
+    if (cnt > 1000)
+    {
+        gpio_led.togglePin();
+        cnt = 0;
+    }
 }
 
 _Rbuffer Rb;
@@ -42,10 +60,10 @@ void cb_get_inputs(void)
     Rb.ankleIMU.accelerometerX0 = imuData.accelerometer[0];
     Rb.ankleIMU.accelerometerY0 = imuData.accelerometer[1];
     Rb.ankleIMU.accelerometerZ0 = imuData.accelerometer[2];
-    Rb.ankleIMU.gyroscopeX0     = imuData.gyroscope[0];
-    Rb.ankleIMU.gyroscopeY0     = imuData.gyroscope[1];
-    Rb.ankleIMU.gyroscopeZ0     = imuData.gyroscope[2];
-    Rb.ankleIMU.temperature0    = imuData.temperatureSensor;
+    Rb.ankleIMU.gyroscopeX0 = imuData.gyroscope[0];
+    Rb.ankleIMU.gyroscopeY0 = imuData.gyroscope[1];
+    Rb.ankleIMU.gyroscopeZ0 = imuData.gyroscope[2];
+    Rb.ankleIMU.temperature0 = imuData.temperatureSensor;
 
     ForceSensorData forceSensorData = forceSensors.getForceSensorData();
     Rb.forceSensor0 = forceSensorData.f0;
@@ -87,23 +105,22 @@ void soesInit()
 {
     /* Setup config hooks */
     static esc_cfg_t config =
-	{
-		.user_arg = NULL,
-		.use_interrupt = 0,
-		.watchdog_cnt = 5000,
-		.set_defaults_hook = NULL,
-		.pre_state_change_hook = NULL,
-		.post_state_change_hook = NULL,
-		.application_hook = NULL,
-		.safeoutput_override = NULL,
-		.pre_object_download_hook = NULL,
-		.post_object_download_hook = post_object_download_hook,
-		.rxpdo_override = NULL,
-		.txpdo_override = NULL,
-		.esc_hw_interrupt_enable = NULL,
-		.esc_hw_interrupt_disable = NULL,
-		.esc_hw_eep_handler = ESC_eep_handler
-	};
+        {
+            .user_arg = NULL,
+            .use_interrupt = 0,
+            .watchdog_cnt = 5000,
+            .set_defaults_hook = NULL,
+            .pre_state_change_hook = NULL,
+            .post_state_change_hook = NULL,
+            .application_hook = NULL,
+            .safeoutput_override = NULL,
+            .pre_object_download_hook = NULL,
+            .post_object_download_hook = post_object_download_hook,
+            .rxpdo_override = NULL,
+            .txpdo_override = NULL,
+            .esc_hw_interrupt_enable = NULL,
+            .esc_hw_interrupt_disable = NULL,
+            .esc_hw_eep_handler = ESC_eep_handler};
 
     ecat_slv_init(&config);
 }
@@ -126,26 +143,9 @@ void initForceSensors()
     forceSensors.configure();
 }
 
-void interrupt_1ms()
-{
-    // Transmit data over respective SPI at every timer tick
-    boardIMU.request_read();
-    forceSensors.request_read();
-    static GPIO gpio_led(board::LED1);
-    static int cnt = 0;
-
-    cnt++;
-    if ( cnt > 1000)
-    {
-        gpio_led.togglePin();
-        cnt = 0;
-    }
-}
-
-
 int main()
 {
-	initGPIO();
+    initGPIO();
     initIMU();
     initForceSensors();
     initTimer();

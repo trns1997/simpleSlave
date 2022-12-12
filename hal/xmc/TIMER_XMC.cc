@@ -2,15 +2,6 @@
 
 using namespace board;
 
-extern void interrupt_1ms();
-
-// Timer IRQ Handler
-extern "C" void CCU40_0_IRQHandler(void)
-{
-    interrupt_1ms();
-}
-
-
 void TIMER::init()
 {
     XMC_CCU4_SLICE_COMPARE_CONFIG_t sliceConfig;
