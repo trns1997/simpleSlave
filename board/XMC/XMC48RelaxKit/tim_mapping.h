@@ -4,6 +4,8 @@
 #include "xmc_ccu4.h"
 #include "stdint.h"
 
+#define interrupt_1ms CCU40_0_IRQHandler
+
 namespace board
 {
 

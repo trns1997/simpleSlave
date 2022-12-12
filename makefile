@@ -22,13 +22,13 @@ clean:
 config-relax: build/relax/Makefile
 build/relax/Makefile:
 	mkdir -p build/relax
-	cd build/relax && cmake -G "Unix Makefiles" -DARM_TOOLCHAIN_DIR=${ARM_GCC_BIN_FOLDER} -DCMAKE_TOOLCHAIN_FILE=$(ARM_TOOLCHAIN_FILE) -DCMAKE_BUILD_TYPE:STRING=release -DBOARD_NAME:STRING=Relax $(CURRENT_DIR)
+	cd build/relax && cmake -G "Unix Makefiles" -DARM_TOOLCHAIN_DIR=${ARM_GCC_BIN_FOLDER} -DCMAKE_TOOLCHAIN_FILE=$(ARM_TOOLCHAIN_FILE) -DBOARD_NAME:STRING=Relax $(CURRENT_DIR)
 
 
 config-ankle: build/ankle/Makefile
 build/ankle/Makefile:
 	mkdir -p build/ankle
-	cd build/ankle && cmake -G "Unix Makefiles" -DARM_TOOLCHAIN_DIR=${ARM_GCC_BIN_FOLDER} -DCMAKE_TOOLCHAIN_FILE=$(ARM_TOOLCHAIN_FILE) -DCMAKE_BUILD_TYPE:STRING=release -DBOARD_NAME:STRING=Ankle $(CURRENT_DIR)
+	cd build/ankle && cmake -G "Unix Makefiles" -DARM_TOOLCHAIN_DIR=${ARM_GCC_BIN_FOLDER} -DCMAKE_TOOLCHAIN_FILE=$(ARM_TOOLCHAIN_FILE) -DBOARD_NAME:STRING=Ankle $(CURRENT_DIR)
 
 build-relax: config-relax
 	cd build/relax && $(MAKE) -j8

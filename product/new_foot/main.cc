@@ -7,13 +7,15 @@
 #include "ForceSensor.h"
 
 LSM6DSM boardIMU(board::SPI2_CH0);
-void SPI_IMU_Interrupt(void)
+extern "C" void SPI_IMU_TX_Interrupt(void) {}
+extern "C" void SPI_IMU_RX_Interrupt(void)
 {
     boardIMU.read();
 }
 
 ForceSensor forceSensors(board::SPI0_CH1);
-void SPI_Force_Sensor_Interrupt()
+extern "C" void SPI_Force_Sensor_TX_Interrupt() {}
+extern "C" void SPI_Force_Sensor_RX_Interrupt()
 {
     forceSensors.read();
 }
@@ -37,6 +39,22 @@ void fill_input_buffer(_Rbuffer& buffer)
     buffer.forceSensor4 = forceSensorData.f4;
 }
 
+extern "C" void interrupt_1ms(void)
+{
+    // Transmit data over respective SPI at every timer tick
+    boardIMU.request_read();
+    forceSensors.request_read();
+    static GPIO gpio_led(board::LED1);
+    static int cnt = 0;
+
+    cnt++;
+    if (cnt > 1000)
+    {
+        gpio_led.togglePin();
+        cnt = 0;
+    }
+}
+
 void initTimer()
 {
     TIMER timer(board::TIMER_1);
@@ -55,26 +73,9 @@ void initForceSensors()
     forceSensors.configure();
 }
 
-void interrupt_1ms()
-{
-    // Transmit data over respective SPI at every timer tick
-    boardIMU.request_read();
-    forceSensors.request_read();
-    static GPIO gpio_led(board::LED1);
-    static int cnt = 0;
-
-    cnt++;
-    if ( cnt > 1000)
-    {
-        gpio_led.togglePin();
-        cnt = 0;
-    }
-}
-
-
 int main()
 {
-	initGPIO();
+    initGPIO();
     initIMU();
     initForceSensors();
     initTimer();

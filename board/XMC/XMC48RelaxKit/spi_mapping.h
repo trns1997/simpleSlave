@@ -4,6 +4,11 @@
 #include "xmc_spi.h"
 #include "stdint.h"
 
+#define SPI_Force_Sensor_RX_Interrupt USIC0_2_IRQHandler
+#define SPI_Force_Sensor_TX_Interrupt USIC0_3_IRQHandler
+#define SPI_IMU_RX_Interrupt USIC2_2_IRQHandler
+#define SPI_IMU_TX_Interrupt USIC2_3_IRQHandler
+
 namespace board
 {
 
