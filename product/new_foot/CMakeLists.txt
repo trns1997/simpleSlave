@@ -9,25 +9,17 @@ if(BOARD_NAME STREQUAL "Ankle" OR BOARD_NAME STREQUAL "Relax")
 	add_definitions(-DXMC4800_F144x2048)
 endif()
 
-
 add_executable(
     ${EXECUTABLE}
     main.cc
     soes_hooks.cc
     objectlist.c
-    ${CMAKE_BINARY_DIR}/sii_eeprom.o
-)
-
-execute_process(
-    COMMAND cp ${CMAKE_CURRENT_SOURCE_DIR}/sii_eeprom.bin ${CMAKE_BINARY_DIR}
-    COMMAND ${CMAKE_OBJCOPY} -I binary -O elf32-littlearm -B arm sii_eeprom.bin sii_eeprom.o
 )
 
 target_include_directories(${EXECUTABLE} PUBLIC 
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 target_link_libraries(${EXECUTABLE} board soes hal)
-
 
 add_custom_command(TARGET ${EXECUTABLE}
         POST_BUILD
