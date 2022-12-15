@@ -19,7 +19,7 @@ add_executable(
 target_include_directories(${EXECUTABLE} PUBLIC 
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
-target_link_libraries(${EXECUTABLE} board soes hal)
+target_link_libraries(${EXECUTABLE} board soes hal infra app)
 
 add_custom_command(TARGET ${EXECUTABLE}
         POST_BUILD

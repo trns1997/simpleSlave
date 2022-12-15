@@ -3,86 +3,65 @@
 #include "GPIO.h"
 #include "TIMER.h"
 
-#include "LSM6DSM.h"
-#include "ForceSensor.h"
-
-LSM6DSM boardIMU(board::SPI2_CH0);
-extern "C" void SPI_IMU_TX_Interrupt(void) {}
-extern "C" void SPI_IMU_RX_Interrupt(void)
-{
-    boardIMU.read();
-}
-
-ForceSensor forceSensors(board::SPI0_CH1);
-extern "C" void SPI_Force_Sensor_TX_Interrupt() {}
-extern "C" void SPI_Force_Sensor_RX_Interrupt()
-{
-    forceSensors.read();
-}
+#include "Threads.hpp"
+#include "DataAccessor.hpp"
 
 void fill_input_buffer(_Rbuffer& buffer)
 {
-    IMUData imuData = boardIMU.getIMUData();
-    buffer.ankleIMU.accelerometerX0 = imuData.accelerometer[0];
-    buffer.ankleIMU.accelerometerY0 = imuData.accelerometer[1];
-    buffer.ankleIMU.accelerometerZ0 = imuData.accelerometer[2];
-    buffer.ankleIMU.gyroscopeX0     = imuData.gyroscope[0];
-    buffer.ankleIMU.gyroscopeY0     = imuData.gyroscope[1];
-    buffer.ankleIMU.gyroscopeZ0     = imuData.gyroscope[2];
-    buffer.ankleIMU.temperature0    = imuData.temperatureSensor;
+    static DataItem imuAccel0(IMU_ACCEL_0_ID);
+    static DataItem imuAccel1(IMU_ACCEL_1_ID);
+    static DataItem imuAccel2(IMU_ACCEL_2_ID);
+    static DataItem imuGyro0(IMU_GYRO_0_ID);
+    static DataItem imuGyro1(IMU_GYRO_1_ID);
+    static DataItem imuGyro2(IMU_GYRO_2_ID);
+    static DataItem imuTemp(IMU_TEMP_ID);
 
-    ForceSensorData forceSensorData = forceSensors.getForceSensorData();
-    buffer.forceSensor0 = forceSensorData.f0;
-    buffer.forceSensor1 = forceSensorData.f1;
-    buffer.forceSensor2 = forceSensorData.f2;
-    buffer.forceSensor3 = forceSensorData.f3;
-    buffer.forceSensor4 = forceSensorData.f4;
+    buffer.ankleIMU.accelerometerX0 = static_cast<int16_t>(imuAccel0.get());
+    buffer.ankleIMU.accelerometerY0 = static_cast<int16_t>(imuAccel1.get());
+    buffer.ankleIMU.accelerometerZ0 = static_cast<int16_t>(imuAccel2.get());
+    buffer.ankleIMU.gyroscopeX0     = static_cast<int16_t>(imuGyro0.get());
+    buffer.ankleIMU.gyroscopeY0     = static_cast<int16_t>(imuGyro1.get());
+    buffer.ankleIMU.gyroscopeZ0     = static_cast<int16_t>(imuGyro2.get());
+    buffer.ankleIMU.temperature0    = static_cast<int16_t>(imuTemp.get());
+
+    static DataItem fs0(FS_0_ID);
+    static DataItem fs1(FS_1_ID);
+    static DataItem fs2(FS_2_ID);
+    static DataItem fs3(FS_3_ID);
+    static DataItem fs4(FS_4_ID);
+    buffer.forceSensor0 = static_cast<int16_t>(fs0.get());
+    buffer.forceSensor1 = static_cast<int16_t>(fs1.get());
+    buffer.forceSensor2 = static_cast<int16_t>(fs2.get());
+    buffer.forceSensor3 = static_cast<int16_t>(fs3.get());
+    buffer.forceSensor4 = static_cast<int16_t>(fs4.get());
 }
 
 extern "C" void interrupt_1ms(void)
 {
-    // Transmit data over respective SPI at every timer tick
-    boardIMU.request_read();
-    forceSensors.request_read();
-    static GPIO gpio_led(board::LED1);
-    static int cnt = 0;
-
+    // Run timer threads
+    static uint32_t cnt = 0;
+    tick_1ms();
     cnt++;
-    if (cnt > 1000)
+    if ( cnt % 10 == 0 )
     {
-        gpio_led.togglePin();
+        tick_10ms();
         cnt = 0;
     }
-}
-
-void initTimer()
-{
-    TIMER timer(board::TIMER_1);
-    timer.init();
-}
-
-void initIMU()
-{
-    boardIMU.init();
-    boardIMU.configure();
-}
-
-void initForceSensors()
-{
-    forceSensors.init();
-    forceSensors.configure();
 }
 
 int main()
 {
     initGPIO();
-    initIMU();
-    initForceSensors();
-    initTimer();
     soesInit();
+
+    init_threads();
+
+    TIMER systick(board::TIMER_1);
+    systick.init();
 
     while (1)
     {
+        tick_polled();
         // RUN ETHERCAT SLAVE
         runEtherCAT();
     }
