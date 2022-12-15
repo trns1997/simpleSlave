@@ -7,6 +7,7 @@ set(APP_SOURCES
     src/blink_led.cpp
     src/imu.cpp
     src/footsensor.cpp
+    src/ethercat.cpp
 	)
 
 add_library (${PROJECT} OBJECT ${APP_SOURCES})
