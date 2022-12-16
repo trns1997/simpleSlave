@@ -11,7 +11,7 @@ set(CMAKE_ASM_COMPILER 			"${ARM_TOOLCHAIN_DIR}/${TOOLCHAIN_PREFIX}-g++" )
 set(OBJCOPY_CMD                 "${ARM_TOOLCHAIN_DIR}/${TOOLCHAIN_PREFIX}-objcopy" )
 set(SIZE_CMD                    "${ARM_TOOLCHAIN_DIR}/${TOOLCHAIN_PREFIX}-size" )
 
-set(OBJFLAGS "-Wall -nostartfiles -mfloat-abi=softfp -mcpu=cortex-m4 -mthumb ")
+set(OBJFLAGS "-D${MCU_NAME} -Wall -nostartfiles -mfloat-abi=softfp -mcpu=cortex-m4 -mthumb ")
 set(CPPFLAGS "${OBJFLAGS} -g3 -O0 -ffunction-sections -fdata-sections -std=c++11 -fpermissive ")
 set(CFLAGS "${OBJFLAGS} -g3 -O0 -ffunction-sections -fdata-sections -std=gnu99 ")
 set(ASMFLAGS "${OBJFLAGS} -x assembler-with-cpp ")
