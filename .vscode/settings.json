@@ -43,7 +43,16 @@
     "string_view": "cpp",
     "initializer_list": "cpp",
     "ranges": "cpp",
-    "utility": "cpp"
+    "utility": "cpp",
+    "random": "cpp",
+    "limits": "cpp",
+    "optional": "cpp",
+    "istream": "cpp",
+    "ostream": "cpp",
+    "system_error": "cpp",
+    "functional": "cpp",
+    "tuple": "cpp",
+    "type_traits": "cpp"
   },
   "cortex-debug.variableUseNaturalFormat": false
 }
