@@ -1,4 +1,4 @@
-project(board)
+project(soes_xmc4)
 
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/sii_eeprom.bin DESTINATION ${TOP_BIN_DIR}/)
 

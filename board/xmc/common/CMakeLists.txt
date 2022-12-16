@@ -20,12 +20,6 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 	XMCLib/inc 
 )
 
-if(BOARD_NAME STREQUAL "Ankle")
-	target_link_libraries(${PROJECT_NAME} PUBLIC ankleboard)
-elseif(BOARD_NAME STREQUAL "Relax")
-	target_link_libraries(${PROJECT_NAME} PUBLIC XMC48RelaxKit)
-endif()
-
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -T${CMAKE_CURRENT_SOURCE_DIR}/XMC4800x2048.ld")
 
 add_subdirectory (soes_xmc4)

@@ -1,4 +1,4 @@
-project(XMC48RelaxKit)
+project(board)
 
 add_library(${PROJECT_NAME}
 	system_XMC4800.c
