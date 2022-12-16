@@ -1,7 +1,5 @@
 set(PROJECT app)
 
-add_definitions(-DXMC4800_F144x2048)
-
 set(APP_SOURCES
 	src/time.cpp
     src/blink_led.cpp

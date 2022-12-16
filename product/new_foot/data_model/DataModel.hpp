@@ -1,7 +1,42 @@
-#include "DataAccessor.hpp"
+#ifndef ARC_DATAACCESSOR_HPP
+#define ARC_DATAACCESSOR_HPP
 
+#include <stdint.h>
 
-Datagram DataItems[] =
+enum DataItemId
+{
+    // Measurements
+    TIME_ID             = 0,
+
+    // IMU
+    IMU_ACCEL_0_ID,
+    IMU_ACCEL_1_ID,
+    IMU_ACCEL_2_ID,
+    IMU_GYRO_0_ID,
+    IMU_GYRO_1_ID,
+    IMU_GYRO_2_ID,
+    IMU_TEMP_ID,
+
+    // FORCE SENSOR
+    FS_0_ID,
+    FS_1_ID,
+    FS_2_ID,
+    FS_3_ID,
+    FS_4_ID
+
+};
+
+struct Datagram
+{
+    int32_t value;
+    int32_t reset;
+    int32_t min;
+    int32_t max;
+    int32_t div;
+    const char* name;
+};
+
+static Datagram DataItems[] =
 {
 // Measurements
 [TIME_ID]          =    {.value = 0,    .reset = 0,  .min = INT32_MIN,  .max = INT32_MAX,  .div = 1000,    .name = "time"},
@@ -24,42 +59,4 @@ Datagram DataItems[] =
 
 };
 
-DataItem::DataItem(DataItemId id)
-        :   data_(DataItems[id]),
-            writable_(false)
-{}
-
-DataItem::DataItem(DataItemId id, bool writable)
-        :   data_(DataItems[id]),
-            writable_(writable)
-{}
-
-DataItem::~DataItem()
-{}
-
-int32_t DataItem::get()
-{
-    return data_.value;
-}
-
-Datagram& DataItem::getDatagram()
-{
-    return data_;
-}
-
-
-void DataItem::set(int32_t val)
-{
-    if (writable_)
-    {
-        if (val >= data_.min and val <= data_.max)
-        {
-            data_.value = val;
-        }
-    }
-}
-
-void DataItem::reset()
-{
-    set(data_.reset);
-}
+#endif

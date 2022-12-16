@@ -1,9 +1,9 @@
 set(PROJECT infra)
 
 set(APP_SOURCES
-    src/DataAccessor.cpp
     src/Fibre.cpp
     src/Threads.cpp
+    src/DataItem.cpp
     src/crc.cpp
 	)
 
@@ -11,6 +11,8 @@ add_library (${PROJECT} STATIC ${APP_SOURCES})
 target_include_directories (${PROJECT} PUBLIC 
 	${CMAKE_CURRENT_SOURCE_DIR}/inc
 	)
+	
+target_link_libraries(${PROJECT} data_model)	
 	
 IF(TEST)
 	set(TEST_SOURCES

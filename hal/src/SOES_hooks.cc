@@ -1,4 +1,4 @@
-#include "soes_hooks.h"
+#include "SOES_hooks.h"
 
 extern "C"
 {
