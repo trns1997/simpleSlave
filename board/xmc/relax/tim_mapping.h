@@ -57,4 +57,4 @@ static tim_conf_t tim_mapping[] =
 }
 
 
-#endif /* RELAX_PIN_MAPPING_H_ */
+#endif

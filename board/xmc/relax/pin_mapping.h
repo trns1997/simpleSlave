@@ -48,4 +48,4 @@ static pin_conf_t pin_mapping[] =
 }
 
 
-#endif /* RELAX_PIN_MAPPING_H_ */
+#endif

@@ -1,5 +1,5 @@
-#ifndef RELAX_SPI_MAPPING_H_
-#define RELAX_SPI_MAPPING_H_
+#ifndef ANKLE_SPI_MAPPING_H_
+#define ANKLE_SPI_MAPPING_H_
 
 #include "xmc_spi.h"
 #include "stdint.h"
