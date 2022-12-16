@@ -26,11 +26,11 @@ public:
 
     void Interrupt()
     {
-        static DataItem fs0(FS_0_ID, true);
-        static DataItem fs1(FS_1_ID, true);
-        static DataItem fs2(FS_2_ID, true);
-        static DataItem fs3(FS_3_ID, true);
-        static DataItem fs4(FS_4_ID, true);
+        static DataItem<uint32_t> fs0(FS_0_ID, true);
+        static DataItem<uint32_t> fs1(FS_1_ID, true);
+        static DataItem<uint32_t> fs2(FS_2_ID, true);
+        static DataItem<uint32_t> fs3(FS_3_ID, true);
+        static DataItem<uint32_t> fs4(FS_4_ID, true);
 
         forceSensors.read();
         ForceSensorData forceSensorData = forceSensors.getForceSensorData();

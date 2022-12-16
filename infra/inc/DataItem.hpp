@@ -3,6 +3,7 @@
 
 #include "DataModel.hpp"
 
+template <typename T>
 class DataItem
 {
 public:
@@ -10,15 +11,16 @@ public:
     DataItem(DataItemId id, bool writable);
     ~DataItem();
 
-    int32_t get();
-    Datagram& getDatagram();
-    void set(int32_t val);
+    T get();
+    Datagram &getDatagram();
+    void set(T val);
     void reset();
 
-
 private:
-    Datagram&   data_;
-    bool        writable_ {false};
+    Datagram &data_;
+    bool writable_{false};
 };
+
+#include "DataItem.tpp"
 
 #endif

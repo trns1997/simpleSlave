@@ -4,10 +4,9 @@
 class TimeFibre : public Fibre
 {
 public:
-
-    TimeFibre(): Fibre("TimeFibre")
+    TimeFibre() : Fibre("TimeFibre")
     {
-        FibreManager& thread = FibreManager::getInstance(THREAD_1MS_ID);
+        FibreManager &thread = FibreManager::getInstance(THREAD_1MS_ID);
         thread.Add(std::shared_ptr<Fibre>(this));
     }
 
@@ -18,13 +17,13 @@ public:
 
     virtual void Run()
     {
-        static DataItem timeDI(TIME_ID, true);
+        static DataItem<int16_t> timeDI(TIME_ID, true);
         time_++;
         timeDI.set(time_);
     }
 
 private:
-    int32_t time_ {0};
+    int32_t time_{0};
 };
 
 static TimeFibre timeFibre;

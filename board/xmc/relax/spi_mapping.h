@@ -22,7 +22,8 @@ namespace board
     typedef enum
     {
         SPI0_CH1 = 0,
-        SPI2_CH0
+        SPI2_CH0,
+        SPI1_CH0
     } spi_identifier;
 
     typedef struct
