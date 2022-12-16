@@ -1,12 +1,19 @@
 set(PROJECT app)
 
 set(APP_SOURCES
-	src/time.cpp
-    src/blink_led.cpp
-    src/imu.cpp
-    src/footsensor.cpp
-    src/ethercat.cpp
-	)
+	${CMAKE_CURRENT_SOURCE_DIR}/time.cpp
+)	
+
+if(PRODUCT_NAME STREQUAL "ankle") 
+	add_subdirectory(imu)
+	add_subdirectory(ethercat)
+	add_subdirectory(blink)
+elseif(PRODUCT_NAME STREQUAL "fallsafe")
+	add_subdirectory(imu)
+	add_subdirectory(blink)
+elseif(PRODUCT_NAME STREQUAL "blinker")
+	add_subdirectory(blink)
+endif()
 
 add_library (${PROJECT} OBJECT ${APP_SOURCES})
 target_include_directories (${PROJECT} PUBLIC 

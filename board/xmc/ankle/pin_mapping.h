@@ -25,7 +25,7 @@ typedef struct
 	XMC_GPIO_MODE_t 	mode;
 } pin_conf_t;
 
-pin_conf_t pin_mapping[] =
+static pin_conf_t pin_mapping[] =
 {
 	{LED1 , 	XMC_GPIO_PORT5, 8, XMC_GPIO_MODE_OUTPUT_PUSH_PULL},
 	{LED2 , 	XMC_GPIO_PORT5, 9, XMC_GPIO_MODE_OUTPUT_PUSH_PULL},
@@ -38,4 +38,4 @@ pin_conf_t pin_mapping[] =
 }
 
 
-#endif /* ANKLE_PIN_MAPPING_H_ */
+#endif

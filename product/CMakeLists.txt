@@ -1,1 +1,1 @@
-add_subdirectory (new_foot)
+add_subdirectory(${PRODUCT_NAME})
