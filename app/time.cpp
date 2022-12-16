@@ -17,7 +17,7 @@ public:
 
     virtual void Run()
     {
-        static DataItem<int16_t> timeDI(TIME_ID, true);
+        static DataItem<int32_t> timeDI(TIME_ID, true);
         time_++;
         timeDI.set(time_);
     }

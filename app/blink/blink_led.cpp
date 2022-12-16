@@ -19,7 +19,7 @@ public:
     virtual void Run()
     {
         static GPIO gpio_led(board::LED1);
-        static DataItem<int16_t> timeDI(TIME_ID);
+        static DataItem<int32_t> timeDI(TIME_ID);
 
         if (timeDI.get() % 1000 == 0)
         {
