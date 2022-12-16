@@ -6,8 +6,8 @@
 
 #define SPI_Force_Sensor_RX_Interrupt USIC0_2_IRQHandler
 #define SPI_Force_Sensor_TX_Interrupt USIC0_3_IRQHandler
-#define SPI_IMU_RX_Interrupt USIC2_2_IRQHandler
-#define SPI_IMU_TX_Interrupt USIC2_3_IRQHandler
+#define SPI_IMU_RX_Interrupt USIC1_2_IRQHandler
+#define SPI_IMU_TX_Interrupt USIC1_3_IRQHandler
 
 namespace board
 {
@@ -22,7 +22,7 @@ namespace board
     typedef enum
     {
         SPI0_CH1 = 0,
-        SPI2_CH0
+        SPI1_CH0
     } spi_identifier;
 
     typedef struct
@@ -51,16 +51,16 @@ namespace board
              USIC0_3_IRQn,
              USIC0_2_IRQn,
              USIC0_C1_DX0_P2_2},
-            {SPI2_CH0,
-             XMC_SPI2_CH0,
+            {SPI1_CH0,
+             XMC_SPI1_CH0,
              spi_config,
              XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_1_DELAY_DISABLED,
              XMC_SPI_CH_BRG_SHIFT_CLOCK_OUTPUT_SCLK,
              3,
              2,
-             USIC2_3_IRQn,
-             USIC2_2_IRQn,
-             USIC2_C0_DX0_P3_7},
+             USIC1_3_IRQn,
+             USIC1_2_IRQn,
+             USIC1_C0_DX0_P0_4},
     };
 
 }

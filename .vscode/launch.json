@@ -6,7 +6,7 @@
       "type": "cortex-debug",
       "request": "launch",
       "cwd": "${workspaceRoot}",
-      "executable": "${workspaceRoot}/build/relax/new_foot.elf",
+      "executable": "${workspaceRoot}/build/ankle/ankle.elf",
       "servertype": "jlink",
       "device": "XMC4800-2048",
       "interface": "swd",
