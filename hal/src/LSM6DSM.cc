@@ -5,8 +5,8 @@ void LSM6DSM::configure()
     free_ = &buffer0_;
     consume_ = &buffer1_;
     uint8_t imuConfig[] = {IMU_WRITE | ADDR_CTRL1_XL, ACC_GYRO_ODR_XL_1660Hz, ACC_GYRO_ODR_G_1660Hz, IF_INC | BDU, I2C_DISABLE};
-    uint32_t size =  sizeof(imuConfig)/sizeof(imuConfig[0]);
-    sendData(imuConfig, size);
+    uint32_t size = sizeof(imuConfig) / sizeof(imuConfig[0]);
+    sendData(imuConfig, size, true);
 }
 
 void LSM6DSM::request_read()

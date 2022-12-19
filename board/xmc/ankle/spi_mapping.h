@@ -14,7 +14,7 @@ namespace board
 
     static XMC_SPI_CH_CONFIG_t spi_config =
         {
-            .baudrate = 800000,
+            .baudrate = 5000000,
             .bus_mode = XMC_SPI_CH_BUS_MODE_MASTER,
             .selo_inversion = XMC_SPI_CH_SLAVE_SEL_INV_TO_MSLS,
             .parity_mode = XMC_USIC_CH_PARITY_MODE_NONE};
