@@ -26,29 +26,29 @@ public:
 
     void Interrupt()
     {
-        static DataItem imuAccel0(IMU_ACCEL_0_ID, true);
-        static DataItem imuAccel1(IMU_ACCEL_1_ID, true);
-        static DataItem imuAccel2(IMU_ACCEL_2_ID, true);
-        static DataItem imuGyro0(IMU_GYRO_0_ID, true);
-        static DataItem imuGyro1(IMU_GYRO_1_ID, true);
-        static DataItem imuGyro2(IMU_GYRO_2_ID, true);
+        static DataItem imuAccelX(IMU_ACCEL_X_ID, true);
+        static DataItem imuAccelY(IMU_ACCEL_Y_ID, true);
+        static DataItem imuAccelZ(IMU_ACCEL_Z_ID, true);
+        static DataItem imuGyroX(IMU_GYRO_X_ID, true);
+        static DataItem imuGyroY(IMU_GYRO_Y_ID, true);
+        static DataItem imuGyroZ(IMU_GYRO_Z_ID, true);
         static DataItem imuTemp(IMU_TEMP_ID, true);
 
         boardIMU_.read();
         IMUData imuData = boardIMU_.getIMUData();
 
-        imuAccel0.set(imuData.accelerometer[0]);
-        imuAccel1.set(imuData.accelerometer[1]);
-        imuAccel2.set(imuData.accelerometer[2]);
-        imuGyro0.set(imuData.gyroscope[0]);
-        imuGyro1.set(imuData.gyroscope[1]);
-        imuGyro2.set(imuData.gyroscope[2]);
+        imuAccelX.set(imuData.accelerometer[0]);
+        imuAccelY.set(imuData.accelerometer[1]);
+        imuAccelZ.set(imuData.accelerometer[2]);
+        imuGyroX.set(imuData.gyroscope[0]);
+        imuGyroY.set(imuData.gyroscope[1]);
+        imuGyroZ.set(imuData.gyroscope[2]);
         imuTemp.set(imuData.temperatureSensor);
 
     }
 
 private:
-    LSM6DSM boardIMU_ {board::SPI2_CH0};
+    LSM6DSM boardIMU_ {board::SPI1_CH0};
 };
 
 static IMUFibre imuFibre;

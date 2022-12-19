@@ -48,7 +48,7 @@ void SPI::init()
     XMC_SPI_CH_Start(spi_conf_.channel);
 }
 
-void SPI::sendData(uint8_t* txData, uint32_t size)
+void SPI::sendData(uint8_t *txData, uint32_t size, bool blockingMode)
 {
     transferComplete_ = false;
     XMC_SPI_CH_EnableSlaveSelect(spi_conf_.channel, XMC_SPI_CH_SLAVE_SELECT_0);
@@ -62,17 +62,18 @@ void SPI::sendData(uint8_t* txData, uint32_t size)
     XMC_USIC_CH_TXFIFO_Flush(spi_conf_.channel);
     XMC_USIC_CH_TXFIFO_EnableEvent(spi_conf_.channel, XMC_USIC_CH_TXFIFO_EVENT_CONF_STANDARD);
 
-    for (uint8_t i = 0 ; i < size ; i++)
+    for (uint8_t i = 0; i < size; i++)
     {
         XMC_USIC_CH_TXFIFO_PutDataHPCMode(spi_conf_.channel, txData[i], XMC_SPI_CH_MODE_STANDARD);
     }
     XMC_USIC_CH_TXFIFO_DisableEvent(spi_conf_.channel, XMC_USIC_CH_TXFIFO_EVENT_CONF_STANDARD);
 
-    while(not transferComplete_)
-    {}
+    while (blockingMode and not transferComplete_)
+    {
+    }
 }
 
-void SPI::readData(uint8_t* rxData, uint32_t& size)
+void SPI::readData(uint8_t *rxData, uint32_t &size)
 {
     for (uint16_t i = 0; i < size; i++)
     {
@@ -80,7 +81,7 @@ void SPI::readData(uint8_t* rxData, uint32_t& size)
     }
     XMC_USIC_CH_RXFIFO_DisableEvent(spi_conf_.channel,
                                     (uint32_t)XMC_USIC_CH_RXFIFO_EVENT_CONF_STANDARD |
-                                    (uint32_t)XMC_USIC_CH_RXFIFO_EVENT_CONF_ALTERNATE);
+                                        (uint32_t)XMC_USIC_CH_RXFIFO_EVENT_CONF_ALTERNATE);
 
     XMC_SPI_CH_DisableSlaveSelect(spi_conf_.channel);
     transferComplete_ = true;
