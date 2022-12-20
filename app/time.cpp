@@ -1,5 +1,5 @@
 #include "Fibre.hpp"
-#include "DataItem.hpp"
+#include "DataModel.hpp"
 
 class TimeFibre : public Fibre
 {
@@ -8,7 +8,7 @@ public:
     TimeFibre(): Fibre("TimeFibre")
     {
         FibreManager& thread = FibreManager::getInstance(THREAD_1MS_ID);
-        thread.Add(std::shared_ptr<Fibre>(this));
+        thread.Add(std::shared_ptr<Fibre>(std::shared_ptr<Fibre>{}, this));
     }
 
     virtual void Init()
@@ -18,7 +18,7 @@ public:
 
     virtual void Run()
     {
-        static DataItem timeDI(TIME_ID, true);
+        static DataItem timeDI(DataItemId::TIME_ID, true);
         time_++;
         timeDI.set(time_);
     }

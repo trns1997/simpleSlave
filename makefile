@@ -15,7 +15,7 @@ project:
 
 unit:
 	mkdir -p build/unit
-	cd build/unit && cmake -G "Unix Makefiles" -DTEST:BOOL=True $(CURRENT_DIR)
+	cd build/unit && cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug -DTEST:BOOL=True $(CURRENT_DIR)
 	cd build/unit && $(MAKE) -j8
 	cd build/unit && ctest
 	

@@ -19,7 +19,9 @@ IF(TEST)
 	include(CTest)
 	
 	add_subdirectory (infra)
-	add_subdirectory (test/data_model)
+	add_subdirectory (app)
+	add_subdirectory (hal)
+	add_subdirectory (board)
 	
 ELSE()
 

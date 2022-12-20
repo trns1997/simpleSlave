@@ -23,6 +23,7 @@ public:
 
 private:
 	board::pin_conf_t pin_conf_;
+
 };
 
 

@@ -1,5 +1,5 @@
 #include "Fibre.hpp"
-#include "DataItem.hpp"
+#include "DataModel.hpp"
 
 #include "ForceSensor.h"
 
@@ -26,11 +26,11 @@ public:
 
     void Interrupt()
     {
-        static DataItem fs0(FS_0_ID, true);
-        static DataItem fs1(FS_1_ID, true);
-        static DataItem fs2(FS_2_ID, true);
-        static DataItem fs3(FS_3_ID, true);
-        static DataItem fs4(FS_4_ID, true);
+        static DataItem fs0(DataItemId::FS_0_ID, true);
+        static DataItem fs1(DataItemId::FS_1_ID, true);
+        static DataItem fs2(DataItemId::FS_2_ID, true);
+        static DataItem fs3(DataItemId::FS_3_ID, true);
+        static DataItem fs4(DataItemId::FS_4_ID, true);
 
         forceSensors.read();
         ForceSensorData forceSensorData = forceSensors.getForceSensorData();
