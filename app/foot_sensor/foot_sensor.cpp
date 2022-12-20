@@ -10,7 +10,7 @@ public:
     FootSensorFibre(): Fibre("FootSensorFibre")
     {
         FibreManager& thread = FibreManager::getInstance(THREAD_1MS_ID);
-        thread.Add(std::shared_ptr<Fibre>(this));
+        thread.Add(std::shared_ptr<Fibre>(std::shared_ptr<Fibre>{}, this));
     }
 
     virtual void Init()

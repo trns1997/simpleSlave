@@ -24,7 +24,7 @@ target_link_libraries (${PROJECT} LINK_PUBLIC infra hal data_model)
 	
 ELSE()
 	#add_subdirectory(imu)
-	#add_subdirectory(foot_sensor)
+	add_subdirectory(foot_sensor)
 	#add_subdirectory(ethercat)
 	add_subdirectory(blink)
 	

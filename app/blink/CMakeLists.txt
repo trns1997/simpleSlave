@@ -15,9 +15,6 @@ set(TEST_SOURCES
 
 add_executable (${PROJECT}_test ${TEST_SOURCES})
 target_link_libraries(${PROJECT}_test gtest_main infra hal data_model_blink)
-target_include_directories (${PROJECT}_test PRIVATE 
-	${CMAKE_CURRENT_SOURCE_DIR}/unit/data_model 
-	)
 add_test(${PROJECT}_test ${PROJECT}_test) 
 
 add_subdirectory(unit/data_model)

@@ -1,5 +1,8 @@
 #include "ForceSensor.h"
 
+ForceSensor::ForceSensor(board::spi_identifier spi_name): SPI_Slave(spi_name)
+{}
+
 void ForceSensor::configure()
 {
     free_ = &buffer0_;

@@ -15,6 +15,9 @@ ELSE()
 
 	add_library (${PROJECT_NAME}
 	  ${CMAKE_CURRENT_SOURCE_DIR}/mock/GPIO.cc
+	  ${CMAKE_CURRENT_SOURCE_DIR}/mock/ForceSensor.cc
+	  ${CMAKE_CURRENT_SOURCE_DIR}/mock/SPI_Slave.cc
+	  ${CMAKE_CURRENT_SOURCE_DIR}/mock/SPI.cc
 	  )
 ENDIF()
 	
