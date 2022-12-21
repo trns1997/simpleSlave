@@ -13,15 +13,17 @@ namespace board
 {
 
     static XMC_SPI_CH_CONFIG_t spi_config =
-        {
-            .baudrate = 800000,
-            .bus_mode = XMC_SPI_CH_BUS_MODE_MASTER,
-            .selo_inversion = XMC_SPI_CH_SLAVE_SEL_INV_TO_MSLS,
-            .parity_mode = XMC_USIC_CH_PARITY_MODE_NONE};
+    {
+        .baudrate = 800000,
+        .bus_mode = XMC_SPI_CH_BUS_MODE_MASTER,
+        .selo_inversion = XMC_SPI_CH_SLAVE_SEL_INV_TO_MSLS,
+        .parity_mode = XMC_USIC_CH_PARITY_MODE_NONE
+    };
 
     typedef enum
     {
         SPI0_CH1 = 0,
+        SPI1_CH0,
         SPI2_CH0
     } spi_identifier;
 
@@ -40,27 +42,43 @@ namespace board
     } spi_conf_t;
 
     static spi_conf_t spi_mapping[] =
+    {
         {
-            {SPI0_CH1,
-             XMC_SPI0_CH1,
-             spi_config,
-             XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_0_DELAY_DISABLED,
-             XMC_SPI_CH_BRG_SHIFT_CLOCK_OUTPUT_SCLK,
-             3,
-             2,
-             USIC0_3_IRQn,
-             USIC0_2_IRQn,
-             USIC0_C1_DX0_P2_2},
-            {SPI2_CH0,
-             XMC_SPI2_CH0,
-             spi_config,
-             XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_1_DELAY_DISABLED,
-             XMC_SPI_CH_BRG_SHIFT_CLOCK_OUTPUT_SCLK,
-             3,
-             2,
-             USIC2_3_IRQn,
-             USIC2_2_IRQn,
-             USIC2_C0_DX0_P3_7},
+            SPI0_CH1,
+            XMC_SPI0_CH1,
+            spi_config,
+            XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_0_DELAY_DISABLED,
+            XMC_SPI_CH_BRG_SHIFT_CLOCK_OUTPUT_SCLK,
+            3,
+            2,
+            USIC0_3_IRQn,
+            USIC0_2_IRQn,
+            USIC0_C1_DX0_P2_2
+        },
+        {
+            SPI1_CH0,
+            XMC_SPI1_CH0,
+            spi_config,
+            XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_1_DELAY_DISABLED,
+            XMC_SPI_CH_BRG_SHIFT_CLOCK_OUTPUT_SCLK,
+            3,
+            2,
+            USIC1_3_IRQn,
+            USIC1_2_IRQn,
+            USIC1_C0_DX0_P0_4
+        },
+        {
+            SPI2_CH0,
+            XMC_SPI2_CH0,
+            spi_config,
+            XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_1_DELAY_DISABLED,
+            XMC_SPI_CH_BRG_SHIFT_CLOCK_OUTPUT_SCLK,
+            3,
+            2,
+            USIC2_3_IRQn,
+            USIC2_2_IRQn,
+            USIC2_C0_DX0_P3_7
+        },
     };
 
 }

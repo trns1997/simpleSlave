@@ -1,4 +1,11 @@
-set(PROJECT data_model)
+set(PROJECT data_model_infra)
 
-add_library (${PROJECT} INTERFACE)
-target_include_directories ( ${PROJECT} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR} )
+set(APP_SOURCES
+    DataModel.cpp
+	)
+
+add_library (${PROJECT} STATIC ${APP_SOURCES})
+target_include_directories (${PROJECT} PUBLIC 
+	${CMAKE_CURRENT_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR}/../../inc
+	)

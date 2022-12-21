@@ -15,8 +15,7 @@ struct ForceSensorData
 class ForceSensor : public SPI_Slave
 {
 public:
-    ForceSensor(board::spi_identifier spi_name): SPI_Slave(spi_name)
-    {}
+    ForceSensor(board::spi_identifier spi_name);
     ~ForceSensor() = default;
 
     void configure() override;

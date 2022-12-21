@@ -1,12 +1,14 @@
 #include "DataItem.hpp"
 
+extern Datagram& datagram_(DataItemId id);
+
 DataItem::DataItem(DataItemId id)
-        :   data_(DataItems[id]),
+        :   data_(getDatagram(id)),
             writable_(false)
 {}
 
 DataItem::DataItem(DataItemId id, bool writable)
-        :   data_(DataItems[id]),
+        :   data_(getDatagram(id)),
             writable_(writable)
 {}
 

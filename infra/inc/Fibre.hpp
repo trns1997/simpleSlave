@@ -4,13 +4,14 @@
 #include <vector>
 #include <memory>
 
+#include <iostream>
+
 class Fibre
 {
 public:
-    Fibre(const char* name): name_(name)
-    {}
-    virtual ~Fibre() {}
+    Fibre(const char* name): name_(name) {}
 
+    virtual ~Fibre() {}
     virtual void Init() = 0;
     virtual void Run() = 0;
 

@@ -1,5 +1,5 @@
 #include "Fibre.hpp"
-#include "DataItem.hpp"
+#include "DataModel.hpp"
 
 #include "LSM6DSM.h"
 
@@ -10,29 +10,31 @@ public:
     IMUFibre(): Fibre("IMUFibre")
     {
         FibreManager& thread = FibreManager::getInstance(THREAD_1MS_ID);
-        thread.Add(std::shared_ptr<Fibre>(this));
+        thread.Add(std::shared_ptr<Fibre>(std::shared_ptr<Fibre>{}, this));
     }
 
-    virtual void Init()
+    ~IMUFibre() override {}
+
+    void Init() override
     {
         boardIMU_.init();
         boardIMU_.configure();
     }
 
-    virtual void Run()
+    void Run() override
     {
         boardIMU_.request_read();
     }
 
     void Interrupt()
     {
-        static DataItem imuAccelX(IMU_ACCEL_X_ID, true);
-        static DataItem imuAccelY(IMU_ACCEL_Y_ID, true);
-        static DataItem imuAccelZ(IMU_ACCEL_Z_ID, true);
-        static DataItem imuGyroX(IMU_GYRO_X_ID, true);
-        static DataItem imuGyroY(IMU_GYRO_Y_ID, true);
-        static DataItem imuGyroZ(IMU_GYRO_Z_ID, true);
-        static DataItem imuTemp(IMU_TEMP_ID, true);
+        static DataItem imuAccelX(DataItemId::IMU_ACCEL_X_ID, true);
+        static DataItem imuAccelY(DataItemId::IMU_ACCEL_Y_ID, true);
+        static DataItem imuAccelZ(DataItemId::IMU_ACCEL_Z_ID, true);
+        static DataItem imuGyroX(DataItemId::IMU_GYRO_X_ID, true);
+        static DataItem imuGyroY(DataItemId::IMU_GYRO_Y_ID, true);
+        static DataItem imuGyroZ(DataItemId::IMU_GYRO_Z_ID, true);
+        static DataItem imuTemp(DataItemId::IMU_TEMP_ID, true);
 
         boardIMU_.read();
         IMUData imuData = boardIMU_.getIMUData();
