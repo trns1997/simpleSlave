@@ -3,8 +3,6 @@
 #include "Fibre.hpp"
 #include "DataModel.hpp"
 
-#include "ForceSensor.h"
-
 bool isConfigured;
 bool isReadRequested;
 uint8_t data;

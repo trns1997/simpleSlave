@@ -22,6 +22,7 @@ IF(TEST)
 	add_subdirectory (app)
 	add_subdirectory (hal)
 	add_subdirectory (board)
+	add_subdirectory (lib)
 	
 ELSE()
 
