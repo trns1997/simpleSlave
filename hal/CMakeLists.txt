@@ -18,6 +18,7 @@ ELSE()
 	  ${CMAKE_CURRENT_SOURCE_DIR}/mock/ForceSensor.cc
 	  ${CMAKE_CURRENT_SOURCE_DIR}/mock/SPI_Slave.cc
 	  ${CMAKE_CURRENT_SOURCE_DIR}/mock/SPI.cc
+	  ${CMAKE_CURRENT_SOURCE_DIR}/mock/LSM6DSM.cc
 	  )
 ENDIF()
 	

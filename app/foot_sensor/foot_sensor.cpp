@@ -13,15 +13,17 @@ public:
         thread.Add(std::shared_ptr<Fibre>(std::shared_ptr<Fibre>{}, this));
     }
 
-    virtual void Init()
+    ~FootSensorFibre() override {}
+
+    void Init() override
     {
-        forceSensors.init();
-        forceSensors.configure();
+        forceSensors_.init();
+        forceSensors_.configure();
     }
 
-    virtual void Run()
+    void Run() override
     {
-        forceSensors.request_read();
+        forceSensors_.request_read();
     }
 
     void Interrupt()
@@ -32,8 +34,8 @@ public:
         static DataItem fs3(DataItemId::FS_3_ID, true);
         static DataItem fs4(DataItemId::FS_4_ID, true);
 
-        forceSensors.read();
-        ForceSensorData forceSensorData = forceSensors.getForceSensorData();
+        forceSensors_.read();
+        ForceSensorData forceSensorData = forceSensors_.getForceSensorData();
 
         fs0.set(forceSensorData.f0);
         fs1.set(forceSensorData.f1);
@@ -43,7 +45,7 @@ public:
     }
 
 private:
-    ForceSensor forceSensors{board::SPI0_CH1};
+    ForceSensor forceSensors_{board::SPI0_CH1};
 };
 
 static FootSensorFibre footSensorFibre;

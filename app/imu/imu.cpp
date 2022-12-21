@@ -13,13 +13,15 @@ public:
         thread.Add(std::shared_ptr<Fibre>(std::shared_ptr<Fibre>{}, this));
     }
 
-    virtual void Init()
+    ~IMUFibre() override {}
+
+    void Init() override
     {
         boardIMU_.init();
         boardIMU_.configure();
     }
 
-    virtual void Run()
+    void Run() override
     {
         boardIMU_.request_read();
     }
