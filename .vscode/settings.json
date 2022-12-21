@@ -1,58 +1,8 @@
 {
-  "C_Cpp_Runner.cCompilerPath": "${workspaceFolder}/../gcc-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc",
-  "C_Cpp_Runner.cppCompilerPath": "${workspaceFolder}/../g++-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc",
-  "C_Cpp_Runner.debuggerPath": "${workspaceFolder}/../gdb-arm-none-eabi-10.3-2021.10/bin/arm-none-eabi-gcc",
-  "C_Cpp_Runner.cStandard": "gnu17",
-  "C_Cpp_Runner.cppStandard": "gnu++14",
-  "C_Cpp_Runner.msvcBatchPath": "",
-  "C_Cpp_Runner.useMsvc": false,
-  "C_Cpp_Runner.warnings": [
-    "-Wall",
-    "-Wextra",
-    "-Wpedantic",
-    "-Wshadow",
-    "-Wformat=2",
-    "-Wconversion",
-    "-Wnull-dereference",
-    "-Wsign-conversion"
-  ],
-  "C_Cpp_Runner.enableWarnings": true,
-  "C_Cpp_Runner.warningsAsError": false,
-  "C_Cpp_Runner.compilerArgs": [],
-  "C_Cpp_Runner.linkerArgs": [],
-  "C_Cpp_Runner.includePaths": [
-    "${workspaceFolder}",
-    "${workspaceFolder}/board/XMC/Common/XMCLib/inc",
-    "${workspaceFolder}/lib/soes/include",
-    "${workspaceFolder}/product/new_foot"
-  ],
-  "C_Cpp_Runner.includeSearch": [
-    "*",
-    "**/*"
-  ],
-  "C_Cpp_Runner.excludeSearch": [
-    "**/build",
-    "**/build/**",
-    "**/.*",
-    "**/.*/**",
-    "**/.vscode",
-    "**/.vscode/**"
-  ],
-  "files.associations": {
-    "array": "cpp",
-    "string_view": "cpp",
-    "initializer_list": "cpp",
-    "ranges": "cpp",
-    "utility": "cpp",
-    "random": "cpp",
-    "limits": "cpp",
-    "optional": "cpp",
-    "istream": "cpp",
-    "ostream": "cpp",
-    "system_error": "cpp",
-    "functional": "cpp",
-    "tuple": "cpp",
-    "type_traits": "cpp"
-  },
-  "cortex-debug.variableUseNaturalFormat": false
+    "files.associations": {
+        "array": "cpp",
+        "string": "cpp",
+        "string_view": "cpp",
+        "ranges": "cpp"
+    }
 }

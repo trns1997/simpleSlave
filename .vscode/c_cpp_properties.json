@@ -5,9 +5,8 @@
       "includePath": [
         "${workspaceFolder}/**",
         "${workspaceFolder}",
-        "${workspaceFolder}/board/XMC/Common/XMCLib/inc",
-        "${workspaceFolder}/lib/soes/include",
-        "${workspaceFolder}/product/new_foot"
+        "${workspaceFolder}/board/xmc/common/XMCLib/inc",
+        "${workspaceFolder}/lib/soes/include"
       ],
       "defines": [
         "_DEBUG",

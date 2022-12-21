@@ -13,24 +13,24 @@ void fill_input_buffer(_Rbuffer& buffer)
     static DataItem imuGyroZ(DataItemId::IMU_GYRO_Z_ID);
     static DataItem imuTemp(DataItemId::IMU_TEMP_ID);
 
-    buffer.ankleIMU.accelerometerX0 = static_cast<int16_t>(imuAccelX.get());
-    buffer.ankleIMU.accelerometerY0 = static_cast<int16_t>(imuAccelY.get());
-    buffer.ankleIMU.accelerometerZ0 = static_cast<int16_t>(imuAccelZ.get());
-    buffer.ankleIMU.gyroscopeX0     = static_cast<int16_t>(imuGyroX.get());
-    buffer.ankleIMU.gyroscopeY0     = static_cast<int16_t>(imuGyroY.get());
-    buffer.ankleIMU.gyroscopeZ0     = static_cast<int16_t>(imuGyroZ.get());
-    buffer.ankleIMU.temperature0    = static_cast<int16_t>(imuTemp.get());
+    buffer.ankleIMU.accelerometerX = static_cast<int16_t>(imuAccelX.get());
+    buffer.ankleIMU.accelerometerY = static_cast<int16_t>(imuAccelY.get());
+    buffer.ankleIMU.accelerometerZ = static_cast<int16_t>(imuAccelZ.get());
+    buffer.ankleIMU.gyroscopeX     = static_cast<int16_t>(imuGyroX.get());
+    buffer.ankleIMU.gyroscopeY     = static_cast<int16_t>(imuGyroY.get());
+    buffer.ankleIMU.gyroscopeZ     = static_cast<int16_t>(imuGyroZ.get());
+    buffer.ankleIMU.temperature    = static_cast<int16_t>(imuTemp.get());
 
     static DataItem fs0(DataItemId::FS_0_ID);
     static DataItem fs1(DataItemId::FS_1_ID);
     static DataItem fs2(DataItemId::FS_2_ID);
     static DataItem fs3(DataItemId::FS_3_ID);
     static DataItem fs4(DataItemId::FS_4_ID);
-    buffer.forceSensor0 = static_cast<uint32_t>(fs0.get());
-    buffer.forceSensor1 = static_cast<uint32_t>(fs1.get());
-    buffer.forceSensor2 = static_cast<uint32_t>(fs2.get());
-    buffer.forceSensor3 = static_cast<uint32_t>(fs3.get());
-    buffer.forceSensor4 = static_cast<uint32_t>(fs4.get());
+    buffer.forceSensor0 = static_cast<uint16_t>(fs0.get());
+    buffer.forceSensor1 = static_cast<uint16_t>(fs1.get());
+    buffer.forceSensor2 = static_cast<uint16_t>(fs2.get());
+    buffer.forceSensorVref = static_cast<uint16_t>(fs3.get());
+    buffer.forceSensor4 = static_cast<uint16_t>(fs4.get());
 }
 
 class EtherCATFibre : public Fibre

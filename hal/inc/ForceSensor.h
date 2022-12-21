@@ -5,11 +5,11 @@
 
 struct ForceSensorData
 {
-    uint32_t f0;
-    uint32_t f1;
-    uint32_t f2;
-    uint32_t f3;
-    uint32_t f4;
+    uint16_t f0;
+    uint16_t f1;
+    uint16_t f2;
+    uint16_t f3;
+    uint16_t f4;
 };
 
 class ForceSensor : public SPI_Slave

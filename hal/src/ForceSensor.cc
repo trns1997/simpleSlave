@@ -94,7 +94,7 @@ void ForceSensor::read()
     uint8_t data[] = {0x00, 0x00, 0x00, 0x00};
     uint32_t size = sizeof(data) / sizeof(data[0]);
     readData(data, size);
-    uint32_t forceSensorData = (data[2] << 8) + data[3];
+    uint16_t forceSensorData = (data[2] << 8) + data[3];
 
     switch (forceSensorCnt_)
     {
