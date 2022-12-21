@@ -23,7 +23,7 @@ TEST(EtherCATTest, test_fill_buffer)
     DataItem fs1DI(DataItemId::FS_1_ID, true);
     DataItem fs2DI(DataItemId::FS_2_ID, true);
     DataItem fs3DI(DataItemId::FS_3_ID, true);
-    DataItem fs4DI(DataItemId::FS_4_ID, true);
+    DataItem fsVrefDI(DataItemId::FS_VREF_ID, true);
 
     imuAccelX.set(10);
     imuAccelY.set(11);
@@ -36,7 +36,7 @@ TEST(EtherCATTest, test_fill_buffer)
     fs1DI.set(41);
     fs2DI.set(42);
     fs3DI.set(43);
-    fs4DI.set(44);
+    fsVrefDI.set(44);
 
     _Rbuffer buffer;
     fill_input_buffer(buffer);
@@ -52,8 +52,8 @@ TEST(EtherCATTest, test_fill_buffer)
     ASSERT_EQ(fs0DI.get(), buffer.forceSensor0);
     ASSERT_EQ(fs1DI.get(), buffer.forceSensor1);
     ASSERT_EQ(fs2DI.get(), buffer.forceSensor2);
-    ASSERT_EQ(fs3DI.get(), buffer.forceSensorVref);
-    ASSERT_EQ(fs4DI.get(), buffer.forceSensor4);
+    ASSERT_EQ(fs3DI.get(), buffer.forceSensor3);
+    ASSERT_EQ(fsVrefDI.get(), buffer.forceSensorVref);
 }
 
 TEST(EtherCATTest, test_fibre)
