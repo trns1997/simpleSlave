@@ -25,14 +25,14 @@ void ForceSensor::read()
 {
     isReadRequested = false;
 
-    fsData_.f0 = data;
-    fsData_.f1 = data+1;
-    fsData_.f2 = data+2;
-    fsData_.f3 = data+3;
-    fsData_.f4 = data+4;
+    channelData_.channel0 = data;
+    channelData_.channel1 = data+1;
+    channelData_.channel2 = data+2;
+    channelData_.channel3 = data+3;
+    channelData_.channel4 = data+4;
 }
 
 ForceSensorData ForceSensor::getForceSensorData()
 {
-    return fsData_;
+    return channelData_;
 }

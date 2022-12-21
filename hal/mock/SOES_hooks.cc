@@ -29,4 +29,3 @@ void soesInit()
 {
     isConfigured = true;
 }
-

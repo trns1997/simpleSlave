@@ -20,15 +20,15 @@ CC_PACKED_BEGIN
 typedef struct
 {
    // current IMU data
-   int16_t accelerometerX0; // raw data
-   int16_t accelerometerY0;
-   int16_t accelerometerZ0;
+   int16_t accelerometerX; // raw data
+   int16_t accelerometerY;
+   int16_t accelerometerZ;
 
-   int16_t gyroscopeX0; // raw data.
-   int16_t gyroscopeY0;
-   int16_t gyroscopeZ0;
+   int16_t gyroscopeX; // raw data.
+   int16_t gyroscopeY;
+   int16_t gyroscopeZ;
 
-   int16_t temperature0; // Celsius degrees
+   int16_t temperature; // Celsius degrees
 }CC_PACKED imu;
 CC_PACKED_END
 
@@ -40,11 +40,11 @@ typedef struct
 
    imu ankleIMU;
 
-   uint32_t forceSensor0;
-   uint32_t forceSensor1;
-   uint32_t forceSensor2;
-   uint32_t forceSensor3;
-   uint32_t forceSensor4;
+   uint16_t forceSensor0;
+   uint16_t forceSensor1;
+   uint16_t forceSensor2;
+   uint16_t forceSensor3;
+   uint16_t forceSensorVref;
 
    uint16_t boardStatus;
 }CC_PACKED _Rbuffer;

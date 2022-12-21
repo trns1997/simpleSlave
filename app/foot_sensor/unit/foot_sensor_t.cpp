@@ -16,7 +16,7 @@ TEST(ForceSensorTest, test_fs)
     DataItem fs1DI(DataItemId::FS_1_ID, true);
     DataItem fs2DI(DataItemId::FS_2_ID, true);
     DataItem fs3DI(DataItemId::FS_3_ID, true);
-    DataItem fs4DI(DataItemId::FS_4_ID, true);
+    DataItem fsVrefDI(DataItemId::FS_VREF_ID, true);
 
     ASSERT_EQ(false, isConfigured);
     thread.Init();
@@ -32,7 +32,7 @@ TEST(ForceSensorTest, test_fs)
     ASSERT_EQ(10, fs0DI.get());
     ASSERT_EQ(11, fs1DI.get());
     ASSERT_EQ(12, fs2DI.get());
-    ASSERT_EQ(13, fs3DI.get());
-    ASSERT_EQ(14, fs4DI.get());
+    ASSERT_EQ(13, fsVrefDI.get());
+    ASSERT_EQ(14, fs3DI.get());
 }
 

@@ -12,21 +12,9 @@
       "interface": "swd",
       "runToEntryPoint": "main",
       "breakAfterReset": true,
-      "svdFile": "${workspaceRoot}/board/XMC/Common/XMC4800.svd",
+      "svdFile": "${workspaceRoot}/board/xmc/common/XMC4800.svd",
       "armToolchainPath": "${env:ARM_GCC_BIN_FOLDER}"
       ,"showDevDebugOutput": "raw"
-    },
-    {
-      "name": "Attach J-Link",
-      "type": "cortex-debug",
-      "request": "attach",
-      "cwd": "${workspaceRoot}",
-      "executable": "${workspaceRoot}/build/new_foot.elf",
-      "servertype": "jlink",
-      "device": "XMC4800-2048",
-      "interface": "swd",
-      "svdFile": "${workspaceRoot}/board/XMC/Common/XMC4800.svd",
-      "armToolchainPath": "${env:ARM_GCC_BIN_FOLDER}"
     }
   ]
 }
