@@ -1,17 +1,39 @@
 name: C/C++ CI
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+on: [push]
 
 jobs:
-  build:
 
+  build:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
+    
+    - name: Install Arm GNU Toolchain (arm-none-eabi-gcc)
+      uses: carlosperate/arm-none-eabi-gcc-action@v1
+      with:
+          release: '10.3-2021.10'
+          path-env-var: ARM_GCC_BIN_FOLDER
+          
+    - name: make fallsafe on relax board
+      run: make project product_name=fallsafe board_name=relax
+      
+    - name: make blinker on relax board
+      run: make project product_name=blinker board_name=relax
+ 
+    - name: make ankle on relax board
+      run: make project product_name=ankle board_name=relax
+      
+    - name: make ankle on ankle board
+      run: make project product_name=ankle board_name=ankle
+
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
     - name: make unit-tests
       run: make unit
+    
