@@ -41,13 +41,13 @@ TEST(EtherCATTest, test_fill_buffer)
     _Rbuffer buffer;
     fill_input_buffer(buffer);
 
-    ASSERT_EQ(imuAccelX.get(), buffer.ankleIMU.accelerometerX0);
-    ASSERT_EQ(imuAccelY.get(), buffer.ankleIMU.accelerometerY0);
-    ASSERT_EQ(imuAccelZ.get(), buffer.ankleIMU.accelerometerZ0);
-    ASSERT_EQ(imuGyroX.get(), buffer.ankleIMU.gyroscopeX0);
-    ASSERT_EQ(imuGyroY.get(), buffer.ankleIMU.gyroscopeY0);
-    ASSERT_EQ(imuGyroZ.get(), buffer.ankleIMU.gyroscopeZ0);
-    ASSERT_EQ(imuTemp.get(), buffer.ankleIMU.temperature0);
+    ASSERT_EQ(imuAccelX.get(), buffer.ankleIMU.accelerometerX);
+    ASSERT_EQ(imuAccelY.get(), buffer.ankleIMU.accelerometerY);
+    ASSERT_EQ(imuAccelZ.get(), buffer.ankleIMU.accelerometerZ);
+    ASSERT_EQ(imuGyroX.get(), buffer.ankleIMU.gyroscopeX);
+    ASSERT_EQ(imuGyroY.get(), buffer.ankleIMU.gyroscopeY);
+    ASSERT_EQ(imuGyroZ.get(), buffer.ankleIMU.gyroscopeZ);
+    ASSERT_EQ(imuTemp.get(), buffer.ankleIMU.temperature);
 
     ASSERT_EQ(fs0DI.get(), buffer.forceSensor0);
     ASSERT_EQ(fs1DI.get(), buffer.forceSensor1);
