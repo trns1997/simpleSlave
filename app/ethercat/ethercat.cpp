@@ -25,12 +25,12 @@ void fill_input_buffer(_Rbuffer& buffer)
     static DataItem fs1(DataItemId::FS_1_ID);
     static DataItem fs2(DataItemId::FS_2_ID);
     static DataItem fs3(DataItemId::FS_3_ID);
-    static DataItem fs4(DataItemId::FS_4_ID);
+    static DataItem fsVref(DataItemId::FS_VREF_ID);
     buffer.forceSensor0 = static_cast<uint16_t>(fs0.get());
     buffer.forceSensor1 = static_cast<uint16_t>(fs1.get());
     buffer.forceSensor2 = static_cast<uint16_t>(fs2.get());
-    buffer.forceSensorVref = static_cast<uint16_t>(fs3.get());
-    buffer.forceSensor4 = static_cast<uint16_t>(fs4.get());
+    buffer.forceSensor3 = static_cast<uint16_t>(fs3.get());
+    buffer.forceSensorVref = static_cast<uint16_t>(fsVref.get());
 }
 
 class EtherCATFibre : public Fibre

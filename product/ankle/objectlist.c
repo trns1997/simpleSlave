@@ -58,7 +58,7 @@ const _objd SDO1018[] =
      {0x01, DTYPE_UNSIGNED32, 32, ATYPE_RO, &acName1018_01[0], 0x00001337, NULL},
      {0x02, DTYPE_UNSIGNED32, 32, ATYPE_RO, &acName1018_02[0], 0x12783456, NULL},
      {0x03, DTYPE_UNSIGNED32, 32, ATYPE_RO, &acName1018_03[0], 0x00000001, NULL},
-     {0x04, DTYPE_UNSIGNED32, 32, ATYPE_RO, &acName1018_04[0], 0x00000000, NULL}};
+     {0x04, DTYPE_UNSIGNED32, 32, ATYPE_RO, &acName1018_04[0], 0x00000001, NULL}};
 
 const _objd SDO1600[] =
     {{0x00, DTYPE_UNSIGNED8, 8, ATYPE_RO, &acNameNOE[0], 0x01, NULL},
@@ -136,8 +136,8 @@ const _objd SDO6005[] =
      {0x01, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Force sensor 0", 0, &(Rb.forceSensor0)},
      {0x02, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Force sensor 1", 0, &(Rb.forceSensor1)},
      {0x03, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Force sensor 2", 0, &(Rb.forceSensor2)},
-     {0x04, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Force sensor Vref", 0, &(Rb.forceSensorVref)},
-     {0x05, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Force sensor 4", 0, &(Rb.forceSensor4)}};
+     {0x04, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Force sensor 3", 0, &(Rb.forceSensor3)},
+     {0x05, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Force sensor Vref", 0, &(Rb.forceSensorVref)}};
 
 const _objd SDO6006[] =
     {{0x00, DTYPE_UNSIGNED8, 8, ATYPE_RO, &acNameNOE[0], 0x01, NULL},

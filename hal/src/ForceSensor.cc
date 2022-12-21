@@ -56,37 +56,37 @@ void ForceSensor::configure()
 
 void ForceSensor::request_read()
 {
-    uint8_t txDataForceSensor[] = {0x00, 0x00, 0x00, 0x00};
-    uint32_t tx_size = sizeof(txDataForceSensor) / sizeof(txDataForceSensor[0]);
-    switch (forceSensorCnt_)
+    uint8_t txData[] = {0x00, 0x00, 0x00, 0x00};
+    uint32_t tx_size = sizeof(txData) / sizeof(txData[0]);
+    switch (channelCnt_)
     {
     case 0:
     {
-        txDataForceSensor[0] = 0xC0;
+        txData[0] = 0xC0;
         break;
     }
     case 1:
     {
-        txDataForceSensor[0] = 0xC4;
+        txData[0] = 0xC4;
         break;
     }
     case 2:
     {
-        txDataForceSensor[0] = 0xC8;
+        txData[0] = 0xC8;
         break;
     }
     case 3:
     {
-        txDataForceSensor[0] = 0xCC;
+        txData[0] = 0xCC;
         break;
     }
     case 4:
     {
-        txDataForceSensor[0] = 0xD0;
+        txData[0] = 0xD0;
         break;
     }
     }
-    sendData(txDataForceSensor, tx_size);
+    sendData(txData, tx_size);
 }
 
 void ForceSensor::read()
@@ -94,43 +94,43 @@ void ForceSensor::read()
     uint8_t data[] = {0x00, 0x00, 0x00, 0x00};
     uint32_t size = sizeof(data) / sizeof(data[0]);
     readData(data, size);
-    uint16_t forceSensorData = (data[2] << 8) + data[3];
+    uint16_t channelData = (data[2] << 8) + data[3];
 
-    switch (forceSensorCnt_)
+    switch (channelCnt_)
     {
     case 0:
     {
-        fsData_.f0 = forceSensorData;
-        forceSensorCnt_ = 1;
+        channelData_.channel0 = channelData;
+        channelCnt_ = 1;
         break;
     }
     case 1:
     {
-        fsData_.f1 = forceSensorData;
-        forceSensorCnt_ = 2;
+        channelData_.channel1 = channelData;
+        channelCnt_ = 2;
         break;
     }
     case 2:
     {
-        fsData_.f2 = forceSensorData;
-        forceSensorCnt_ = 3;
+        channelData_.channel2 = channelData;
+        channelCnt_ = 3;
         break;
     }
     case 3:
     {
-        fsData_.f3 = forceSensorData;
-        forceSensorCnt_ = 4;
+        channelData_.channel3 = channelData;
+        channelCnt_ = 4;
         break;
     }
     case 4:
     {
-        fsData_.f4 = forceSensorData;
-        forceSensorCnt_ = 0;
+        channelData_.channel4 = channelData;
+        channelCnt_ = 0;
         continueRead_ = false;
         break;
     }
     }
-    *free_ = fsData_;
+    *free_ = channelData_;
     if (continueRead_)
     {
         request_read();

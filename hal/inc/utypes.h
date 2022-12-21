@@ -43,8 +43,8 @@ typedef struct
    uint16_t forceSensor0;
    uint16_t forceSensor1;
    uint16_t forceSensor2;
+   uint16_t forceSensor3;
    uint16_t forceSensorVref;
-   uint16_t forceSensor4;
 
    uint16_t boardStatus;
 }CC_PACKED _Rbuffer;

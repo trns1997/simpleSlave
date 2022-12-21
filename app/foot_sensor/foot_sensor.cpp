@@ -32,16 +32,16 @@ public:
         static DataItem fs1(DataItemId::FS_1_ID, true);
         static DataItem fs2(DataItemId::FS_2_ID, true);
         static DataItem fs3(DataItemId::FS_3_ID, true);
-        static DataItem fs4(DataItemId::FS_4_ID, true);
+        static DataItem fsVref(DataItemId::FS_VREF_ID, true);
 
         forceSensors_.read();
         ForceSensorData forceSensorData = forceSensors_.getForceSensorData();
 
-        fs0.set(forceSensorData.f0);
-        fs1.set(forceSensorData.f1);
-        fs2.set(forceSensorData.f2);
-        fs3.set(forceSensorData.f3);
-        fs4.set(forceSensorData.f4);
+        fs0.set(forceSensorData.channel0);
+        fs1.set(forceSensorData.channel1);
+        fs2.set(forceSensorData.channel2);
+        fs3.set(forceSensorData.channel4);
+        fsVref.set(forceSensorData.channel3);
     }
 
 private:
