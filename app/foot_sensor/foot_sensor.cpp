@@ -74,7 +74,7 @@ public:
     }
 
 private:
-    ForceSensor forceSensors_{board::SPI0_CH1};
+    ForceSensor forceSensors_{board::SPI_FS};
 };
 
 static FootSensorFibre footSensorFibre;

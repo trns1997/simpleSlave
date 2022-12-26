@@ -3,8 +3,10 @@
 #include "Fibre.hpp"
 #include "DataModel.hpp"
 
-bool isConfigured;
+#include "LSM6DSM.h"
+
 bool isReadRequested;
+SPI_Slave::State * stateIMU;
 uint8_t data;
 
 extern "C" void SPI_IMU_RX_Interrupt();
@@ -20,14 +22,26 @@ TEST(IMUTest, test_imu)
     DataItem gyrZDI(DataItemId::IMU_GYRO_Z_ID, true);
     DataItem tempDI(DataItemId::IMU_TEMP_ID, true);
 
-    ASSERT_EQ(false, isConfigured);
+    ASSERT_EQ(SPI_Slave::INITIALIZING, *stateIMU);
     thread.Init();
-    ASSERT_EQ(true, isConfigured);
+    ASSERT_EQ(SPI_Slave::INITIALIZING, *stateIMU);
 
     ASSERT_EQ(false, isReadRequested);
     thread.Run();
-    ASSERT_EQ(true, isReadRequested);
+    ASSERT_EQ(SPI_Slave::INITIALIZED, *stateIMU);
+    ASSERT_EQ(false, isReadRequested);
 
+    thread.Run();
+    ASSERT_EQ(SPI_Slave::INITIALIZED, *stateIMU);
+    ASSERT_EQ(false, isReadRequested);
+
+    SPI_IMU_RX_Interrupt();
+
+    ASSERT_EQ(SPI_Slave::READY, *stateIMU);
+    ASSERT_EQ(false, isReadRequested);
+
+    thread.Run();
+    ASSERT_EQ(true, isReadRequested);
     data = 10;
     SPI_IMU_RX_Interrupt();
     ASSERT_EQ(false, isReadRequested);

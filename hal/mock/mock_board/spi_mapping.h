@@ -8,9 +8,8 @@ namespace board
 
     typedef enum
     {
-        SPI0_CH1 = 0,
-        SPI1_CH0,
-        SPI2_CH0
+        SPI_IMU = 0,
+        SPI_FS
     } spi_identifier;
 
     typedef struct
@@ -21,13 +20,10 @@ namespace board
     static spi_conf_t spi_mapping[] =
     {
         {
-            SPI0_CH1,
+            SPI_IMU,
         },
         {
-            SPI1_CH0,
-        },
-        {
-            SPI2_CH0,
+            SPI_FS,
         },
     };
 

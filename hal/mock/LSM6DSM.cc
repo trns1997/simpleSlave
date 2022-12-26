@@ -1,17 +1,24 @@
 #include "LSM6DSM.h"
 
-extern bool isConfigured;
 extern bool isReadRequested;
 extern uint8_t data;
+extern LSM6DSM::State * stateIMU;
+
+LSM6DSM::LSM6DSM(board::spi_identifier spi_name): SPI_Slave(spi_name)
+{
+    stateIMU = &state_;
+    isReadRequested = false;
+    state_ = INITIALIZING;
+}
 
 void LSM6DSM::configure()
 {
-    isConfigured = true;
-    isReadRequested = false;
+    state_ = INITIALIZED;
 }
 
 void LSM6DSM::request_read()
 {
+    state_ = READY;
     isReadRequested = true;
 }
 

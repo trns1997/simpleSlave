@@ -1,4 +1,4 @@
-set(PROJECT board)
+set(PROJECT hw_mapping)
 
 add_library (${PROJECT} INTERFACE)
 target_include_directories ( ${PROJECT} INTERFACE ${CMAKE_CURRENT_SOURCE_DIR} )

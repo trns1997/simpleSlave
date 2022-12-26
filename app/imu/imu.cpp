@@ -68,7 +68,7 @@ public:
     }
 
 private:
-    LSM6DSM boardIMU_ {board::SPI2_CH0};
+    LSM6DSM boardIMU_ {board::SPI_IMU};
 };
 
 static IMUFibre imuFibre;

@@ -11,6 +11,10 @@ IF (NOT TEST)
 	  ${CMAKE_CURRENT_SOURCE_DIR}/xmc/SPI_XMC.cc
 	  ${CMAKE_CURRENT_SOURCE_DIR}/xmc/TIMER_XMC.cc
 	  )
+	  
+	target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
+	target_link_libraries(${PROJECT_NAME} LINK_PUBLIC hw_mapping board)
+	
 ELSE()
 
 	add_library (${PROJECT_NAME}
@@ -22,10 +26,14 @@ ELSE()
 	  ${CMAKE_CURRENT_SOURCE_DIR}/mock/SOES_hooks.cc
 	  )
 	  target_link_libraries(${PROJECT_NAME} LINK_PUBLIC soes_interface)
+	  
+	  target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
+	  target_link_libraries(${PROJECT_NAME} LINK_PUBLIC hw_mapping)
+	  
+	  add_subdirectory(mock/mock_board)
 ENDIF()
 	
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
-target_link_libraries(${PROJECT_NAME} LINK_PUBLIC board)
+
 
 
 

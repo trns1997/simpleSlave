@@ -1,5 +1,9 @@
 #include "LSM6DSM.h"
 
+
+LSM6DSM::LSM6DSM(board::spi_identifier spi_name): SPI_Slave(spi_name)
+{}
+
 void LSM6DSM::configure()
 {
     free_ = &buffer0_;

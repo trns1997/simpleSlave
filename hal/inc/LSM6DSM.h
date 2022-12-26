@@ -50,8 +50,7 @@ constexpr uint8_t I2C_DISABLE = 0x04;
 class LSM6DSM : public SPI_Slave
 {
 public:
-    LSM6DSM(board::spi_identifier spi_name): SPI_Slave(spi_name)
-    {}
+    LSM6DSM(board::spi_identifier spi_name);
     ~LSM6DSM() = default;
 
     void configure() override;
