@@ -6,7 +6,7 @@ void SPI::init()
 {
 }
 
-void SPI::sendData(uint8_t *txData, uint32_t size, bool blockingMode)
+void SPI::sendData(uint8_t *txData, uint32_t size)
 {
 }
 

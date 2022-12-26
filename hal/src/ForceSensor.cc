@@ -5,53 +5,81 @@ ForceSensor::ForceSensor(board::spi_identifier spi_name): SPI_Slave(spi_name)
 
 void ForceSensor::configure()
 {
+    static int step = 0;
     free_ = &buffer0_;
     consume_ = &buffer1_;
 
-    // Reset
-    uint8_t resetConfig[] = {0x85, 0x00};
-    uint32_t size = sizeof(resetConfig) / sizeof(resetConfig[0]);
-    sendData(resetConfig, size, true);
-
-    // Write Auto Seq Register
-    uint8_t autoConfig[] = {0x01 << 0x1 | 0b1U, 0b00011111, 0x00};
-    size = sizeof(autoConfig) / sizeof(autoConfig[0]);
-    sendData(autoConfig, size, true);
-
-    // Write Power Down Register
-    uint8_t pwrDownConfig[] = {0x02 << 0x1 | 0b1U, 0b11100000, 0x00};
-    size = sizeof(pwrDownConfig) / sizeof(pwrDownConfig[0]);
-    sendData(pwrDownConfig, size, true);
-
-    // Write Feature Register
-    uint8_t feat1Config[] = {0x03 << 0x1 | 0b1U, 0b00 << 6 | 0b0 << 4 | 0b001 << 0, 0x00};
-    size = sizeof(feat1Config) / sizeof(feat1Config[0]);
-    sendData(feat1Config, size, true);
-
-    uint8_t feat2Config[] = {0x05 << 0x1 | 0b1U, 0b0101, 0x00};
-    size = sizeof(feat2Config) / sizeof(feat2Config[0]);
-    sendData(feat2Config, size, true);
-
-    uint8_t feat3Config[] = {0x06 << 0x1 | 0b1U, 0b0101, 0x00};
-    size = sizeof(feat3Config) / sizeof(feat3Config[0]);
-    sendData(feat3Config, size, true);
-
-    uint8_t feat4Config[] = {0x07 << 0x1 | 0b1U, 0b0101, 0x00};
-    size = sizeof(feat4Config) / sizeof(feat4Config[0]);
-    sendData(feat4Config, size, true);
-
-    uint8_t feat5Config[] = {0x08 << 0x1 | 0b1U, 0b0101, 0x00};
-    size = sizeof(feat5Config) / sizeof(feat5Config[0]);
-    sendData(feat5Config, size, true);
-
-    uint8_t feat6Config[] = {0x09 << 0x1 | 0b1U, 0b0101, 0x00};
-    size = sizeof(feat6Config) / sizeof(feat6Config[0]);
-    sendData(feat6Config, size, true);
-
-    // Auto mode enabled following a reset (AUTO_RST)
-    uint8_t autoEnableConfig[] = {0x0A, 0x00};
-    size = sizeof(autoEnableConfig) / sizeof(autoEnableConfig[0]);
-    sendData(autoEnableConfig, size, true);
+    uint8_t config[5] = {};
+    uint8_t size = 0;
+    switch (step)
+    {
+        case 0:
+            // Reset
+            config[0] = 0x85;
+            config[1] = 0x00;
+            size = 2;
+            break;
+        case 1:
+            // Write Auto Seq Register
+            config[0] = 0x01 << 0x1 | 0b1U;
+            config[1] = 0b00011111;
+            config[2] = 0x00;
+            size = 3;
+            break;
+        case 2:
+            // Write Power Down Register
+            config[0] = 0x02 << 0x1 | 0b1U;
+            config[1] = 0b11100000;
+            config[2] = 0x00;
+            size = 3;
+            break;
+        case 3:
+            // Write Feature Register
+            config[0] = 0x03 << 0x1 | 0b1U;
+            config[1] = 0b00 << 6 | 0b0 << 4 | 0b001 << 0;
+            config[2] = 0x00;
+            size = 3;
+            break;
+        case 4:
+            config[0] = 0x05 << 0x1 | 0b1U;
+            config[1] = 0b0101;
+            config[2] = 0x00;
+            size = 3;
+            break;
+        case 5:
+            config[0] = 0x06 << 0x1 | 0b1U;
+            config[1] = 0b0101;
+            config[2] = 0x00;
+            size = 3;
+            break;
+        case 6:
+            config[0] = 0x07 << 0x1 | 0b1U;
+            config[1] = 0b0101;
+            config[2] = 0x00;
+            size = 3;
+            break;
+        case 7:
+            config[0] = 0x08 << 0x1 | 0b1U;
+            config[1] = 0b0101;
+            config[2] = 0x00;
+            size = 3;
+            break;
+        case 8:
+            config[0] = 0x09 << 0x1 | 0b1U;
+            config[1] = 0b0101;
+            config[2] = 0x00;
+            size = 3;
+            break;
+        case 9:
+            // Auto mode enabled following a reset (AUTO_RST)
+            config[0] = 0x0A;
+            config[1] = 0x00;
+            size = 2;
+            state_ = INITIALIZED;
+            break;
+    }
+    step++;
+    sendData(config, size);
 }
 
 void ForceSensor::request_read()
