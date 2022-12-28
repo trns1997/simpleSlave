@@ -3,4 +3,5 @@
 .project
 .settings/
 /Debug/
+flashBin.jlink
 
