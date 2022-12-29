@@ -27,3 +27,4 @@ add_custom_command(TARGET ${EXECUTABLE}
 )
 
 add_subdirectory(data_model)
+add_subdirectory(board)

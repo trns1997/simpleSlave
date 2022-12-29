@@ -1,23 +1,25 @@
 #include "ForceSensor.h"
 
-extern bool isConfigured;
 extern bool isReadRequested;
 extern uint8_t data;
+extern ForceSensor::State * stateFS;
 
 ForceSensor::ForceSensor(board::spi_identifier spi_name): SPI_Slave(spi_name)
 {
-    isConfigured = false;
+    stateFS = &state_;
     isReadRequested = false;
+    state_ = INITIALIZING;
+    continueRead_ = false;
 }
 
 void ForceSensor::configure()
 {
-    isConfigured = true;
-    isReadRequested = false;
+    state_ = INITIALIZED;
 }
 
 void ForceSensor::request_read()
 {
+    state_ = READY;
     isReadRequested = true;
 }
 

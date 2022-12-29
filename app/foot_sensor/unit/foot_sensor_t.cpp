@@ -2,9 +2,10 @@
 
 #include "Fibre.hpp"
 #include "DataModel.hpp"
+#include "ForceSensor.h"
 
-bool isConfigured;
 bool isReadRequested;
+SPI_Slave::State * stateFS;
 uint8_t data;
 
 extern "C" void SPI_Force_Sensor_RX_Interrupt();
@@ -18,14 +19,26 @@ TEST(ForceSensorTest, test_fs)
     DataItem fs3DI(DataItemId::FS_3_ID, true);
     DataItem fsVrefDI(DataItemId::FS_VREF_ID, true);
 
-    ASSERT_EQ(false, isConfigured);
+    ASSERT_EQ(SPI_Slave::INITIALIZING, *stateFS);
     thread.Init();
-    ASSERT_EQ(true, isConfigured);
+    ASSERT_EQ(SPI_Slave::INITIALIZING, *stateFS);
 
     ASSERT_EQ(false, isReadRequested);
     thread.Run();
-    ASSERT_EQ(true, isReadRequested);
+    ASSERT_EQ(SPI_Slave::INITIALIZED, *stateFS);
+    ASSERT_EQ(false, isReadRequested);
 
+    thread.Run();
+    ASSERT_EQ(SPI_Slave::INITIALIZED, *stateFS);
+    ASSERT_EQ(false, isReadRequested);
+
+    SPI_Force_Sensor_RX_Interrupt();
+
+    ASSERT_EQ(SPI_Slave::READY, *stateFS);
+    ASSERT_EQ(false, isReadRequested);
+
+    thread.Run();
+    ASSERT_EQ(true, isReadRequested);
     data = 10;
     SPI_Force_Sensor_RX_Interrupt();
     ASSERT_EQ(false, isReadRequested);

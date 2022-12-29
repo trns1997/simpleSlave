@@ -22,8 +22,8 @@ namespace board
 
     typedef enum
     {
-        SPI0_CH1 = 0,
-        SPI1_CH0
+        SPI_FS = 0,
+        SPI_IMU
     } spi_identifier;
 
     typedef struct
@@ -43,7 +43,7 @@ namespace board
     static spi_conf_t spi_mapping[] =
     {
         {
-            SPI0_CH1,
+            SPI_FS,
             XMC_SPI0_CH1,
             spi_config,
             XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_0_DELAY_DISABLED,
@@ -55,7 +55,7 @@ namespace board
             USIC0_C1_DX0_P2_2
         },
         {
-            SPI1_CH0,
+            SPI_IMU,
             XMC_SPI1_CH0,
             spi_config,
             XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_1_DELAY_DISABLED,

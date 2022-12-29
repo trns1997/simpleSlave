@@ -24,6 +24,8 @@ public:
 
     ForceSensorData getForceSensorData();
 
+    bool isReadingFinished () { return !continueRead_; } ;
+
 private:
     uint16_t channelCnt_    {0};
     ForceSensorData channelData_     {0};

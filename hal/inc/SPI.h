@@ -15,7 +15,7 @@ public:
 
 	void init();
 
-	void sendData(uint8_t *txData, uint32_t size, bool blockingMode = false);
+	void sendData(uint8_t *txData, uint32_t size);
 	void readData(uint8_t *rxData, uint32_t &size);
 
 private:
