@@ -6,10 +6,9 @@
 class IMUFibre : public Fibre
 {
 public:
-
-    IMUFibre(): Fibre("IMUFibre")
+    IMUFibre() : Fibre("IMUFibre")
     {
-        FibreManager& thread = FibreManager::getInstance(THREAD_1MS_ID);
+        FibreManager &thread = FibreManager::getInstance(THREAD_1MS_ID);
         thread.Add(std::shared_ptr<Fibre>(std::shared_ptr<Fibre>{}, this));
     }
 
@@ -22,12 +21,16 @@ public:
 
     void Run() override
     {
-        if ( boardIMU_.isBusy() )
+        if (boardIMU_.isBusy())
             return;
 
         if (boardIMU_.getState() == SPI_Slave::INITIALIZING)
         {
             boardIMU_.configure();
+        }
+        else if (boardIMU_.getState() == SPI_Slave::ERROR)
+        {
+            // TODO: Reset Board or Turn ON Error LED
         }
         else
         {
@@ -47,7 +50,11 @@ public:
         static DataItem imuGyroZ(DataItemId::IMU_GYRO_Z_ID, true);
         static DataItem imuTemp(DataItemId::IMU_TEMP_ID, true);
 
-        if (boardIMU_.getState() == SPI_Slave::INITIALIZED)
+        if (boardIMU_.getState() == SPI_Slave::INITIALIZING)
+        {
+            boardIMU_.checkConfiguration();
+        }
+        else if (boardIMU_.getState() == SPI_Slave::INITIALIZED)
         {
             boardIMU_.setState(SPI_Slave::READY);
         }
@@ -68,7 +75,7 @@ public:
     }
 
 private:
-    LSM6DSM boardIMU_ {board::SPI_IMU};
+    LSM6DSM boardIMU_{board::SPI_IMU};
 };
 
 static IMUFibre imuFibre;
@@ -78,4 +85,3 @@ extern "C" void SPI_IMU_RX_Interrupt(void)
 {
     imuFibre.Interrupt();
 }
-

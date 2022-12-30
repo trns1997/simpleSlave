@@ -56,14 +56,17 @@ public:
     void configure() override;
     void request_read() override;
     void read() override;
+    void checkConfiguration() override;
 
     IMUData getIMUData();
 
 private:
-    IMUData buffer0_    {0};
-    IMUData buffer1_    {0};
-    IMUData *free_      {0};
-    IMUData *consume_   {0};
+    IMUData buffer0_{0};
+    IMUData buffer1_{0};
+    IMUData *free_{0};
+    IMUData *consume_{0};
+    uint8_t step_ = 0;
+    uint8_t imuConfig_[5] = {};
 };
 
 #endif

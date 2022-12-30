@@ -50,7 +50,6 @@ void SPI::init()
 
 void SPI::sendData(uint8_t *txData, uint32_t size)
 {
-    transferComplete_ = false;
     XMC_SPI_CH_EnableSlaveSelect(spi_conf_.channel, XMC_SPI_CH_SLAVE_SELECT_0);
     /* Flush the Receive FIFO */
     XMC_USIC_CH_RXFIFO_Flush(spi_conf_.channel);
@@ -80,6 +79,5 @@ void SPI::readData(uint8_t *rxData, uint32_t &size)
                                         (uint32_t)XMC_USIC_CH_RXFIFO_EVENT_CONF_ALTERNATE);
 
     XMC_SPI_CH_DisableSlaveSelect(spi_conf_.channel);
-    transferComplete_ = true;
 }
 

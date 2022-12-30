@@ -21,19 +21,21 @@ public:
     void configure() override;
     void request_read() override;
     void read() override;
+    void checkConfiguration() override;
 
     ForceSensorData getForceSensorData();
 
-    bool isReadingFinished () { return !continueRead_; } ;
+    bool isReadingFinished() { return !continueRead_; };
 
 private:
-    uint16_t channelCnt_    {0};
-    ForceSensorData channelData_     {0};
-    ForceSensorData buffer0_    {0};
-    ForceSensorData buffer1_    {0};
-    ForceSensorData *free_      {0};
-    ForceSensorData *consume_   {0};
+    uint16_t channelCnt_{0};
+    ForceSensorData channelData_{0};
+    ForceSensorData buffer0_{0};
+    ForceSensorData buffer1_{0};
+    ForceSensorData *free_{0};
+    ForceSensorData *consume_{0};
     bool continueRead_{true};
+    uint8_t config_[3] = {};
 };
 
 #endif
