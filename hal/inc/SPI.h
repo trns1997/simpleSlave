@@ -20,7 +20,6 @@ public:
 
 private:
 	board::spi_conf_t spi_conf_;
-	bool transferComplete_{false};
 };
 
 static void initSPI()

@@ -37,6 +37,10 @@ void LSM6DSM::read()
     buffer0_.temperatureSensor = data+20;
 }
 
+void LSM6DSM::checkConfiguration()
+{
+}
+
 IMUData LSM6DSM::getIMUData()
 {
     return buffer0_;

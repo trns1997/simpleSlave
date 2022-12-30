@@ -29,6 +29,10 @@ public:
         {
             forceSensors_.configure();
         }
+        else if (forceSensors_.getState() == SPI_Slave::ERROR)
+        {
+            //TODO: Reset Board or Turn ON Error LED
+        }
         else
         {
             forceSensors_.request_read();
@@ -47,6 +51,7 @@ public:
 
         if (forceSensors_.getState() == SPI_Slave::INITIALIZING)
         {
+                forceSensors_.checkConfiguration();
                 forceSensors_.setAvailable();
         }
         else if (forceSensors_.getState() == SPI_Slave::INITIALIZED)
