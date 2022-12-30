@@ -6,14 +6,14 @@
 #include "LSM6DSM.h"
 
 bool isReadRequested;
-SPI_Slave::State * stateIMU;
+SPI_Slave::State *stateIMU;
 uint8_t data;
 
 extern "C" void SPI_IMU_RX_Interrupt();
 
 TEST(IMUTest, test_imu)
 {
-    FibreManager& thread = FibreManager::getInstance(THREAD_1MS_ID);
+    FibreManager &thread = FibreManager::getInstance(THREAD_1MS_ID);
     DataItem accXDI(DataItemId::IMU_ACCEL_X_ID, true);
     DataItem accYDI(DataItemId::IMU_ACCEL_Y_ID, true);
     DataItem accZDI(DataItemId::IMU_ACCEL_Z_ID, true);
@@ -28,10 +28,11 @@ TEST(IMUTest, test_imu)
 
     ASSERT_EQ(false, isReadRequested);
     thread.Run();
-    ASSERT_EQ(SPI_Slave::INITIALIZED, *stateIMU);
+    ASSERT_EQ(SPI_Slave::INITIALIZING, *stateIMU);
     ASSERT_EQ(false, isReadRequested);
 
     thread.Run();
+    SPI_IMU_RX_Interrupt();
     ASSERT_EQ(SPI_Slave::INITIALIZED, *stateIMU);
     ASSERT_EQ(false, isReadRequested);
 
@@ -53,4 +54,3 @@ TEST(IMUTest, test_imu)
     ASSERT_EQ(22, gyrZDI.get());
     ASSERT_EQ(30, tempDI.get());
 }
-
