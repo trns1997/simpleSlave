@@ -2,6 +2,7 @@
 .cproject
 .project
 .settings/
+.vscode/launch.json
 /Debug/
 flashBin.jlink
 
