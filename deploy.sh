@@ -30,20 +30,9 @@ for var in "$@"; do
     esac
 done
 
-case $arg_target in
-XMC4800-2048)
-    export TARGET_DEVICE="XMC4800-2048"
-    ;;
-*)
-    echo "!!! Unknown target '$arg_target' !!!"
-    usage
-    exit 1
-    ;;
-esac
-
 test -f flashBin.jlink && rm flashBin.jlink
 echo "erase" >>flashBin.jlink
 echo "loadfile $CURRENT_DIR/build/$arg_board/$arg_product/$arg_product.bin 0x0C000000" >>flashBin.jlink
 echo "reset" >>flashBin.jlink
 echo "quit" >>flashBin.jlink
-./JLinkExe -device $TARGET_DEVICE -nogui 1 -if swd -speed 4000kHz -commandfile flashBin.jlink
+./JLinkExe -device $arg_target -nogui 1 -if swd -speed 4000kHz -commandfile flashBin.jlink
