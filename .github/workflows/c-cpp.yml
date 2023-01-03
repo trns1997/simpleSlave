@@ -17,19 +17,19 @@ jobs:
           path-env-var: ARM_GCC_BIN_FOLDER
           
     - name: build fallsafe on relax board
-      run: ./build.sh XMC4800-2048 fallsafe relax
+      run: ./build.sh XMC4800_F144x2048 fallsafe relax
     - name: build fallsafe on ankle board
-      run: ./build.sh XMC4800-2048 fallsafe ankle
+      run: ./build.sh XMC4800_F144x2048 fallsafe ankle
       
     - name: build blinker on relax board
-      run: ./build.sh XMC4800-2048 blinker relax
+      run: ./build.sh XMC4800_F144x2048 blinker relax
     - name: build blinker on ankle board
-      run: ./build.sh XMC4800-2048 blinker ankle
+      run: ./build.sh XMC4800_F144x2048 blinker ankle
  
     - name: build ankle on relax board
-      run: ./build.sh XMC4800-2048 ankle relax
+      run: ./build.sh XMC4800_F144x2048 ankle relax
     - name: build ankle on ankle board
-      run: ./build.sh XMC4800-2048 ankle ankle
+      run: ./build.sh XMC4800_F144x2048 ankle ankle
 
     - name: build unit-tests
       run: ./build.sh unit
