@@ -1,27 +1,5 @@
 #!/bin/bash
 
-usage() {
-    echo "Usage: $0 target product board"
-    echo "Supported targets:"
-    echo "  - XMC4800-2048"
-    echo "Supported products:"
-    for dir in product/*/; do
-        product=$(basename "$dir")
-        echo "  - $product"
-    done
-    echo "Supported boards:"
-    for dir in product/$product/board/*/; do
-        board=$(basename "$dir")
-        echo "  - $board"
-    done
-    echo ""
-    exit 1
-}
-
-arg_target=$1
-arg_product=$2
-arg_board=$3
-
 workspaceRoot=$(pwd)
 
 test -f .vscode/launch.json && rm .vscode/launch.json
