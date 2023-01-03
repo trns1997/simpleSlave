@@ -6,19 +6,19 @@ usage() {
     echo "Usage: $0 unit"
     echo "Supported mcus:"
     echo "  - XMC4800_F144x2048"
-    echo "Supported boards:"
-    echo "  - ankle"
-    echo "  - relax"
     echo "Supported products:"
     echo "  - ankle"
     echo "  - blinker"
+    echo "Supported boards:"
+    echo "  - ankle"
+    echo "  - relax"
     echo ""
     exit 1
 }
 
 arg_mcu=$1
-arg_board=$2
-arg_product=$3
+arg_product=$2
+arg_board=$3
 
 cmake_args=""
 cmake_toolchain_dir="-DARM_TOOLCHAIN_DIR="

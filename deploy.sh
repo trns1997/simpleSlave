@@ -1,22 +1,22 @@
 #!/bin/bash
 
 usage() {
-    echo "Usage: $0 target board product"
+    echo "Usage: $0 target product board"
     echo "Supported targets:"
     echo "  - XMC4800-2048"
-    echo "Supported boards:"
-    echo "  - ankle"
-    echo "  - relax"
     echo "Supported products:"
     echo "  - ankle"
     echo "  - blinker"
+    echo "Supported boards:"
+    echo "  - ankle"
+    echo "  - relax"
     echo ""
     exit 1
 }
 
 arg_target=$1
-arg_board=$2
-arg_product=$3
+arg_product=$2
+arg_board=$3
 
 CURRENT_DIR=$(pwd)
 
