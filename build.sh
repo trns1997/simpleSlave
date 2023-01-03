@@ -58,38 +58,37 @@ for var in "$@"; do
         cmake_args="$cmake_build_type $cmake_test_bool"
         ;;
     *)
+        product_exists=false
+        for dir in product/*/; do
+            product=$(basename "$dir")
+            if [ "$product" == "$arg_product" ]; then
+                product_exists=true
+            fi
+        done
+
+        if [ "$product_exists" = false ]; then
+            echo "PRODUCT DOES NOT EXIST"
+            usage
+            exit 0
+        fi
+
+        board_exists=false
+        for dir in product/$product/board/*/; do
+            board=$(basename "$dir")
+            if [ "$board" == "$arg_board" ]; then
+                board_exists=true
+            fi
+        done
+
+        if [ "$board_exists" = false ]; then
+            echo "BOARD DOES NOT EXIST"
+            usage
+            exit 0
+        fi
         cmake_args="$cmake_toolchain_dir $cmake_toolchain_file $cmake_top_bin_dir $cmake_board_name $cmake_product_name $cmake_mcu_name"
         ;;
     esac
 done
-
-product_exists=false
-for dir in product/*/; do
-    product=$(basename "$dir")
-    if [ "$product" == "$arg_product" ]; then
-        product_exists=true
-    fi
-done
-
-if [ "$product_exists" = false ]; then
-    echo "PRODUCT DOES NOT EXIST"
-    usage
-    exit 0
-fi
-
-board_exists=false
-for dir in product/$product/board/*/; do
-    board=$(basename "$dir")
-    if [ "$board" == "$arg_board" ]; then
-        board_exists=true
-    fi
-done
-
-if [ "$board_exists" = false ]; then
-    echo "BOARD DOES NOT EXIST"
-    usage
-    exit 0
-fi
 
 rm -rf $CURRENT_DIR/build/$arg_board/$arg_product
 mkdir -p $CURRENT_DIR/build/$arg_board/$arg_product
