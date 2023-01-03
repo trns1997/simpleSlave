@@ -63,6 +63,34 @@ for var in "$@"; do
     esac
 done
 
+product_exists=false
+for dir in product/*/; do
+    product=$(basename "$dir")
+    if [ "$product" == "$arg_product" ]; then
+        product_exists=true
+    fi
+done
+
+if [ "$product_exists" = false ]; then
+    echo "PRODUCT DOES NOT EXIST"
+    usage
+    exit 0
+fi
+
+board_exists=false
+for dir in product/$product/board/*/; do
+    board=$(basename "$dir")
+    if [ "$board" == "$arg_board" ]; then
+        board_exists=true
+    fi
+done
+
+if [ "$board_exists" = false ]; then
+    echo "BOARD DOES NOT EXIST"
+    usage
+    exit 0
+fi
+
 rm -rf $CURRENT_DIR/build/$arg_board/$arg_product
 mkdir -p $CURRENT_DIR/build/$arg_board/$arg_product
 cd $CURRENT_DIR/build/$arg_board/$arg_product

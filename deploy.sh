@@ -34,6 +34,11 @@ for var in "$@"; do
     esac
 done
 
+if [ ! -f "$CURRENT_DIR/build/$arg_board/$arg_product/$arg_product.bin" ]; then
+    echo "BIN FILE DOES NOT EXIST HAVE YOU TRIED BUILDING FIRST"
+    exit 0
+fi
+
 test -f flashBin.jlink && rm flashBin.jlink
 echo "erase" >>flashBin.jlink
 echo "loadfile $CURRENT_DIR/build/$arg_board/$arg_product/$arg_product.bin 0x0C000000" >>flashBin.jlink
