@@ -5,11 +5,15 @@ usage() {
     echo "Supported targets:"
     echo "  - XMC4800-2048"
     echo "Supported products:"
-    echo "  - ankle"
-    echo "  - blinker"
+    for dir in product/*/; do
+        product=$(basename "$dir")
+        echo "  - $product"
+    done
     echo "Supported boards:"
-    echo "  - ankle"
-    echo "  - relax"
+    for dir in product/$product/board/*/; do
+        board=$(basename "$dir")
+        echo "  - $board"
+    done
     echo ""
     exit 1
 }

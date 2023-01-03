@@ -1,17 +1,21 @@
 #!/bin/bash
 
 usage() {
-    echo "Usage: $0 mcu board product"
+    echo "Usage: $0 mcu product board"
     echo "OR"
     echo "Usage: $0 unit"
     echo "Supported mcus:"
     echo "  - XMC4800_F144x2048"
     echo "Supported products:"
-    echo "  - ankle"
-    echo "  - blinker"
+    for dir in product/*/; do
+        product=$(basename "$dir")
+        echo "  - $product"
+    done
     echo "Supported boards:"
-    echo "  - ankle"
-    echo "  - relax"
+    for dir in product/$product/board/*/; do
+        board=$(basename "$dir")
+        echo "  - $board"
+    done
     echo ""
     exit 1
 }
