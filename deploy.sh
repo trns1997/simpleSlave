@@ -40,7 +40,7 @@ if [ ! -f "$CURRENT_DIR/build/$arg_board/$arg_product/$arg_product.bin" ]; then
 fi
 
 test -f flashBin.jlink && rm flashBin.jlink
-echo "erase" >>flashBin.jlink
+#TODO for mode prod in the Future: echo "erase" >>flashBin.jlink
 echo "loadfile $CURRENT_DIR/build/$arg_board/$arg_product/$arg_product.bin 0x0C000000" >>flashBin.jlink
 echo "reset" >>flashBin.jlink
 echo "quit" >>flashBin.jlink
