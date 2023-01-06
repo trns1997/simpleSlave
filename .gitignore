@@ -3,6 +3,7 @@
 .project
 .settings/
 .vscode/launch.json
+*.orig
 /Debug/
 flashBin.jlink
 
