@@ -90,6 +90,7 @@ for var in "$@"; do
     esac
 done
 
+sh generate_vscode_launch_file.sh
 rm -rf $CURRENT_DIR/build/$arg_board/$arg_product
 mkdir -p $CURRENT_DIR/build/$arg_board/$arg_product
 cd $CURRENT_DIR/build/$arg_board/$arg_product
