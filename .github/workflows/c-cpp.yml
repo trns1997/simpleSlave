@@ -16,20 +16,23 @@ jobs:
           release: '10.3-2021.10'
           path-env-var: ARM_GCC_BIN_FOLDER
           
-    - name: make fallsafe on relax board
-      run: make project product_name=fallsafe board_name=relax
-    - name: make fallsafe on ankle board
-      run: make project product_name=fallsafe board_name=ankle
+    - name: build fallsafe on relax board
+      run: ./build.sh XMC4800_F144x2048 fallsafe relax
+    - name: build fallsafe on ankle board
+      run: ./build.sh XMC4800_F144x2048 fallsafe ankle
       
-    - name: make blinker on relax board
-      run: make project product_name=blinker board_name=relax
-    - name: make blinker on ankle board
-      run: make project product_name=blinker board_name=ankle
+    - name: build blinker on relax board
+      run: ./build.sh XMC4800_F144x2048 blinker relax
+    - name: build blinker on ankle board
+      run: ./build.sh XMC4800_F144x2048 blinker ankle
  
-    - name: make ankle on relax board
-      run: make project product_name=ankle board_name=relax
-    - name: make ankle on ankle board
-      run: make project product_name=ankle board_name=ankle
+    - name: build ankle on relax board
+      run: ./build.sh XMC4800_F144x2048 ankle relax
+    - name: build ankle on ankle board
+      run: ./build.sh XMC4800_F144x2048 ankle ankle
+
+    - name: build unit-tests
+      run: ./build.sh unit
 
   test:
     runs-on: ubuntu-latest
@@ -37,6 +40,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     
-    - name: make unit-tests
-      run: make unit
+    - name: build unit-tests
+      run: ./build.sh unit && ./run_test.sh 
     
