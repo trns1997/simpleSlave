@@ -13,7 +13,7 @@ IF (NOT TEST)
 	  )
 	  
 	target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
-	target_link_libraries(${PROJECT_NAME} LINK_PUBLIC hw_mapping board)
+	target_link_libraries(${PROJECT_NAME} LINK_PUBLIC hw_mapping board data_model)
 	
 ELSE()
 

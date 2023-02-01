@@ -10,13 +10,14 @@
  * Part of application, describe the slave and its process data.
  */
 
+#include "DataModel.hpp"
+
 #include "esc_coe.h"
-#include "utypes.h"
 #include <stddef.h>
 
-extern _Rbuffer Rb;
-extern _Wbuffer Wb;
-extern _Cbuffer Cb;
+extern readBuffer input;
+extern writeBuffer output;
+extern counterBuffer counter;
 
 static const char acName1000[] = "Device Type";
 static const char acName1008[] = "Manufacturer Device Name";
@@ -119,38 +120,38 @@ const _objd SDO1C13[] =
 
 const _objd SDO6000[] =
     {{0x00, DTYPE_UNSIGNED8, 8, ATYPE_RO, &acNameNOE[0], 0x01, NULL},
-     {0x01, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Watchdog counter", 0, &(Rb.watchdogCounter)}};
+     {0x01, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Watchdog counter", 0, &(input.watchdogCounter)}};
 
 const _objd SDO6001[] =
     {{0x00, DTYPE_UNSIGNED8, 8, ATYPE_RO, &acNameNOE[0], 0x07, NULL},
-     {0x01, DTYPE_INTEGER16, 16, ATYPE_RO, "Accelerometer X", 0, &(Rb.ankleIMU.accelerometerX)},
-     {0x02, DTYPE_INTEGER16, 16, ATYPE_RO, "Accelerometer Y", 0, &(Rb.ankleIMU.accelerometerY)},
-     {0x03, DTYPE_INTEGER16, 16, ATYPE_RO, "Accelerometer Z", 0, &(Rb.ankleIMU.accelerometerZ)},
-     {0x04, DTYPE_INTEGER16, 16, ATYPE_RO, "Gyroscope X", 0, &(Rb.ankleIMU.gyroscopeX)},
-     {0x05, DTYPE_INTEGER16, 16, ATYPE_RO, "Gyroscope Y", 0, &(Rb.ankleIMU.gyroscopeY)},
-     {0x06, DTYPE_INTEGER16, 16, ATYPE_RO, "Gyroscope Z", 0, &(Rb.ankleIMU.gyroscopeZ)},
-     {0x07, DTYPE_INTEGER16, 16, ATYPE_RO, "Temperature", 0, &(Rb.ankleIMU.temperature)}};
+     {0x01, DTYPE_INTEGER16, 16, ATYPE_RO, "Accelerometer X", 0, &(input.footIMU.accelerometerX)},
+     {0x02, DTYPE_INTEGER16, 16, ATYPE_RO, "Accelerometer Y", 0, &(input.footIMU.accelerometerY)},
+     {0x03, DTYPE_INTEGER16, 16, ATYPE_RO, "Accelerometer Z", 0, &(input.footIMU.accelerometerZ)},
+     {0x04, DTYPE_INTEGER16, 16, ATYPE_RO, "Gyroscope X", 0, &(input.footIMU.gyroscopeX)},
+     {0x05, DTYPE_INTEGER16, 16, ATYPE_RO, "Gyroscope Y", 0, &(input.footIMU.gyroscopeY)},
+     {0x06, DTYPE_INTEGER16, 16, ATYPE_RO, "Gyroscope Z", 0, &(input.footIMU.gyroscopeZ)},
+     {0x07, DTYPE_INTEGER16, 16, ATYPE_RO, "Temperature", 0, &(input.footIMU.temperature)}};
 
 const _objd SDO6005[] =
     {{0x00, DTYPE_UNSIGNED8, 8, ATYPE_RO, &acNameNOE[0], 0x05, NULL},
-     {0x01, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Force sensor 0", 0, &(Rb.forceSensor0)},
-     {0x02, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Force sensor 1", 0, &(Rb.forceSensor1)},
-     {0x03, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Force sensor 2", 0, &(Rb.forceSensor2)},
-     {0x04, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Force sensor 3", 0, &(Rb.forceSensor3)},
-     {0x05, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Force sensor Vref", 0, &(Rb.forceSensorVref)}};
+     {0x01, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Force sensor 0", 0, &(input.forceSensor0)},
+     {0x02, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Force sensor 1", 0, &(input.forceSensor1)},
+     {0x03, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Force sensor 2", 0, &(input.forceSensor2)},
+     {0x04, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Force sensor 3", 0, &(input.forceSensor3)},
+     {0x05, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Force sensor Vref", 0, &(input.forceSensorVref)}};
 
 const _objd SDO6006[] =
     {{0x00, DTYPE_UNSIGNED8, 8, ATYPE_RO, &acNameNOE[0], 0x01, NULL},
-     {0x01, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Board status", 0, &(Rb.boardStatus)}};
+     {0x01, DTYPE_UNSIGNED16, 16, ATYPE_RO, "Board status", 0, &(input.boardStatus)}};
 
 const _objd SDO7000[] =
     {{0x00, DTYPE_UNSIGNED8, 8, ATYPE_RO, &acNameNOE[0], 0x01, NULL},
-     {0x01, DTYPE_UNSIGNED16, 16, ATYPE_RW, "Watchdog counter", 0, &(Wb.watchdogCounter)}};
+     {0x01, DTYPE_UNSIGNED16, 16, ATYPE_RW, "Watchdog counter", 0, &(output.watchdogCounter)}};
 
 const _objd SDO8001[] =
     {
         {0x00, DTYPE_UNSIGNED8, 8, ATYPE_RO, &acNameNOE[0], 0x01, NULL},
-        {0x01, DTYPE_UNSIGNED32, 32, ATYPE_RW, &acName8001_01[0], 0, &(Cb.reset_counter)},
+        {0x01, DTYPE_UNSIGNED32, 32, ATYPE_RW, &acName8001_01[0], 0, &(counter.reset_counter)},
 };
 
 const _objectlist SDOobjects[] =
