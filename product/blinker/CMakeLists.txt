@@ -11,6 +11,7 @@ endif()
 add_executable(
     ${EXECUTABLE}
     main.cc
+    objectlist.cc
 )
 
 target_link_libraries(${EXECUTABLE} board soes hal infra data_model app)

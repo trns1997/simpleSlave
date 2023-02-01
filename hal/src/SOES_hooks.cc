@@ -1,4 +1,5 @@
 #include "SOES_hooks.h"
+#include "DataModel.hpp"
 
 extern "C"
 {
@@ -7,30 +8,30 @@ extern "C"
 
 extern void callback_inputs();
 
-_Rbuffer Rb;
-_Wbuffer Wb;
-_Cbuffer Cb;
+readBuffer input;
+writeBuffer output;
+counterBuffer counter;
 
-uint8_t *rxpdo = (uint8_t *)&Wb;
-uint8_t *txpdo = (uint8_t *)&Rb;
+uint8_t *rxpdo = (uint8_t *)&output;
+uint8_t *txpdo = (uint8_t *)&input;
 
 extern "C" void ESC_eep_handler(void);
-extern void fill_input_buffer(_Rbuffer &buffer);
+// extern void fill_input_buffer(_Rbuffer &buffer);
 
 // Callback to update ethercat frame when it arrives with slave data
 void cb_get_inputs(void)
 {
     // Put Data in Respective PDO objects
-    Cb.reset_counter++;
-    Rb.boardStatus = (uint16_t)ESCvar.Time;
+    // Cb.reset_counter++;
+    // Rb.boardStatus = 0xffff;
 
-    fill_input_buffer(Rb);
+    // fill_input_buffer(Rb);
 }
 
 // Callback to get data from the ethercat frame when it arrives
 void cb_set_outputs(void)
 {
-    Rb.watchdogCounter = Wb.watchdogCounter;
+    input.watchdogCounter = output.watchdogCounter;
 }
 
 uint32_t post_object_download_hook(uint16_t index, uint8_t subindex,
@@ -44,7 +45,7 @@ uint32_t post_object_download_hook(uint16_t index, uint8_t subindex,
         {
         case 0x01:
         {
-            Cb.reset_counter = 0;
+            // Cb.reset_counter = 0;
             break;
         }
         }

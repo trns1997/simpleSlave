@@ -12,7 +12,11 @@
         "tuple": "cpp",
         "type_traits": "cpp",
         "utility": "cpp",
-        "initializer_list": "cpp"
+        "initializer_list": "cpp",
+        "utypes.h": "c",
+        "stddef.h": "c",
+        "cc.h": "c",
+        "*.tcc": "cpp"
     },
     "cortex-debug.variableUseNaturalFormat": false
 }
