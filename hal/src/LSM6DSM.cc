@@ -16,8 +16,8 @@ void LSM6DSM::configure()
     case 0:
     {
         imuConfig_[0] = IMU_WRITE | ADDR_CTRL1_XL;
-        imuConfig_[1] = ACC_GYRO_ODR_XL_1660Hz;
-        imuConfig_[2] = ACC_GYRO_ODR_G_1660Hz;
+        imuConfig_[1] = ACC_GYRO_ODR_1660Hz | ACC_16G;
+        imuConfig_[2] = ACC_GYRO_ODR_1660Hz;
         imuConfig_[3] = IF_INC | BDU;
         imuConfig_[4] = I2C_DISABLE;
         sendData(imuConfig_, size);

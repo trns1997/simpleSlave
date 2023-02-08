@@ -41,8 +41,8 @@ enum IMUregisteraddresses
 
 constexpr uint8_t IMU_READ = 0x80;
 constexpr uint8_t IMU_WRITE = 0x00;
-constexpr uint8_t ACC_GYRO_ODR_XL_1660Hz = 0x80;
-constexpr uint8_t ACC_GYRO_ODR_G_1660Hz = 0x80;
+constexpr uint8_t ACC_GYRO_ODR_1660Hz = 0x80;
+constexpr uint8_t ACC_16G = 0x04;
 constexpr uint8_t IF_INC = 0x04; /**< Automatic address increment in multiple bytes read (logic or) */
 constexpr uint8_t BDU = 0x40;    /**< Block data update mechanism(logic or) */
 constexpr uint8_t I2C_DISABLE = 0x04;
