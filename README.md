@@ -39,7 +39,23 @@ Example if you wish to build **product** `blinker` on the **board** `xmc4800 rel
 ```
 
 ## Deploy Binaries
-
+```
+$ ./deploy.sh -h
+Usage: ./deploy.sh target product board
+Supported targets:
+  - XMC4800-2048
+Supported products:
+  - ankle
+  - blinker
+  - fallsafe
+Supported boards:
+  - ankle
+  - relax
+```
+Example if you wish to deploy **product** `blinker` on the **board** `xmc4800 relax kit` which has **target** `XMC4800-2048`:
+```
+./deploy.sh XMC4800-2048 blinker relax
+```
 
 ### Debugging
 <details close>
