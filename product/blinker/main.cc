@@ -1,5 +1,7 @@
+#include "BlinkLedFibre.h"
 #include "GPIO.h"
 #include "TIMER.h"
+#include "TimerFibre.h"
 
 #include "Threads.hpp"
 
@@ -8,7 +10,7 @@ extern "C" void interrupt_1ms(void)
     static uint32_t cnt = 0;
     tick_1ms();
     cnt++;
-    if ( cnt % 10 == 0 )
+    if (cnt % 10 == 0)
     {
         tick_10ms();
         cnt = 0;
@@ -18,6 +20,9 @@ extern "C" void interrupt_1ms(void)
 int main()
 {
     initGPIO();
+
+    static TimerFibre timeFibre("TimerFibre");
+    static BlinkLedFibre blinkLedFibre("BlinkedFiber");
 
     init_threads();
 
