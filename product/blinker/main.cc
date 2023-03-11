@@ -1,9 +1,10 @@
-#include "BlinkLedFibre.h"
 #include "GPIO.h"
 #include "TIMER.h"
-#include "TimerFibre.h"
 
 #include "Threads.hpp"
+
+#include "BlinkLedFibre.h"
+#include "TimerFibre.h"
 
 extern "C" void interrupt_1ms(void)
 {
