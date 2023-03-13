@@ -4,7 +4,7 @@
 class IMUFibre : public Fibre
 {
 public:
-    IMUFibre(const char *name);
+    IMUFibre(const char *name, board::spi_identifier spi_name);
     ~IMUFibre() override;
 
     void Init() override;
@@ -14,5 +14,5 @@ public:
     void Interrupt();
 
 private:
-    LSM6DSM boardIMU_{board::SPI_IMU};
+    LSM6DSM boardIMU_;
 };

@@ -1,8 +1,8 @@
 #include "ForceSensorFibre.h"
 #include "DataModel.hpp"
 
-ForceSensorFibre::ForceSensorFibre(const char *name)
-    : Fibre(name)
+ForceSensorFibre::ForceSensorFibre(const char *name, board::spi_identifier spi_name)
+    : Fibre(name), forceSensors_{spi_name}
 {
     FibreManager &thread = FibreManager::getInstance(THREAD_1MS_ID);
     thread.Add(std::shared_ptr<Fibre>(std::shared_ptr<Fibre>{}, this));

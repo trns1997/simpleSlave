@@ -19,4 +19,4 @@ private:
 
 };
 
-#endif /* HAL_INC_SPI_H_ */
+#endif

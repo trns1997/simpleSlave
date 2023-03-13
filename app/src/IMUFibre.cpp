@@ -1,8 +1,8 @@
 #include "IMUFibre.h"
 #include "DataModel.hpp"
 
-IMUFibre::IMUFibre(const char *name)
-    : Fibre(name)
+IMUFibre::IMUFibre(const char *name, board::spi_identifier spi_name)
+    : Fibre(name), boardIMU_{spi_name}
 {
     FibreManager &thread = FibreManager::getInstance(THREAD_1MS_ID);
     thread.Add(std::shared_ptr<Fibre>(std::shared_ptr<Fibre>{}, this));

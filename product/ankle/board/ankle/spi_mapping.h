@@ -31,6 +31,7 @@ namespace board
         spi_identifier name;
         XMC_USIC_CH_t *channel;
         XMC_SPI_CH_CONFIG_t channelConfig;
+        XMC_SPI_CH_SLAVE_SELECT_t chipSelect;
         XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_t clockPassiveLevel;
         XMC_SPI_CH_BRG_SHIFT_CLOCK_OUTPUT_t shiftClockOutput;
         uint32_t txFIFOServiceRequest;
@@ -46,6 +47,7 @@ namespace board
             SPI_FS,
             XMC_SPI0_CH1,
             spi_config,
+            XMC_SPI_CH_SLAVE_SELECT_0,
             XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_0_DELAY_DISABLED,
             XMC_SPI_CH_BRG_SHIFT_CLOCK_OUTPUT_SCLK,
             3,
@@ -58,6 +60,7 @@ namespace board
             SPI_IMU,
             XMC_SPI1_CH0,
             spi_config,
+            XMC_SPI_CH_SLAVE_SELECT_0,
             XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_1_DELAY_DISABLED,
             XMC_SPI_CH_BRG_SHIFT_CLOCK_OUTPUT_SCLK,
             3,
