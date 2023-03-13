@@ -4,7 +4,7 @@
 class ForceSensorFibre : public Fibre
 {
 public:
-    ForceSensorFibre(const char *name);
+    ForceSensorFibre(const char *name, board::spi_identifier spi_name);
     ~ForceSensorFibre() override;
 
     void Init() override;
@@ -14,5 +14,5 @@ public:
     void Interrupt();
 
 private:
-    ForceSensor forceSensors_{board::SPI_FS};
+    ForceSensor forceSensors_;
 };

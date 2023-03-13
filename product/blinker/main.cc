@@ -1,6 +1,4 @@
 #include "GPIO.h"
-#include "TIMER.h"
-
 #include "Threads.hpp"
 
 #include "BlinkLedFibre.h"
@@ -22,13 +20,10 @@ int main()
 {
     initGPIO();
 
-    static TimerFibre timeFibre("TimerFibre");
+    static TimerFibre timeFibre("TimerFibre", board::TIMER_1);
     static BlinkLedFibre blinkLedFibre("BlinkedFiber");
 
     init_threads();
-
-    TIMER systick(board::TIMER_1);
-    systick.init();
 
     while (1)
     {

@@ -1,5 +1,4 @@
 #include "GPIO.h"
-#include "TIMER.h"
 
 #include "Threads.hpp"
 
@@ -8,10 +7,10 @@
 #include "IMUFibre.h"
 #include "TimerFibre.h"
 
-static TimerFibre timeFibre("TimerFibre");
+static TimerFibre timeFibre("TimerFibre", board::TIMER_1);
 static EtherCatFibre etherCatFibre("EtherCatFibre");
-static IMUFibre imuFibre("IMUFibre");
-static ForceSensorFibre forceSensorFibre("ForceSensorFibre");
+static IMUFibre imuFibre("IMUFibre", board::SPI_IMU);
+static ForceSensorFibre forceSensorFibre("ForceSensorFibre", board::SPI_FS);
 
 extern "C" void SPI_IMU_TX_Interrupt(void) {}
 extern "C" void SPI_IMU_RX_Interrupt(void)
@@ -42,9 +41,6 @@ int main()
     initGPIO();
 
     init_threads();
-
-    TIMER systick(board::TIMER_1);
-    systick.init();
 
     while (1)
     {
