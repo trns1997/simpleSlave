@@ -1,4 +1,4 @@
-#include "Fibre.hpp"
+#include "Fibre.h"
 #include "LSM6DSM.h"
 
 class IMUFibre : public Fibre

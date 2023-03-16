@@ -1,7 +1,7 @@
 #ifndef DATAMODEL_HPP
 #define DATAMODEL_HPP
 
-#include "DataItem.hpp"
+#include "DataItem.h"
 
 enum class DataItemId
 {

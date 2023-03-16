@@ -129,6 +129,6 @@ extern uint32_t ESC_upload_pre_objecthandler (uint16_t index,
       size_t *size,
       uint16_t flags);
 extern uint32_t ESC_upload_post_objecthandler (uint16_t index, uint8_t subindex, uint16_t flags);
-extern const _objectlist SDOobjects[];
+extern _objectlist SDOobjects[];
 
 #endif

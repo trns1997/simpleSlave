@@ -1,4 +1,4 @@
-#include "Fibre.hpp"
+#include "Fibre.h"
 
 class EtherCatFibre : public Fibre
 {

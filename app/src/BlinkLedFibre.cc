@@ -1,5 +1,5 @@
 #include "BlinkLedFibre.h"
-#include "DataModel.hpp"
+#include "DataModel.h"
 
 BlinkLedFibre::BlinkLedFibre(const char *name)
     : Fibre(name)

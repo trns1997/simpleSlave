@@ -1,5 +1,5 @@
 #include "IMUFibre.h"
-#include "DataModel.hpp"
+#include "DataModel.h"
 
 IMUFibre::IMUFibre(const char *name, board::spi_identifier spi_name)
     : Fibre(name), boardIMU_{spi_name}

@@ -48,4 +48,4 @@ private:
     std::vector<std::shared_ptr<Fibre>> fibres_;
 };
 
-#endif /* INC_FIBRE_HPP_ */
+#endif

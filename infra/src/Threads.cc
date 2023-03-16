@@ -1,5 +1,5 @@
-#include "Threads.hpp"
-#include "Fibre.hpp"
+#include "Threads.h"
+#include "Fibre.h"
 
 void init_threads()
 {

@@ -1,4 +1,4 @@
-#include "Fibre.hpp"
+#include "Fibre.h"
 #include "GPIO.h"
 
 class BlinkLedFibre : public Fibre

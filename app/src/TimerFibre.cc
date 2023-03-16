@@ -1,5 +1,5 @@
 #include "TimerFibre.h"
-#include "DataModel.hpp"
+#include "DataModel.h"
 
 TimerFibre::TimerFibre(const char *name, board::tim_identifier tim_name)
     : Fibre(name), systick_{tim_name}
