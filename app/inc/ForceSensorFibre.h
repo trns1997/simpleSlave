@@ -1,4 +1,4 @@
-#include "Fibre.hpp"
+#include "Fibre.h"
 #include "ForceSensor.h"
 
 class ForceSensorFibre : public Fibre

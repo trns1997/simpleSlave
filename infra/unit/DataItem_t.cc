@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "DataModel.hpp"
+#include "DataModel.h"
 
 class DataItemTest: public testing::Test
 {

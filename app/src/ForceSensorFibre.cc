@@ -1,5 +1,5 @@
 #include "ForceSensorFibre.h"
-#include "DataModel.hpp"
+#include "DataModel.h"
 
 ForceSensorFibre::ForceSensorFibre(const char *name, board::spi_identifier spi_name)
     : Fibre(name), forceSensors_{spi_name}

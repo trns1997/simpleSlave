@@ -1,7 +1,8 @@
 #include "GPIO.h"
-#include "Threads.hpp"
+#include "Threads.h"
 
 #include "BlinkLedFibre.h"
+#include "EtherCatFibre.h"
 #include "TimerFibre.h"
 
 extern "C" void interrupt_1ms(void)
@@ -22,7 +23,8 @@ int main()
 
     static TimerFibre timeFibre("TimerFibre", board::TIMER_1);
     static BlinkLedFibre blinkLedFibre("BlinkedFiber");
-
+    static EtherCatFibre etherCatFibre("EtherCatFibre");
+    
     init_threads();
 
     while (1)

@@ -1,6 +1,6 @@
 #include "gtest/gtest.h"
 
-#include "Fibre.hpp"
+#include "Fibre.h"
 
 #include <iostream>
 #include <string>

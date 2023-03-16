@@ -1,6 +1,6 @@
 #include "GPIO.h"
 
-#include "Threads.hpp"
+#include "Threads.h"
 
 #include "EtherCatFibre.h"
 #include "ForceSensorFibre.h"

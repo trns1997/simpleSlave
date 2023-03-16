@@ -1,7 +1,7 @@
 set(PROJECT data_model)
 
 set(APP_SOURCES
-    DataModel.cpp
+    DataModel.cc
 	)
 
 add_library (${PROJECT} STATIC ${APP_SOURCES})

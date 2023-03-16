@@ -1,10 +1,10 @@
 set(PROJECT infra)
 
 set(APP_SOURCES
-    src/Fibre.cpp
-    src/Threads.cpp
-    src/DataItem.cpp
-    src/crc.cpp
+    src/Fibre.cc
+    src/Threads.cc
+    src/DataItem.cc
+    src/crc.cc
 	)
 
 add_library (${PROJECT} STATIC ${APP_SOURCES})
@@ -14,14 +14,14 @@ target_include_directories (${PROJECT} PUBLIC
 	
 IF(NOT TEST)
 
-target_link_libraries(${PROJECT} data_model)	
+target_link_libraries(${PROJECT} data_model hal)	
 	
 ELSE()
 	add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/unit/data_model)
 
 	set(TEST_SOURCES
-	    unit/Fibre_t.cpp
-	    unit/DataItem_t.cpp
+	    unit/Fibre_t.cc
+	    unit/DataItem_t.cc
 		)	
 	add_executable (${PROJECT}_test ${APP_SOURCES} ${TEST_SOURCES})
 	target_link_libraries(${PROJECT}_test gtest_main data_model_infra)

@@ -1,5 +1,5 @@
-#include "DataModel.hpp"
-#include "DataItem.hpp"
+#include "DataModel.h"
+#include "DataItem.h"
 
 Datagram DataItem::s_integer[MAX_DATA_ITEMS]
 {
