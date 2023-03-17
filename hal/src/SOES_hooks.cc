@@ -111,7 +111,7 @@ void initPDOMapping()
         if (datagram.ethercat.datatype != NULL)
         {
             SDO6000.push_back(datagram.ethercat);
-            SDO1A00.push_back({i + 1, DTYPE_UNSIGNED32, 32, ATYPE_RO, &acNameMO[0], (0x60000000 + datagram.ethercat.bitlength + (256 * (i + 1))), NULL});
+            SDO1A00.push_back({datagram.ethercat.subindex, DTYPE_UNSIGNED32, 32, ATYPE_RO, &acNameMO[0], (0x60000000 + datagram.ethercat.bitlength + (256 * datagram.ethercat.subindex)), NULL});
         }
     }
 
