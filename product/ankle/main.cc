@@ -18,8 +18,8 @@ extern "C" void SPI_IMU_RX_Interrupt(void)
     imuFibre.Interrupt();
 }
 
-extern "C" void SPI_Force_Sensor_TX_Interrupt() {}
-extern "C" void SPI_Force_Sensor_RX_Interrupt()
+extern "C" void SPI_Force_Sensor_TX_Interrupt(void) {}
+extern "C" void SPI_Force_Sensor_RX_Interrupt(void)
 {
     forceSensorFibre.Interrupt();
 }

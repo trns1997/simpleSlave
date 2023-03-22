@@ -83,6 +83,9 @@ void cb_get_inputs(void)
             std::memcpy(input + pos, &data, size);
             break;
         }
+        default:
+            size = 0;
+            break;
         }
         pos += size;
     }
@@ -104,11 +107,16 @@ void runEtherCAT()
 
 void initPDOMapping()
 {
+    std::vector<_objd> SDO6000 =
+        {{0, DTYPE_UNSIGNED8, 8, ATYPE_RO, &acNameNOE[0], 0, NULL}};
+    std::vector<_objd> SDO1A00 =
+        {{0, DTYPE_UNSIGNED8, 8, ATYPE_RO, &acNameNOE[0], 0, NULL}};
+
     for (uint16_t i = 0; i < MAX_DATA_ITEMS; ++i)
     {
         static DataItem item(static_cast<DataItemId>(i));
         Datagram datagram = item.getDatagram(static_cast<DataItemId>(i));
-        if (datagram.ethercat.datatype != NULL)
+        if (datagram.ethercat.datatype != 0)
         {
             SDO6000.push_back(datagram.ethercat);
             SDO1A00.push_back({datagram.ethercat.subindex, DTYPE_UNSIGNED32, 32, ATYPE_RO, &acNameMO[0], (0x60000000 + datagram.ethercat.bitlength + (256 * datagram.ethercat.subindex)), NULL});
