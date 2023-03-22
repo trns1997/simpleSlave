@@ -74,10 +74,6 @@ const _objd SDO1C12[] =
     {{0, DTYPE_UNSIGNED8, 8, ATYPE_RO, &acNameNOE[0], 1, NULL},
      {1, DTYPE_UNSIGNED16, 16, ATYPE_RO, &acNameMO[0], 0x1600, NULL}};
 
-std::vector<_objd> SDO6000 =
-    {{0, DTYPE_UNSIGNED8, 8, ATYPE_RO, &acNameNOE[0], 0, NULL}};
-std::vector<_objd> SDO1A00 =
-    {{0, DTYPE_UNSIGNED8, 8, ATYPE_RO, &acNameNOE[0], 0, NULL}};
 const _objd SDO1C13[] =
     {{0, DTYPE_UNSIGNED8, 8, ATYPE_RO, &acNameNOE[0], 1, NULL},
      {1, DTYPE_UNSIGNED16, 16, ATYPE_RO, &acNameMO[0], 0x1A00, NULL}};
