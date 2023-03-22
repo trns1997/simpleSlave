@@ -7,10 +7,11 @@
 #include "IMUFibre.h"
 #include "TimerFibre.h"
 
-static TimerFibre timeFibre("TimerFibre", board::TIMER_1);
-static EtherCatFibre etherCatFibre("EtherCatFibre");
 static IMUFibre imuFibre("IMUFibre", board::SPI_IMU);
 static ForceSensorFibre forceSensorFibre("ForceSensorFibre", board::SPI_FS);
+
+static TimerFibre timeFibre("TimerFibre", board::TIMER_1);
+static EtherCatFibre etherCatFibre("EtherCatFibre");
 
 extern "C" void SPI_IMU_TX_Interrupt(void) {}
 extern "C" void SPI_IMU_RX_Interrupt(void)
