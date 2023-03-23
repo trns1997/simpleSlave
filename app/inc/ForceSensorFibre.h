@@ -1,10 +1,11 @@
+#include "DataModel.h"
 #include "Fibre.h"
 #include "ForceSensor.h"
 
 class ForceSensorFibre : public Fibre
 {
 public:
-    ForceSensorFibre(const char *name, board::spi_identifier spi_name);
+    ForceSensorFibre(const char *name, board::spi_identifier spi_name, DataItemId *dataItems);
     ~ForceSensorFibre() override;
 
     void Init() override;
@@ -15,4 +16,5 @@ public:
 
 private:
     ForceSensor forceSensors_;
+    DataItemId *dataItems_;
 };

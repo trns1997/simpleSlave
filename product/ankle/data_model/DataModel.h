@@ -22,8 +22,8 @@ enum class DataItemId
     FS_0_ID,
     FS_1_ID,
     FS_2_ID,
-    FS_3_ID,
-    FS_VREF_ID
+    FS_VREF_ID,
+    FS_3_ID
 };
 
 #endif

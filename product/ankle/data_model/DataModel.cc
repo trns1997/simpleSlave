@@ -19,7 +19,7 @@ Datagram DataItem::s_integer[MAX_DATA_ITEMS]{
     /*[FS_0_ID]*/ {.value = 0, .reset = 0, .min = INT32_MIN, .max = INT32_MAX, .div = 1, .name = "fs_0", .ethercat = {9, DTYPE_UNSIGNED16, 16, ATYPE_RO, "fs_0", 0, NULL}},
     /*[FS_1_ID]*/ {.value = 0, .reset = 0, .min = INT32_MIN, .max = INT32_MAX, .div = 1, .name = "fs_1", .ethercat = {10, DTYPE_UNSIGNED16, 16, ATYPE_RO, "fs_1", 0, NULL}},
     /*[FS_2_ID]*/ {.value = 0, .reset = 0, .min = INT32_MIN, .max = INT32_MAX, .div = 1, .name = "fs_2", .ethercat = {11, DTYPE_UNSIGNED16, 16, ATYPE_RO, "fs_2", 0, NULL}},
-    /*[FS_3_ID]*/ {.value = 0, .reset = 0, .min = INT32_MIN, .max = INT32_MAX, .div = 1, .name = "fs_3", .ethercat = {12, DTYPE_UNSIGNED16, 16, ATYPE_RO, "fs_3", 0, NULL}},
-    /*[FS_VREF_ID]*/ {.value = 0, .reset = 0, .min = INT32_MIN, .max = INT32_MAX, .div = 1, .name = "fs_vref", .ethercat = {13, DTYPE_UNSIGNED16, 16, ATYPE_RO, "fs_vref", 0, NULL}},
+    /*[FS_VREF_ID]*/ {.value = 0, .reset = 0, .min = INT32_MIN, .max = INT32_MAX, .div = 1, .name = "fs_vref", .ethercat = {12, DTYPE_UNSIGNED16, 16, ATYPE_RO, "fs_vref", 0, NULL}},
+    /*[FS_3_ID]*/ {.value = 0, .reset = 0, .min = INT32_MIN, .max = INT32_MAX, .div = 1, .name = "fs_3", .ethercat = {13, DTYPE_UNSIGNED16, 16, ATYPE_RO, "fs_3", 0, NULL}}
 
 };
