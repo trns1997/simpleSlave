@@ -139,31 +139,31 @@ void ForceSensor::read()
     {
     case 0:
     {
-        channelData_.channel0 = channelData;
+        channelData_[0] = channelData;
         channelCnt_ = 1;
         break;
     }
     case 1:
     {
-        channelData_.channel1 = channelData;
+        channelData_[1] = channelData;
         channelCnt_ = 2;
         break;
     }
     case 2:
     {
-        channelData_.channel2 = channelData;
+        channelData_[2] = channelData;
         channelCnt_ = 3;
         break;
     }
     case 3:
     {
-        channelData_.channel3 = channelData;
+        channelData_[3] = channelData;
         channelCnt_ = 4;
         break;
     }
     case 4:
     {
-        channelData_.channel4 = channelData;
+        channelData_[4] = channelData;
         channelCnt_ = 0;
         continueRead_ = false;
         break;
@@ -176,7 +176,7 @@ void ForceSensor::read()
     }
 }
 
-ForceSensorData ForceSensor::getForceSensorData()
+uint16_t *ForceSensor::getForceSensorData()
 {
     continueRead_ = true;
     std::swap(free_, consume_);

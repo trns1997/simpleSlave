@@ -3,15 +3,6 @@
 
 #include "SPI_Slave.h"
 
-struct ForceSensorData
-{
-    uint16_t channel0;
-    uint16_t channel1;
-    uint16_t channel2;
-    uint16_t channel3;
-    uint16_t channel4;
-};
-
 class ForceSensor : public SPI_Slave
 {
 public:
@@ -23,17 +14,17 @@ public:
     void read() override;
     void checkConfiguration() override;
 
-    ForceSensorData getForceSensorData();
+    uint16_t *getForceSensorData();
 
     bool isReadingFinished() { return !continueRead_; };
 
 private:
-    uint16_t channelCnt_{0};
-    ForceSensorData channelData_{0};
-    ForceSensorData buffer0_{0};
-    ForceSensorData buffer1_{0};
-    ForceSensorData *free_{0};
-    ForceSensorData *consume_{0};
+    uint16_t channelCnt_;
+    uint16_t channelData_[5];
+    uint16_t *buffer0_;
+    uint16_t *buffer1_;
+    uint16_t **free_;
+    uint16_t **consume_;
     bool continueRead_{true};
     uint8_t config_[3] = {};
 };

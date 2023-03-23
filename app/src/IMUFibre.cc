@@ -1,8 +1,9 @@
 #include "IMUFibre.h"
-#include "DataModel.h"
 
-IMUFibre::IMUFibre(const char *name, board::spi_identifier spi_name)
-    : Fibre(name), boardIMU_{spi_name}
+IMUFibre::IMUFibre(const char *name, board::spi_identifier spi_name, DataItemId *dataItems)
+    : Fibre(name),
+      boardIMU_{spi_name},
+      dataItems_{dataItems}
 {
     FibreManager &thread = FibreManager::getInstance(THREAD_1MS_ID);
     thread.Add(std::shared_ptr<Fibre>(std::shared_ptr<Fibre>{}, this));
@@ -39,14 +40,14 @@ void IMUFibre::Run()
 
 void IMUFibre::Interrupt()
 {
-    // TODO: MAKE THIS GENERIC
-    static DataItem imuAccelX(DataItemId::IMU_ACCEL_X_ID, true);
-    static DataItem imuAccelY(DataItemId::IMU_ACCEL_Y_ID, true);
-    static DataItem imuAccelZ(DataItemId::IMU_ACCEL_Z_ID, true);
-    static DataItem imuGyroX(DataItemId::IMU_GYRO_X_ID, true);
-    static DataItem imuGyroY(DataItemId::IMU_GYRO_Y_ID, true);
-    static DataItem imuGyroZ(DataItemId::IMU_GYRO_Z_ID, true);
-    static DataItem imuTemp(DataItemId::IMU_TEMP_ID, true);
+    static DataItem items[] = {
+        DataItem(dataItems_[0], true),
+        DataItem(dataItems_[1], true),
+        DataItem(dataItems_[2], true),
+        DataItem(dataItems_[3], true),
+        DataItem(dataItems_[4], true),
+        DataItem(dataItems_[5], true),
+        DataItem(dataItems_[6], true)};
 
     if (boardIMU_.getState() == SPI_Slave::INITIALIZING)
     {
@@ -59,15 +60,11 @@ void IMUFibre::Interrupt()
     else if (boardIMU_.getState() == SPI_Slave::READY)
     {
         boardIMU_.read();
-        IMUData imuData = boardIMU_.getIMUData();
-
-        imuAccelX.set(imuData.accelerometer[0]);
-        imuAccelY.set(imuData.accelerometer[1]);
-        imuAccelZ.set(imuData.accelerometer[2]);
-        imuGyroX.set(imuData.gyroscope[0]);
-        imuGyroY.set(imuData.gyroscope[1]);
-        imuGyroZ.set(imuData.gyroscope[2]);
-        imuTemp.set(imuData.temperatureSensor);
+        int16_t *imuData = boardIMU_.getIMUData();
+        for (uint16_t i = 0; i < sizeof(items) / sizeof(items[0]); ++i)
+        {
+            items[i].set(imuData[i]);
+        }
     }
     boardIMU_.setAvailable();
 }
