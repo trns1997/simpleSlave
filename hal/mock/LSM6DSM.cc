@@ -25,15 +25,15 @@ void LSM6DSM::read()
 {
     isReadRequested = false;
 
-    buffer0_.accelerometer[0] = data;
-    buffer0_.accelerometer[1] = data + 1;
-    buffer0_.accelerometer[2] = data + 2;
+    buffer0_[0] = data;
+    buffer0_[1] = data + 1;
+    buffer0_[2] = data + 2;
 
-    buffer0_.gyroscope[0] = data + 10;
-    buffer0_.gyroscope[1] = data + 11;
-    buffer0_.gyroscope[2] = data + 12;
+    buffer0_[3] = data + 10;
+    buffer0_[4] = data + 11;
+    buffer0_[5] = data + 12;
 
-    buffer0_.temperatureSensor = data + 20;
+    buffer0_[6] = data + 20;
 }
 
 void LSM6DSM::checkConfiguration()
@@ -41,7 +41,7 @@ void LSM6DSM::checkConfiguration()
     state_ = INITIALIZED;
 }
 
-IMUData LSM6DSM::getIMUData()
+int16_t *LSM6DSM::getIMUData()
 {
     return buffer0_;
 }

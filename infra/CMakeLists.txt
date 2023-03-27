@@ -11,10 +11,12 @@ add_library (${PROJECT} STATIC ${APP_SOURCES})
 target_include_directories (${PROJECT} PUBLIC 
 	${CMAKE_CURRENT_SOURCE_DIR}/inc
 	)
+
+target_link_libraries(${PROJECT} hal)	
 	
 IF(NOT TEST)
 
-target_link_libraries(${PROJECT} data_model hal)	
+target_link_libraries(${PROJECT} data_model)	
 	
 ELSE()
 	add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/unit/data_model)
@@ -24,7 +26,7 @@ ELSE()
 	    unit/DataItem_t.cc
 		)	
 	add_executable (${PROJECT}_test ${APP_SOURCES} ${TEST_SOURCES})
-	target_link_libraries(${PROJECT}_test gtest_main data_model_infra)
+	target_link_libraries(${PROJECT}_test gtest_main data_model_infra hal)
 	add_test(${PROJECT}_test ${PROJECT}_test) 
 	
 	target_include_directories (${PROJECT}_test PUBLIC

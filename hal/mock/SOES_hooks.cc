@@ -1,4 +1,5 @@
 #include "SOES_hooks.h"
+#include <cstdint>
 
 extern bool isConfigured;
 extern uint8_t data;
