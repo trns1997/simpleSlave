@@ -1,5 +1,5 @@
-#ifndef INFRA_UNIT_DATAMODEL_HPP
-#define INFRA_UNIT_DATAMODEL_HPP
+#ifndef INFRA_UNIT_DATAMODEL_H
+#define INFRA_UNIT_DATAMODEL_H
 
 #include "DataItem.h"
 
