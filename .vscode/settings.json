@@ -45,7 +45,8 @@
         "limits": "cpp",
         "new": "cpp",
         "stdexcept": "cpp",
-        "streambuf": "cpp"
+        "streambuf": "cpp",
+        "variant": "cpp"
     },
     "cortex-debug.variableUseNaturalFormat": false
 }

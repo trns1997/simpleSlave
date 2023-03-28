@@ -1,7 +1,7 @@
 #include "LSM6DSM.h"
 
 extern bool isReadRequested;
-extern uint8_t data;
+extern int16_t data;
 extern LSM6DSM::State *stateIMU;
 
 LSM6DSM::LSM6DSM(board::spi_identifier spi_name) : SPI_Slave(spi_name)
@@ -25,15 +25,19 @@ void LSM6DSM::read()
 {
     isReadRequested = false;
 
-    buffer0_[0] = data;
-    buffer0_[1] = data + 1;
-    buffer0_[2] = data + 2;
+    int16_t imuData[7];
 
-    buffer0_[3] = data + 10;
-    buffer0_[4] = data + 11;
-    buffer0_[5] = data + 12;
+    imuData[0] = data;
+    imuData[1] = data + 1;
+    imuData[2] = data + 2;
 
-    buffer0_[6] = data + 20;
+    imuData[3] = data + 10;
+    imuData[4] = data + 11;
+    imuData[5] = data + 12;
+
+    imuData[6] = data + 20;
+    
+    buffer0_ = imuData;
 }
 
 void LSM6DSM::checkConfiguration()
