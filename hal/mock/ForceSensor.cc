@@ -1,7 +1,7 @@
 #include "ForceSensor.h"
 
 extern bool isReadRequested;
-extern uint8_t data;
+extern uint16_t data;
 extern ForceSensor::State *stateFS;
 
 ForceSensor::ForceSensor(board::spi_identifier spi_name) : SPI_Slave(spi_name)

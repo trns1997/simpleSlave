@@ -50,7 +50,6 @@ void LSM6DSM::read()
     int16_t temperature_raw = ((int16_t)data[2] << 8) + (int16_t)data[1];
 
     int16_t imuData[7];
-    std::size_t sizeData = sizeof(int16_t);
 
     int16_t gyroscopeX = ((((int16_t)data[4]) << 8) + (int16_t)data[3]);
     imuData[0] = gyroscopeX;
