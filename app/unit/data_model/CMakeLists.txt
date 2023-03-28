@@ -1,4 +1,4 @@
-set(PROJECT data_model_blink)
+set(PROJECT data_model)
 
 set(DATA_SOURCES
     DataModel.cc

@@ -25,10 +25,9 @@ ELSE()
 	  ${CMAKE_CURRENT_SOURCE_DIR}/mock/LSM6DSM.cc
 	  ${CMAKE_CURRENT_SOURCE_DIR}/mock/SOES_hooks.cc
 	  )
-	  target_link_libraries(${PROJECT_NAME} LINK_PUBLIC soes_interface)
 	  
 	  target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
-	  target_link_libraries(${PROJECT_NAME} LINK_PUBLIC hw_mapping)
+	  target_link_libraries(${PROJECT_NAME} LINK_PUBLIC hw_mapping soes_interface)
 	  
 	  add_subdirectory(mock/mock_board)
 ENDIF()
