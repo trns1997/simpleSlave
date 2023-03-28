@@ -40,7 +40,5 @@ TEST_F(DataItemTest, test_data)
     data_RW.reset();
     ASSERT_EQ(data.reset, data_RW.get());
     ASSERT_EQ(data.reset, data_RO.get());
-
-    //ASSERT_STREQ(data.name, );
 }
 

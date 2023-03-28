@@ -1,15 +1,19 @@
 #include "gtest/gtest.h"
 
-#include "Fibre.h"
+#include "BlinkLedFibre.h"
+
 #include "DataModel.h"
+#include "Fibre.h"
 
 #include "GPIO.h"
 
 TEST(BlinkLedTest, test_led)
 {
-    FibreManager& thread = FibreManager::getInstance(THREAD_1MS_ID);
+    static BlinkLedFibre blinkLedFibre("BlinkedFiber");
+
+    FibreManager &thread = FibreManager::getInstance(THREAD_1MS_ID);
     DataItem timeDI(DataItemId::TIME_ID, true);
-    GPIO gpio {board::LED1};
+    GPIO gpio{board::LED1};
 
     timeDI.set(1);
     thread.Run();
@@ -31,4 +35,3 @@ TEST(BlinkLedTest, test_led)
     thread.Run();
     ASSERT_EQ(false, gpio.getPin());
 }
-
