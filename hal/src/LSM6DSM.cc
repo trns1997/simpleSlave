@@ -49,30 +49,28 @@ void LSM6DSM::read()
 
     int16_t temperature_raw = ((int16_t)data[2] << 8) + (int16_t)data[1];
 
-    int16_t imuData[7];
-
     int16_t gyroscopeX = ((((int16_t)data[4]) << 8) + (int16_t)data[3]);
-    imuData[0] = gyroscopeX;
+    imuData_[0] = gyroscopeX;
 
     int16_t gyroscopeY = ((((int16_t)data[6]) << 8) + (int16_t)data[5]);
-    imuData[1] = gyroscopeY;
+    imuData_[1] = gyroscopeY;
 
     int16_t gyroscopeZ = ((((int16_t)data[8]) << 8) + (int16_t)data[7]);
-    imuData[2] = gyroscopeZ;
+    imuData_[2] = gyroscopeZ;
 
     int16_t accelerometerX = ((((int16_t)data[10]) << 8) + (int16_t)data[9]);
-    imuData[3] = accelerometerX;
+    imuData_[3] = accelerometerX;
 
     int16_t accelerometerY = ((((int16_t)data[12]) << 8) + (int16_t)data[11]);
-    imuData[4] = accelerometerY;
+    imuData_[4] = accelerometerY;
 
     int16_t accelerometerZ = ((((int16_t)data[14]) << 8) + (int16_t)data[13]);
-    imuData[5] = accelerometerZ;
+    imuData_[5] = accelerometerZ;
 
     int16_t temperatureSensor = (temperature_raw / 256) + 25;
-    imuData[6] = temperatureSensor;
+    imuData_[6] = temperatureSensor;
 
-    *free_ = imuData;
+    *free_ = imuData_;
 }
 
 void LSM6DSM::checkConfiguration()

@@ -25,19 +25,17 @@ void LSM6DSM::read()
 {
     isReadRequested = false;
 
-    int16_t imuData[7];
+    imuData_[0] = data;
+    imuData_[1] = data + 1;
+    imuData_[2] = data + 2;
 
-    imuData[0] = data;
-    imuData[1] = data + 1;
-    imuData[2] = data + 2;
+    imuData_[3] = data + 10;
+    imuData_[4] = data + 11;
+    imuData_[5] = data + 12;
 
-    imuData[3] = data + 10;
-    imuData[4] = data + 11;
-    imuData[5] = data + 12;
+    imuData_[6] = data + 20;
 
-    imuData[6] = data + 20;
-    
-    buffer0_ = imuData;
+    buffer0_ = imuData_;
 }
 
 void LSM6DSM::checkConfiguration()

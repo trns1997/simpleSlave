@@ -60,6 +60,7 @@ private:
     int16_t **consume_;
     uint8_t step_ = 0;
     uint8_t imuConfig_[5] = {};
+    int16_t imuData_[7];
 };
 
 #endif
