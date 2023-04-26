@@ -38,8 +38,8 @@ void SPI::init()
     // /* Enable Transmit and Receive interrupt */
     NVIC_ClearPendingIRQ(spi_conf_.txIRQ);
     NVIC_ClearPendingIRQ(spi_conf_.rxIRQ);
-    NVIC_SetPriority(spi_conf_.txIRQ, 5U);
-    NVIC_SetPriority(spi_conf_.rxIRQ, 5U);
+    NVIC_SetPriority(spi_conf_.txIRQ, 10U);
+    NVIC_SetPriority(spi_conf_.rxIRQ, 10U);
     NVIC_EnableIRQ(spi_conf_.txIRQ);
     NVIC_EnableIRQ(spi_conf_.rxIRQ);
 

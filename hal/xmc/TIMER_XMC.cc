@@ -54,7 +54,7 @@ void TIMER::init()
     XMC_CCU4_SLICE_SetTimerRepeatMode(tim_conf_.slice, tim_conf_.sliceRepeatMode);
 
     /* Configure interrupt node */
-    NVIC_SetPriority(tim_conf_.timerIRQ, 10U);
+    NVIC_SetPriority(tim_conf_.timerIRQ, 5U);
     NVIC_EnableIRQ(tim_conf_.timerIRQ);
 
     /* Start Timer */

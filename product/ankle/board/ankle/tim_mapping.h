@@ -44,7 +44,7 @@ namespace board
              XMC_CCU4_SLICE_COMPARE_CONFIG_t(),
              XMC_CCU4_SLICE_EVENT_0,
              256,
-             2000,
+             5000,
              XMC_CCU4_SHADOW_TRANSFER_SLICE_0,
              XMC_CCU4_SLICE_IRQ_ID_PERIOD_MATCH,
              XMC_CCU4_SLICE_SR_ID_0,
