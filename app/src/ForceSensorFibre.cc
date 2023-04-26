@@ -1,9 +1,19 @@
 #include "ForceSensorFibre.h"
 
-ForceSensorFibre::ForceSensorFibre(const char *name, board::spi_identifier spi_name, DataItemId *dataItems)
+ForceSensorFibre::ForceSensorFibre(const char *name,
+                                   board::spi_identifier spi_name,
+                                   DataItemId FS0,
+                                   DataItemId FS1,
+                                   DataItemId FS2,
+                                   DataItemId FSVref,
+                                   DataItemId FS3)
     : Fibre(name),
       forceSensors_{spi_name},
-      dataItems_{dataItems}
+      FS0_{DataItem(FS0, true)},
+      FS1_{DataItem(FS1, true)},
+      FS2_{DataItem(FS2, true)},
+      FSVref_{DataItem(FSVref, true)},
+      FS3_{DataItem(FS3, true)}
 {
     FibreManager &thread = FibreManager::getInstance(THREAD_1MS_ID);
     thread.Add(std::shared_ptr<Fibre>(std::shared_ptr<Fibre>{}, this));
@@ -40,13 +50,6 @@ void ForceSensorFibre::Run()
 
 void ForceSensorFibre::Interrupt()
 {
-    static DataItem items[] = {
-        DataItem(dataItems_[0], true),
-        DataItem(dataItems_[1], true),
-        DataItem(dataItems_[2], true),
-        DataItem(dataItems_[3], true),
-        DataItem(dataItems_[4], true)};
-
     if (forceSensors_.getState() == SPI_Slave::INITIALIZING)
     {
         forceSensors_.checkConfiguration();
@@ -65,10 +68,11 @@ void ForceSensorFibre::Interrupt()
         {
             uint16_t *forceSensorData = forceSensors_.getForceSensorData();
 
-            for (uint16_t i = 0; i < sizeof(items) / sizeof(items[0]); ++i)
-            {
-                items[i].set(forceSensorData[i]);
-            }
+            FS0_.set(forceSensorData[0]);
+            FS1_.set(forceSensorData[1]);
+            FS2_.set(forceSensorData[2]);
+            FSVref_.set(forceSensorData[3]);
+            FS3_.set(forceSensorData[4]);
 
             forceSensors_.setAvailable();
         }

@@ -5,7 +5,16 @@
 class IMUFibre : public Fibre
 {
 public:
-    IMUFibre(const char *name, board::spi_identifier spi_name, DataItemId *dataItems);
+    IMUFibre(const char *name,
+             board::spi_identifier spi_name,
+             DataItemId imuGyroX,
+             DataItemId imuGyroY,
+             DataItemId imuGyroZ,
+             DataItemId imuAccelX,
+             DataItemId imuAccelY,
+             DataItemId imuAccelZ,
+             DataItemId imuTemp);
+
     ~IMUFibre() override;
 
     void Init() override;
@@ -16,5 +25,11 @@ public:
 
 private:
     LSM6DSM boardIMU_;
-    DataItemId *dataItems_;
+    DataItem imuGyroX_;
+    DataItem imuGyroY_;
+    DataItem imuGyroZ_;
+    DataItem imuAccelX_;
+    DataItem imuAccelY_;
+    DataItem imuAccelZ_;
+    DataItem imuTemp_;
 };

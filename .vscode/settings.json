@@ -46,7 +46,23 @@
         "new": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "variant": "cpp"
+        "variant": "cpp",
+        "any": "cpp",
+        "chrono": "cpp",
+        "condition_variable": "cpp",
+        "ctime": "cpp",
+        "forward_list": "cpp",
+        "list": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "unordered_set": "cpp",
+        "ratio": "cpp",
+        "fstream": "cpp",
+        "iomanip": "cpp",
+        "mutex": "cpp",
+        "sstream": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp"
     },
     "cortex-debug.variableUseNaturalFormat": false
 }
