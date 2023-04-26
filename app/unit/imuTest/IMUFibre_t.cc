@@ -11,15 +11,15 @@ bool isReadRequested;
 SPI_Slave::State *stateIMU;
 int16_t data;
 
-DataItemId imuData[] = {DataItemId::IMU_GYRO_X_ID,
-                        DataItemId::IMU_GYRO_Y_ID,
-                        DataItemId::IMU_GYRO_Z_ID,
-                        DataItemId::IMU_ACCEL_X_ID,
-                        DataItemId::IMU_ACCEL_Y_ID,
-                        DataItemId::IMU_ACCEL_Z_ID,
-                        DataItemId::IMU_TEMP_ID};
-
-static IMUFibre imuFibre("IMUFibre", board::SPI_IMU, imuData);
+static IMUFibre imuFibre("IMUFibre",
+                         board::SPI_IMU,
+                         DataItemId::IMU_GYRO_X_ID,
+                         DataItemId::IMU_GYRO_Y_ID,
+                         DataItemId::IMU_GYRO_Z_ID,
+                         DataItemId::IMU_ACCEL_X_ID,
+                         DataItemId::IMU_ACCEL_Y_ID,
+                         DataItemId::IMU_ACCEL_Z_ID,
+                         DataItemId::IMU_TEMP_ID);
 
 extern "C" void SPI_IMU_TX_Interrupt(void) {}
 extern "C" void SPI_IMU_RX_Interrupt(void)

@@ -1,10 +1,25 @@
 #include "IMUFibre.h"
 
-IMUFibre::IMUFibre(const char *name, board::spi_identifier spi_name, DataItemId *dataItems)
+IMUFibre::IMUFibre(const char *name,
+                   board::spi_identifier spi_name,
+                   DataItemId imuGyroX,
+                   DataItemId imuGyroY,
+                   DataItemId imuGyroZ,
+                   DataItemId imuAccelX,
+                   DataItemId imuAccelY,
+                   DataItemId imuAccelZ,
+                   DataItemId imuTemp)
     : Fibre(name),
       boardIMU_{spi_name},
-      dataItems_{dataItems}
+      imuGyroX_{DataItem(imuGyroX, true)},
+      imuGyroY_{DataItem(imuGyroY, true)},
+      imuGyroZ_{DataItem(imuGyroZ, true)},
+      imuAccelX_{DataItem(imuAccelX, true)},
+      imuAccelY_{DataItem(imuAccelY, true)},
+      imuAccelZ_{DataItem(imuAccelZ, true)},
+      imuTemp_{DataItem(imuTemp, true)}
 {
+
     FibreManager &thread = FibreManager::getInstance(THREAD_1MS_ID);
     thread.Add(std::shared_ptr<Fibre>(std::shared_ptr<Fibre>{}, this));
 }
@@ -40,15 +55,6 @@ void IMUFibre::Run()
 
 void IMUFibre::Interrupt()
 {
-    static DataItem items[] = {
-        DataItem(dataItems_[0], true),
-        DataItem(dataItems_[1], true),
-        DataItem(dataItems_[2], true),
-        DataItem(dataItems_[3], true),
-        DataItem(dataItems_[4], true),
-        DataItem(dataItems_[5], true),
-        DataItem(dataItems_[6], true)};
-
     if (boardIMU_.getState() == SPI_Slave::INITIALIZING)
     {
         boardIMU_.checkConfiguration();
@@ -61,10 +67,14 @@ void IMUFibre::Interrupt()
     {
         boardIMU_.read();
         int16_t *imuData = boardIMU_.getIMUData();
-        for (uint16_t i = 0; i < sizeof(items) / sizeof(items[0]); ++i)
-        {
-            items[i].set(imuData[i]);
-        }
+
+        imuGyroX_.set(imuData[0]);
+        imuGyroY_.set(imuData[1]);
+        imuGyroZ_.set(imuData[2]);
+        imuAccelX_.set(imuData[3]);
+        imuAccelY_.set(imuData[4]);
+        imuAccelZ_.set(imuData[5]);
+        imuTemp_.set(imuData[6]);
     }
     boardIMU_.setAvailable();
 }

@@ -11,13 +11,13 @@ bool isReadRequested;
 SPI_Slave::State *stateFS;
 uint16_t data;
 
-DataItemId forceSensorData[] = {DataItemId::FS_0_ID,
-                                DataItemId::FS_1_ID,
-                                DataItemId::FS_2_ID,
-                                DataItemId::FS_VREF_ID,
-                                DataItemId::FS_3_ID};
-
-static ForceSensorFibre forceSensorFibre("ForceSensorFibre", board::SPI_FS, forceSensorData);
+static ForceSensorFibre forceSensorFibre("ForceSensorFibre",
+                                         board::SPI_FS,
+                                         DataItemId::FS_0_ID,
+                                         DataItemId::FS_1_ID,
+                                         DataItemId::FS_2_ID,
+                                         DataItemId::FS_VREF_ID,
+                                         DataItemId::FS_3_ID);
 
 extern "C" void SPI_Force_Sensor_TX_Interrupt(void) {}
 extern "C" void SPI_Force_Sensor_RX_Interrupt(void)

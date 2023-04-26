@@ -9,22 +9,23 @@
 
 #include "DataModel.h"
 
-DataItemId imuData[] = {DataItemId::IMU_GYRO_X_ID,
-                        DataItemId::IMU_GYRO_Y_ID,
-                        DataItemId::IMU_GYRO_Z_ID,
-                        DataItemId::IMU_ACCEL_X_ID,
-                        DataItemId::IMU_ACCEL_Y_ID,
-                        DataItemId::IMU_ACCEL_Z_ID,
-                        DataItemId::IMU_TEMP_ID};
+static IMUFibre imuFibre("IMUFibre",
+                         board::SPI_IMU,
+                         DataItemId::IMU_GYRO_X_ID,
+                         DataItemId::IMU_GYRO_Y_ID,
+                         DataItemId::IMU_GYRO_Z_ID,
+                         DataItemId::IMU_ACCEL_X_ID,    
+                         DataItemId::IMU_ACCEL_Y_ID,
+                         DataItemId::IMU_ACCEL_Z_ID,
+                         DataItemId::IMU_TEMP_ID);
 
-DataItemId forceSensorData[] = {DataItemId::FS_0_ID,
-                                DataItemId::FS_1_ID,
-                                DataItemId::FS_2_ID,
-                                DataItemId::FS_VREF_ID,
-                                DataItemId::FS_3_ID};
-
-static IMUFibre imuFibre("IMUFibre", board::SPI_IMU, imuData);
-static ForceSensorFibre forceSensorFibre("ForceSensorFibre", board::SPI_FS, forceSensorData);
+static ForceSensorFibre forceSensorFibre("ForceSensorFibre",
+                                         board::SPI_FS,
+                                         DataItemId::FS_0_ID,
+                                         DataItemId::FS_1_ID,
+                                         DataItemId::FS_2_ID,
+                                         DataItemId::FS_VREF_ID,
+                                         DataItemId::FS_3_ID);
 
 static TimerFibre timeFibre("TimerFibre", board::TIMER_1);
 static EtherCatFibre etherCatFibre("EtherCatFibre");
