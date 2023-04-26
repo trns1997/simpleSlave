@@ -15,12 +15,7 @@ jobs:
       with:
           release: '10.3-2021.10'
           path-env-var: ARM_GCC_BIN_FOLDER
-          
-    - name: build fallsafe on relax board
-      run: ./build.sh XMC4800_F144x2048 fallsafe relax
-    - name: build fallsafe on ankle board
-      run: ./build.sh XMC4800_F144x2048 fallsafe ankle
-      
+                
     - name: build blinker on relax board
       run: ./build.sh XMC4800_F144x2048 blinker relax
     - name: build blinker on ankle board

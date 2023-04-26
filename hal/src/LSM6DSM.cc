@@ -1,4 +1,5 @@
 #include "LSM6DSM.h"
+#include <cstring>
 
 LSM6DSM::LSM6DSM(board::spi_identifier spi_name) : SPI_Slave(spi_name)
 {
@@ -48,18 +49,28 @@ void LSM6DSM::read()
 
     int16_t temperature_raw = ((int16_t)data[2] << 8) + (int16_t)data[1];
 
-    IMUData imuData;
-    imuData.gyroscope[0] = ((((int16_t)data[4]) << 8) + (int16_t)data[3]);
-    imuData.gyroscope[1] = ((((int16_t)data[6]) << 8) + (int16_t)data[5]);
-    imuData.gyroscope[2] = ((((int16_t)data[8]) << 8) + (int16_t)data[7]);
+    int16_t gyroscopeX = ((((int16_t)data[4]) << 8) + (int16_t)data[3]);
+    imuData_[0] = gyroscopeX;
 
-    imuData.accelerometer[0] = ((((int16_t)data[10]) << 8) + (int16_t)data[9]);
-    imuData.accelerometer[1] = ((((int16_t)data[12]) << 8) + (int16_t)data[11]);
-    imuData.accelerometer[2] = ((((int16_t)data[14]) << 8) + (int16_t)data[13]);
+    int16_t gyroscopeY = ((((int16_t)data[6]) << 8) + (int16_t)data[5]);
+    imuData_[1] = gyroscopeY;
 
-    imuData.temperatureSensor = (temperature_raw / 256) + 25;
+    int16_t gyroscopeZ = ((((int16_t)data[8]) << 8) + (int16_t)data[7]);
+    imuData_[2] = gyroscopeZ;
 
-    *free_ = imuData;
+    int16_t accelerometerX = ((((int16_t)data[10]) << 8) + (int16_t)data[9]);
+    imuData_[3] = accelerometerX;
+
+    int16_t accelerometerY = ((((int16_t)data[12]) << 8) + (int16_t)data[11]);
+    imuData_[4] = accelerometerY;
+
+    int16_t accelerometerZ = ((((int16_t)data[14]) << 8) + (int16_t)data[13]);
+    imuData_[5] = accelerometerZ;
+
+    int16_t temperatureSensor = (temperature_raw / 256) + 25;
+    imuData_[6] = temperatureSensor;
+
+    *free_ = imuData_;
 }
 
 void LSM6DSM::checkConfiguration()
@@ -92,7 +103,7 @@ void LSM6DSM::checkConfiguration()
     step_++;
 }
 
-IMUData LSM6DSM::getIMUData()
+int16_t *LSM6DSM::getIMUData()
 {
     std::swap(free_, consume_);
     return *consume_;

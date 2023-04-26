@@ -1,7 +1,7 @@
 #include "LSM6DSM.h"
 
 extern bool isReadRequested;
-extern uint8_t data;
+extern int16_t data;
 extern LSM6DSM::State *stateIMU;
 
 LSM6DSM::LSM6DSM(board::spi_identifier spi_name) : SPI_Slave(spi_name)
@@ -25,15 +25,17 @@ void LSM6DSM::read()
 {
     isReadRequested = false;
 
-    buffer0_.accelerometer[0] = data;
-    buffer0_.accelerometer[1] = data + 1;
-    buffer0_.accelerometer[2] = data + 2;
+    imuData_[0] = data;
+    imuData_[1] = data + 1;
+    imuData_[2] = data + 2;
 
-    buffer0_.gyroscope[0] = data + 10;
-    buffer0_.gyroscope[1] = data + 11;
-    buffer0_.gyroscope[2] = data + 12;
+    imuData_[3] = data + 10;
+    imuData_[4] = data + 11;
+    imuData_[5] = data + 12;
 
-    buffer0_.temperatureSensor = data + 20;
+    imuData_[6] = data + 20;
+
+    buffer0_ = imuData_;
 }
 
 void LSM6DSM::checkConfiguration()
@@ -41,7 +43,7 @@ void LSM6DSM::checkConfiguration()
     state_ = INITIALIZED;
 }
 
-IMUData LSM6DSM::getIMUData()
+int16_t *LSM6DSM::getIMUData()
 {
     return buffer0_;
 }

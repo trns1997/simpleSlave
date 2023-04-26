@@ -50,7 +50,7 @@ void SPI::init()
 
 void SPI::sendData(uint8_t *txData, uint32_t size)
 {
-    XMC_SPI_CH_EnableSlaveSelect(spi_conf_.channel, XMC_SPI_CH_SLAVE_SELECT_0);
+    XMC_SPI_CH_EnableSlaveSelect(spi_conf_.channel, spi_conf_.chipSelect);
     /* Flush the Receive FIFO */
     XMC_USIC_CH_RXFIFO_Flush(spi_conf_.channel);
     /* Set Trigger Limit for the RXFIFO for when to trigger interrupt */

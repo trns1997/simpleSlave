@@ -1,14 +1,16 @@
 #include "GPIO.h"
-#include "TIMER.h"
+#include "Threads.h"
 
-#include "Threads.hpp"
+#include "BlinkLedFibre.h"
+#include "EtherCatFibre.h"
+#include "TimerFibre.h"
 
 extern "C" void interrupt_1ms(void)
 {
     static uint32_t cnt = 0;
     tick_1ms();
     cnt++;
-    if ( cnt % 10 == 0 )
+    if (cnt % 10 == 0)
     {
         tick_10ms();
         cnt = 0;
@@ -19,10 +21,11 @@ int main()
 {
     initGPIO();
 
+    static TimerFibre timeFibre("TimerFibre", board::TIMER_1);
+    static BlinkLedFibre blinkLedFibre("BlinkedFiber");
+    static EtherCatFibre etherCatFibre("EtherCatFibre");
+    
     init_threads();
-
-    TIMER systick(board::TIMER_1);
-    systick.init();
 
     while (1)
     {

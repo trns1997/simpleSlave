@@ -3,13 +3,6 @@
 
 #include "SPI_Slave.h"
 
-struct IMUData
-{
-    int16_t accelerometer[3];  /**< Raw data collected from the 3 axis of the accelerometer */
-    int16_t gyroscope[3];      /**< Raw data collected from the 3 axis of the gyroscope */
-    int16_t temperatureSensor; /**< Raw data collected from the temperature sensor */
-};
-
 enum IMUregisteraddresses
 {
     ADDR_ACCEL_ANTI_ALIASING = 0x0U, /**< Anti aliasing register address [0-1] */
@@ -58,15 +51,16 @@ public:
     void read() override;
     void checkConfiguration() override;
 
-    IMUData getIMUData();
+    int16_t *getIMUData();
 
 private:
-    IMUData buffer0_{0};
-    IMUData buffer1_{0};
-    IMUData *free_{0};
-    IMUData *consume_{0};
+    int16_t *buffer0_;
+    int16_t *buffer1_;
+    int16_t **free_;
+    int16_t **consume_;
     uint8_t step_ = 0;
     uint8_t imuConfig_[5] = {};
+    int16_t imuData_[7];
 };
 
 #endif
