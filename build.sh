@@ -94,5 +94,6 @@ sh generate_vscode_launch_file.sh
 rm -rf $CURRENT_DIR/build/$arg_board/$arg_product
 mkdir -p $CURRENT_DIR/build/$arg_board/$arg_product
 cd $CURRENT_DIR/build/$arg_board/$arg_product
+conan install $CURRENT_DIR
 cmake -G "Unix Makefiles" $cmake_args $CURRENT_DIR
 make -j8

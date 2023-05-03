@@ -2,6 +2,10 @@ cmake_minimum_required(VERSION 3.15.3)
 
 project(simple_slave C CXX ASM)
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
+
+find_package(mtb-xmclib-cat3)
+
 IF(TEST)
 	enable_testing()
 
