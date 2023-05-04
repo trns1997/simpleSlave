@@ -5,6 +5,7 @@ project(simple_slave C CXX ASM)
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_BINARY_DIR})
 
 find_package(mtb-xmclib-cat3)
+find_package(soes)
 
 IF(TEST)
 	enable_testing()
@@ -26,13 +27,11 @@ IF(TEST)
 	add_subdirectory (app)
 	add_subdirectory (hal)
 	add_subdirectory (board)
-	add_subdirectory (lib)
 	
 ELSE()
 
 add_subdirectory (board)
 add_subdirectory (product)
-add_subdirectory (lib)
 add_subdirectory (hal)
 add_subdirectory (infra)
 add_subdirectory (app)

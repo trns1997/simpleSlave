@@ -27,7 +27,7 @@ ELSE()
 	  )
 	  
 	  target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
-	  target_link_libraries(${PROJECT_NAME} LINK_PUBLIC hw_mapping soes_interface)
+	  target_link_libraries(${PROJECT_NAME} LINK_PUBLIC hw_mapping soes::soes)
 	  
 	  add_subdirectory(mock/mock_board)
 ENDIF()

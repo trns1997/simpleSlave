@@ -1,5 +1,6 @@
 [requires]
 mtb-xmclib-cat3/4.1.0
+soes/3.1.0
 
 [generators]
 cmake_find_package

@@ -13,7 +13,7 @@ add_executable(
     main.cc
 )
 
-target_link_libraries(${EXECUTABLE} board soes hal infra data_model app)
+target_link_libraries(${EXECUTABLE} board soes::soes hal infra data_model app)
 
 add_custom_command(TARGET ${EXECUTABLE}
     POST_BUILD
