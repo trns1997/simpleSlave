@@ -20,7 +20,7 @@ void IMUTriggerFibre::Run()
 {
     static DataItem accelZ(DataItemId::IMU_ACCEL_Z_ID);
 
-    if (accelZ.get() > 6000)
+    if (accelZ.get() > 6000) // Detect Tap
     {
         gpio_led_.togglePin();
     }
