@@ -1,0 +1,34 @@
+#ifndef RELAX_PIN_MAPPING_H_
+#define RELAX_PIN_MAPPING_H_
+
+#include "stdint.h"
+
+////////////////////////////////////////////////////
+// Include GPIO HAL from Manufacturer or your own //
+////////////////////////////////////////////////////
+
+namespace board
+{
+    enum pin_identifier
+    {
+        ///////////////////////////////
+        // Fill Pin Identifier Enums //
+        ///////////////////////////////
+    };
+
+    struct pin_conf_t
+    {
+        ///////////////////////////////////////////////////////////
+        // Board Specific pin configs (port, pin, mode and etc.) //
+        ///////////////////////////////////////////////////////////
+    };
+
+    static pin_conf_t pin_mapping[] =
+        {
+            ///////////////////////////
+            // Pin configuration Map //
+            ///////////////////////////
+    };
+}
+
+#endif
