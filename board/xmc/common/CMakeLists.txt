@@ -12,6 +12,7 @@ add_library(${PROJECT_NAME}
 	XMCLib/src/xmc_ccu4.c
 	XMCLib/src/xmc_eth_mac.c
 	XMCLib/src/xmc_eth_phy_ksz8081rnb.c
+	XMCLib/src/xmc_uart.c
 	syscalls.c
 	startup_XMC4800.S
 )

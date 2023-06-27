@@ -20,8 +20,38 @@ void BlinkLedFibre::Run()
 {
     static DataItem timeDI(DataItemId::TIME_ID);
 
-    if (timeDI.get() % 1000 == 0)
+    if (timeDI.get() % 500 == 0)
     {
-        gpio_led_.togglePin();
+        switch (counter_)
+        {
+        case 0:
+        {
+            gpio_led1_.setPin();
+            gpio_led2_.resetPin();
+            ++counter_;
+            break;
+        }
+        case 1:
+        {
+            gpio_led1_.resetPin();
+            gpio_led2_.setPin();
+            ++counter_;
+            break;
+        }
+        case 2:
+        {
+            gpio_led1_.setPin();
+            gpio_led2_.setPin();
+            ++counter_;
+            break;
+        }
+        default:
+        {
+            gpio_led1_.resetPin();
+            gpio_led2_.resetPin();
+            counter_ = 0;
+            break;
+        }
+        }
     }
 }

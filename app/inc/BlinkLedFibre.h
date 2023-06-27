@@ -12,5 +12,7 @@ public:
     void Run() override;
 
 private:
-    GPIO gpio_led_{board::LED1};
+    GPIO gpio_led1_{board::LED1};
+    GPIO gpio_led2_{board::LED2};
+    uint16_t counter_{0};
 };
