@@ -94,10 +94,6 @@ void cb_get_inputs(void)
 // Callback to get data from the ethercat frame when it arrives
 void cb_set_outputs(void)
 {
-    static DataItem watchDogCounter(DataItemId::WATCHDOG, true);
-    uint16_t rxWatchDogCounter = output;
-
-    watchDogCounter.set(rxWatchDogCounter);
 }
 
 void runEtherCAT()

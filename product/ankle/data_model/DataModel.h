@@ -5,9 +5,7 @@
 
 enum class DataItemId
 {
-    WATCHDOG = 0,
-
-    TIME_ID,
+    TIME_ID = 0,
 
     // IMU
     IMU_ACCEL_X_ID,
