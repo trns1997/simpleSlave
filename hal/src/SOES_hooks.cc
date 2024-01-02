@@ -95,7 +95,8 @@ void cb_get_inputs(void)
 void cb_set_outputs(void)
 {
     static DataItem watchDogCounter(DataItemId::WATCHDOG, true);
-    uint16_t rxWatchDogCounter = output;
+    uint16_t rxWatchDogCounter;
+    memcpy(&rxWatchDogCounter, output, 2);
 
     watchDogCounter.set(rxWatchDogCounter);
 }
