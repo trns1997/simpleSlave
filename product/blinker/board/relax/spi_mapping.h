@@ -1,16 +1,24 @@
 #ifndef RELAX_SPI_MAPPING_H_
 #define RELAX_SPI_MAPPING_H_
 
-#include "xmc_spi.h"
 #include "stdint.h"
+#include "xmc_spi.h"
+
+#define SPI_IMU_RX_Interrupt USIC2_2_IRQHandler
+#define SPI_IMU_TX_Interrupt USIC2_3_IRQHandler
 
 namespace board
 {
+    static XMC_SPI_CH_CONFIG_t spi_config =
+        {
+            .baudrate = 8000000,
+            .bus_mode = XMC_SPI_CH_BUS_MODE_MASTER,
+            .selo_inversion = XMC_SPI_CH_SLAVE_SEL_INV_TO_MSLS,
+            .parity_mode = XMC_USIC_CH_PARITY_MODE_NONE};
+
     typedef enum
     {
-        SPI_FS = 0,
-        SPI1_CH0,
-        SPI_IMU
+        SPI_IMU = 0
     } spi_identifier;
 
     typedef struct
@@ -29,8 +37,18 @@ namespace board
     } spi_conf_t;
 
     static spi_conf_t spi_mapping[] =
-    {
-    };
+        {
+            {SPI_IMU,
+             XMC_SPI2_CH0,
+             spi_config,
+             XMC_SPI_CH_SLAVE_SELECT_0,
+             XMC_SPI_CH_BRG_SHIFT_CLOCK_PASSIVE_LEVEL_1_DELAY_DISABLED,
+             XMC_SPI_CH_BRG_SHIFT_CLOCK_OUTPUT_SCLK,
+             3,
+             2,
+             USIC2_3_IRQn,
+             USIC2_2_IRQn,
+             USIC2_C0_DX0_P3_7}};
 
 }
 
