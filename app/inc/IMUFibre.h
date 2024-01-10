@@ -1,6 +1,6 @@
 #include "DataModel.h"
 #include "Fibre.h"
-#include "LSM6DSM.h"
+#include "BMI088.h"
 
 class IMUFibre : public Fibre
 {
@@ -24,7 +24,7 @@ public:
     void Interrupt();
 
 private:
-    LSM6DSM boardIMU_;
+    BMI088 boardIMU_;
     DataItem imuGyroX_;
     DataItem imuGyroY_;
     DataItem imuGyroZ_;
