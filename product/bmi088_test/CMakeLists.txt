@@ -1,4 +1,4 @@
-project(imu_test)
+project(bmi088_test)
 
 set(EXECUTABLE ${PROJECT_NAME}.elf)
 
