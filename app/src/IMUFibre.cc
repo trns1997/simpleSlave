@@ -1,7 +1,7 @@
 #include "IMUFibre.h"
 
 IMUFibre::IMUFibre(const char *name,
-                   board::spi_identifier spi_name,
+                   std::unique_ptr<SPI_Slave> imuObj,
                    DataItemId imuGyroX,
                    DataItemId imuGyroY,
                    DataItemId imuGyroZ,
@@ -10,7 +10,7 @@ IMUFibre::IMUFibre(const char *name,
                    DataItemId imuAccelZ,
                    DataItemId imuTemp)
     : Fibre(name),
-      boardIMU_{spi_name},
+      boardIMU_{std::move(imuObj)},
       imuGyroX_{DataItem(imuGyroX, true)},
       imuGyroY_{DataItem(imuGyroY, true)},
       imuGyroZ_{DataItem(imuGyroZ, true)},
@@ -30,43 +30,43 @@ IMUFibre::~IMUFibre()
 
 void IMUFibre::Init()
 {
-    boardIMU_.init();
+    boardIMU_->init();
 }
 
 void IMUFibre::Run()
 {
-    if (boardIMU_.isBusy())
+    if (boardIMU_->isBusy())
         return;
 
-    if (boardIMU_.getState() == SPI_Slave::INITIALIZING)
+    if (boardIMU_->getState() == SPI_Slave::INITIALIZING)
     {
-        boardIMU_.configure();
+        boardIMU_->configure();
     }
-    else if (boardIMU_.getState() == SPI_Slave::ERROR)
+    else if (boardIMU_->getState() == SPI_Slave::ERROR)
     {
         // TODO: Reset Board or Turn ON Error LED
     }
     else
     {
-        boardIMU_.request_read();
+        boardIMU_->request_read();
     }
-    boardIMU_.setBusy();
+    boardIMU_->setBusy();
 }
 
 void IMUFibre::Interrupt()
 {
-    if (boardIMU_.getState() == SPI_Slave::INITIALIZING)
+    if (boardIMU_->getState() == SPI_Slave::INITIALIZING)
     {
-        boardIMU_.checkConfiguration();
+        boardIMU_->checkConfiguration();
     }
-    else if (boardIMU_.getState() == SPI_Slave::INITIALIZED)
+    else if (boardIMU_->getState() == SPI_Slave::INITIALIZED)
     {
-        boardIMU_.setState(SPI_Slave::READY);
+        boardIMU_->setState(SPI_Slave::READY);
     }
-    else if (boardIMU_.getState() == SPI_Slave::READY)
+    else if (boardIMU_->getState() == SPI_Slave::READY)
     {
-        boardIMU_.read();
-        int16_t *imuData = boardIMU_.getIMUData();
+        boardIMU_->read();
+        int16_t *imuData = boardIMU_->getData();
 
         imuGyroX_.set(imuData[0]);
         imuGyroY_.set(imuData[1]);
@@ -76,5 +76,5 @@ void IMUFibre::Interrupt()
         imuAccelZ_.set(imuData[5]);
         imuTemp_.set(imuData[6]);
     }
-    boardIMU_.setAvailable();
+    boardIMU_->setAvailable();
 }

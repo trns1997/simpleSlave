@@ -1,17 +1,18 @@
 #include "GPIO.h"
+#include "BMI088.h"
 
 #include "Threads.h"
 
 #include "BlinkLedFibre.h"
 #include "EtherCatFibre.h"
-#include "BMI088Fibre.h"
+#include "IMUFibre.h"
 #include "TimerFibre.h"
 
 #include "DataModel.h"
 
 static BlinkLedFibre blinkLedFibre("BlinkedFiber");
-static BMI088Fibre imuFibre("IMUFibre",
-                            board::SPI_IMU,
+static IMUFibre imuFibre("IMUFibre",
+                            std::make_unique<BMI088>(board::SPI_IMU),
                             DataItemId::IMU_GYRO_X_ID,
                             DataItemId::IMU_GYRO_Y_ID,
                             DataItemId::IMU_GYRO_Z_ID,

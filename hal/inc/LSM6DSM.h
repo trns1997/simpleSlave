@@ -36,6 +36,7 @@ constexpr uint8_t IMU_READ = 0x80;
 constexpr uint8_t IMU_WRITE = 0x00;
 constexpr uint8_t ACC_GYRO_ODR_1660Hz = 0x80;
 constexpr uint8_t ACC_16G = 0x04;
+constexpr uint8_t GYRO_1000_DPS = 0x08;
 constexpr uint8_t IF_INC = 0x04; /**< Automatic address increment in multiple bytes read (logic or) */
 constexpr uint8_t BDU = 0x40;    /**< Block data update mechanism(logic or) */
 constexpr uint8_t I2C_DISABLE = 0x04;
@@ -51,13 +52,9 @@ public:
     void read() override;
     void checkConfiguration() override;
 
-    int16_t *getIMUData();
+    int16_t *getData();
 
 private:
-    int16_t *buffer0_;
-    int16_t *buffer1_;
-    int16_t **free_;
-    int16_t **consume_;
     uint8_t step_ = 0;
     uint8_t imuConfig_[5] = {};
     int16_t imuData_[7];

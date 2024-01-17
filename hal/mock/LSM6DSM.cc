@@ -43,7 +43,7 @@ void LSM6DSM::checkConfiguration()
     state_ = INITIALIZED;
 }
 
-int16_t *LSM6DSM::getIMUData()
+int16_t *LSM6DSM::getData()
 {
     return buffer0_;
 }

@@ -1,13 +1,12 @@
 #include "DataModel.h"
 #include "Fibre.h"
+#include "BMI270.h"
 
-#include "SPI_Slave.h"
-
-class IMUFibre : public Fibre
+class BMI270Fibre : public Fibre
 {
 public:
-    IMUFibre(const char *name,
-             std::unique_ptr<SPI_Slave> imuObj,
+    BMI270Fibre(const char *name,
+             board::spi_identifier spi_name,
              DataItemId imuGyroX,
              DataItemId imuGyroY,
              DataItemId imuGyroZ,
@@ -16,7 +15,7 @@ public:
              DataItemId imuAccelZ,
              DataItemId imuTemp);
 
-    ~IMUFibre() override;
+    ~BMI270Fibre() override;
 
     void Init() override;
 
@@ -25,7 +24,7 @@ public:
     void Interrupt();
 
 private:
-    std::unique_ptr<SPI_Slave> boardIMU_;
+    BMI270 boardIMU_;
     DataItem imuGyroX_;
     DataItem imuGyroY_;
     DataItem imuGyroZ_;

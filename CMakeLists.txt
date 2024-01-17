@@ -2,11 +2,12 @@ cmake_minimum_required(VERSION 3.15.3)
 
 project(simple_slave C CXX ASM)
 
+set(CMAKE_CXX_STANDARD 14)
+
 IF(TEST)
 	enable_testing()
 
 	# GoogleTest requires at least C++14
-	set(CMAKE_CXX_STANDARD 14)
 	include(FetchContent)
 	FetchContent_Declare(
 	  googletest

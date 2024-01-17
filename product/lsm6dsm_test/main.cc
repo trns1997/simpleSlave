@@ -1,5 +1,5 @@
 #include "GPIO.h"
-#include "BMI323.h"
+#include "LSM6DSM.h"
 
 #include "Threads.h"
 
@@ -12,14 +12,14 @@
 
 static BlinkLedFibre blinkLedFibre("BlinkedFiber");
 static IMUFibre imuFibre("IMUFibre",
-                            std::make_unique<BMI323>(board::SPI_IMU),
-                            DataItemId::IMU_GYRO_X_ID,
-                            DataItemId::IMU_GYRO_Y_ID,
-                            DataItemId::IMU_GYRO_Z_ID,
-                            DataItemId::IMU_ACCEL_X_ID,
-                            DataItemId::IMU_ACCEL_Y_ID,
-                            DataItemId::IMU_ACCEL_Z_ID,
-                            DataItemId::IMU_TEMP_ID);
+                         std::make_unique<LSM6DSM>(board::SPI_IMU),
+                         DataItemId::IMU_GYRO_X_ID,
+                         DataItemId::IMU_GYRO_Y_ID,
+                         DataItemId::IMU_GYRO_Z_ID,
+                         DataItemId::IMU_ACCEL_X_ID,
+                         DataItemId::IMU_ACCEL_Y_ID,
+                         DataItemId::IMU_ACCEL_Z_ID,
+                         DataItemId::IMU_TEMP_ID);
 static TimerFibre timeFibre("TimerFibre", board::TIMER_1);
 static EtherCatFibre etherCatFibre("EtherCatFibre");
 

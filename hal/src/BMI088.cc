@@ -306,7 +306,7 @@ void BMI088::read()
     }
 }
 
-int16_t *BMI088::getIMUData()
+int16_t *BMI088::getData()
 {
     continueRead_ = true;
     std::swap(free_, consume_);

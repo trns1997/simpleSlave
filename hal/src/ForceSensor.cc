@@ -133,7 +133,7 @@ void ForceSensor::read()
     uint8_t data[] = {0x00, 0x00, 0x00, 0x00};
     uint32_t size = sizeof(data) / sizeof(data[0]);
     readData(data, size);
-    uint16_t channelData = (data[2] << 8) + data[3];
+    int16_t channelData = static_cast<int16_t>((data[2] << 8) + data[3]);
 
     switch (channelCnt_)
     {
@@ -176,7 +176,7 @@ void ForceSensor::read()
     }
 }
 
-uint16_t *ForceSensor::getForceSensorData()
+int16_t *ForceSensor::getData()
 {
     continueRead_ = true;
     std::swap(free_, consume_);

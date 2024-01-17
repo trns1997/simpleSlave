@@ -1,16 +1,16 @@
-#include "BMI323.h"
+#include "BMI270.h"
 #include <cstring>
 
-BMI323::BMI323(board::spi_identifier spi_name) : SPI_Slave(spi_name)
+BMI270::BMI270(board::spi_identifier spi_name) : SPI_Slave(spi_name)
 {
 }
 
-void BMI323::configure()
+void BMI270::configure()
 {
     free_ = &buffer0_;
     consume_ = &buffer1_;
 
-    uint8_t size = 6;
+    uint8_t size = 3;
 
     switch (step_)
     {
@@ -28,34 +28,18 @@ void BMI323::configure()
         sendData(imuConfig_, size);
         break;
     }
-    case 2:
-    {
-        imuConfig_[0] = IMU_WRITE | ACC_CONF;
-        imuConfig_[1] = 0x3C;
-        imuConfig_[2] = 0x70;
-        imuConfig_[3] = 0x3C;
-        imuConfig_[4] = 0x70;
-        sendData(imuConfig_, size);
-        break;
-    }
-    case 3:
-    {
-        imuConfig_[0] = IMU_READ | ACC_CONF;
-        sendData(imuConfig_, size);
-        break;
-    }
     }
 }
 
-void BMI323::request_read()
+void BMI270::request_read()
 {
     uint32_t size = 16;
     uint8_t txDataIMU[size] = {};
-    txDataIMU[0] = IMU_READ | ACC_DATA_X;
+    txDataIMU[0] = IMU_READ | REG_ACCEL_XOUT_H;
     sendData(txDataIMU, size);
 }
 
-void BMI323::read()
+void BMI270::read()
 {
     uint32_t size = 16;
     uint8_t data[size] = {};
@@ -85,10 +69,10 @@ void BMI323::read()
     *free_ = imuData_;
 }
 
-void BMI323::checkConfiguration()
+void BMI270::checkConfiguration()
 {
-    uint8_t rxData[6] = {};
-    uint8_t size = 6;
+    uint8_t size = 3;
+    uint8_t rxData[size] = {};
 
     switch (step_)
     {
@@ -102,30 +86,11 @@ void BMI323::checkConfiguration()
         readData(rxData, size);
         break;
     }
-    case 2:
-    {
-        readData(rxData, size);
-        break;
-    }
-    case 3:
-    {
-        readData(rxData, size);
-        state_ = INITIALIZED;
-        for (uint8_t i = 2; i < size; ++i)
-        {
-            if (rxData[i] != imuConfig_[i-1])
-            {
-                state_ = ERROR;
-                break;
-            }
-        }
-        break;
-    }
     }
     step_++;
 }
 
-int16_t *BMI323::getData()
+int16_t *BMI270::getData()
 {
     std::swap(free_, consume_);
     return *consume_;

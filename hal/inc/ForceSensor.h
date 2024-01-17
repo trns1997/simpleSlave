@@ -14,17 +14,13 @@ public:
     void read() override;
     void checkConfiguration() override;
 
-    uint16_t *getForceSensorData();
+    int16_t *getData();
 
     bool isReadingFinished() { return !continueRead_; };
 
 private:
     uint16_t channelCnt_;
-    uint16_t channelData_[5];
-    uint16_t *buffer0_;
-    uint16_t *buffer1_;
-    uint16_t **free_;
-    uint16_t **consume_;
+    int16_t channelData_[5];
     bool continueRead_{true};
     uint8_t config_[3] = {};
 };

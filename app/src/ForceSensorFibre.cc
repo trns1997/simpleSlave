@@ -66,13 +66,13 @@ void ForceSensorFibre::Interrupt()
 
         if (forceSensors_.isReadingFinished())
         {
-            uint16_t *forceSensorData = forceSensors_.getForceSensorData();
+            int16_t *forceSensorData = forceSensors_.getData();
 
-            FS0_.set(forceSensorData[0]);
-            FS1_.set(forceSensorData[1]);
-            FS2_.set(forceSensorData[2]);
-            FSVref_.set(forceSensorData[3]);
-            FS3_.set(forceSensorData[4]);
+            FS0_.set(static_cast<uint16_t>(forceSensorData[0]));
+            FS1_.set(static_cast<uint16_t>(forceSensorData[1]));
+            FS2_.set(static_cast<uint16_t>(forceSensorData[2]));
+            FSVref_.set(static_cast<uint16_t>(forceSensorData[3]));
+            FS3_.set(static_cast<uint16_t>(forceSensorData[4]));
 
             forceSensors_.setAvailable();
         }

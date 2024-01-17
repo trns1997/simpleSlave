@@ -18,7 +18,7 @@ void LSM6DSM::configure()
     {
         imuConfig_[0] = IMU_WRITE | ADDR_CTRL1_XL;
         imuConfig_[1] = ACC_GYRO_ODR_1660Hz | ACC_16G;
-        imuConfig_[2] = ACC_GYRO_ODR_1660Hz;
+        imuConfig_[2] = ACC_GYRO_ODR_1660Hz | GYRO_1000_DPS;
         imuConfig_[3] = IF_INC | BDU;
         imuConfig_[4] = I2C_DISABLE;
         sendData(imuConfig_, size);
@@ -103,7 +103,7 @@ void LSM6DSM::checkConfiguration()
     step_++;
 }
 
-int16_t *LSM6DSM::getIMUData()
+int16_t *LSM6DSM::getData()
 {
     std::swap(free_, consume_);
     return *consume_;

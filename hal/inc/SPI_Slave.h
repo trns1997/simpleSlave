@@ -3,8 +3,8 @@
 
 #include <memory>
 
-#include "spi_mapping.h"
 #include "SPI.h"
+#include "spi_mapping.h"
 
 class SPI_Slave
 {
@@ -28,6 +28,7 @@ public:
     virtual void request_read() = 0;
     virtual void read() = 0;
     virtual void checkConfiguration() = 0;
+    virtual int16_t *getData() = 0;
 
     void sendData(uint8_t *data, uint32_t size);
     State getState() { return state_; }
@@ -44,6 +45,11 @@ protected:
     void readData(uint8_t *data, uint32_t size);
 
     bool IRQ_pending_{false};
+
+    int16_t *buffer0_;
+    int16_t *buffer1_;
+    int16_t **free_;
+    int16_t **consume_;
 };
 
 #endif
